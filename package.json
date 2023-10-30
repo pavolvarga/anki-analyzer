@@ -1,0 +1,20 @@
+{
+  "name": "anki-analyzer",
+  "version": "0.1.0",
+  "description": "Command line app for analyzing anki decks",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "run": "npx tsc && node ./dist/index.js"
+  },
+  "author": "Pavol Varga",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "11.1.0",
+    "figlet": "1.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.8.9",
+    "typescript": "5.2.2"
+  }
+}
