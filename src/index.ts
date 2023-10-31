@@ -1,3 +1,3 @@
-import figlet from "figlet";
+import figlet from 'figlet';
 
-console.log(figlet.textSync("Anki Analyzer"));
+console.log(figlet.textSync('Anki Analyzer'));
