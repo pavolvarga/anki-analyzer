@@ -1,6 +1,22 @@
 import { mergeMultilineRecord, parseRecords } from './recordParser';
 import { AnkiMetadata } from './types';
 
+describe('mergeMultilineRecord', () => {
+  it('should merge splitted record into single string', () => {
+    const input = [
+      'UBN+T\tBasic (and reversed card)	Deutsch::Wörterbuch	"die Brieftasche, ',
+      'die Geldtasche, ',
+      'die Geldbörse, ',
+      'der Geldbeutel, ',
+      'das Portemonnaie"\tthe wallet\tnoun  ',
+    ];
+    const expected =
+      'UBN+T\tBasic (and reversed card)	Deutsch::Wörterbuch	die Brieftasche, die Geldtasche, die Geldbörse, der Geldbeutel, das Portemonnaie\tthe wallet\tnoun  ';
+    const result = mergeMultilineRecord(input);
+    expect(result).toStrictEqual(expected);
+  });
+});
+
 describe('parseRecords', () => {
   const metadata: AnkiMetadata = {
     separator: '\t',
@@ -59,20 +75,33 @@ describe('parseRecords', () => {
     expect(record.card2).toStrictEqual('the wallet');
     expect(record.tags).toStrictEqual(['noun']);
   });
-});
 
-describe('mergeMultilineRecord', () => {
-  it('should merge splitted record into single string', () => {
+  it('should parse mixed single and multi line records', () => {
     const input = [
-      'UBN+T\tBasic (and reversed card)	Deutsch::Wörterbuch	"die Brieftasche, ',
+      'LO*JQ	Basic (and reversed card)	Deutsch::Wörterbuch	der Verkehr	the traffic	noun',
+      'ry2+6	Basic (and reversed card)	Deutsch::Wörterbuch	von ... nach ...	from ... to ... ( z ... do ... )	adverb',
+      'UBN+T	Basic (and reversed card)	Deutsch::Wörterbuch	"die Brieftasche, ',
       'die Geldtasche, ',
-      'die Geldbörse, ',
-      'der Geldbeutel, ',
-      'das Portemonnaie"\tthe wallet\tnoun  ',
+      'die Geldbörse,',
+      'der Geldbeutel,',
+      'das Portemonnaie"	the wallet	noun',
+      'DGqM3	Basic (and reversed card)	Deutsch::Wörterbuch	bleiben	to stay	verb',
+      'l{3^C	Basic (and reversed card)	Deutsch::Wörterbuch	das Schwimmbad	the public bath , the pool	noun',
+      '/:gy5	Basic (and reversed card)	Deutsch::Wörterbuch	der Eintritt	"the admission, ',
+      'the entering, ',
+      'the joining (firm)"	noun',
+      'tsZjD	Basic (and reversed card)	Deutsch::Wörterbuch	der Treffpunkt	the meating point	noun     ',
     ];
-    const expected =
-      'UBN+T\tBasic (and reversed card)	Deutsch::Wörterbuch	die Brieftasche, die Geldtasche, die Geldbörse, der Geldbeutel, das Portemonnaie\tthe wallet\tnoun  ';
-    const result = mergeMultilineRecord(input);
-    expect(result).toStrictEqual(expected);
+
+    const result = parseRecords(input, metadata);
+
+    expect(result.length).toStrictEqual(7);
+    expect(result[0].id).toStrictEqual('LO*JQ');
+    expect(result[1].id).toStrictEqual('ry2+6');
+    expect(result[2].id).toStrictEqual('UBN+T');
+    expect(result[3].id).toStrictEqual('DGqM3');
+    expect(result[4].id).toStrictEqual('l{3^C');
+    expect(result[5].id).toStrictEqual('/:gy5');
+    expect(result[6].id).toStrictEqual('tsZjD');
   });
 });
