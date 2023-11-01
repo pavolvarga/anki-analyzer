@@ -2,13 +2,15 @@ import fs from 'fs';
 
 import { ParsedAnkiFile } from './types';
 import { parseMedata } from './metadataParser';
+import { parseRecords } from './recordParser';
 
 export function parse(fileName: string): void {
-  const { metadata: metadataLines } = loadFile(fileName);
+  const { metadata: metadataLines, cards: cardsLines } = loadFile(fileName);
 
   const metadata = parseMedata(metadataLines);
+  const records = parseRecords(cardsLines, metadata);
 
-  console.log(metadata);
+  console.log(records);
 }
 
 /**

@@ -1,5 +1,4 @@
-/* eslint-disable-next-line */
-type Record = {
+export type AnkiRecord = {
   id: string;
   deckType: string;
   deckName: string;
