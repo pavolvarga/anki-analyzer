@@ -1,4 +1,4 @@
-import { mergeMultilineRecord, parseRecords } from './recordParser';
+import { onlyIdColumnContainsQuotes, mergeMultilineRecord, parseRecords } from './recordParser';
 import { AnkiMetadata } from './types';
 
 describe('mergeMultilineRecord', () => {
@@ -14,6 +14,19 @@ describe('mergeMultilineRecord', () => {
       'UBN+T\tBasic (and reversed card)	Deutsch::Wörterbuch	die Brieftasche, die Geldtasche, die Geldbörse, der Geldbeutel, das Portemonnaie\tthe wallet\tnoun  ';
     const result = mergeMultilineRecord(input);
     expect(result).toStrictEqual(expected);
+  });
+});
+
+describe('onlyIdColumnContainsQuotes', () => {
+  it('should return true if only ID column contains `"`', () => {
+    const line = '"bB$#T"	Basic (and reversed card)	Deutsch::Verben	tauen ;; to thaw	taute ;; ist getaut	';
+    const result = onlyIdColumnContainsQuotes(line);
+    expect(result).toStrictEqual(true);
+  });
+  it('should return false if other columns than ID also contain `"`', () => {
+    const line = '"bB$#T"	Basic (and reversed card)	Deutsch::Verben	tauen ;; "to thaw"	taute ;; ist getaut	';
+    const result = onlyIdColumnContainsQuotes(line);
+    expect(result).toStrictEqual(false);
   });
 });
 
@@ -51,6 +64,18 @@ describe('parseRecords', () => {
       card2: 'the time',
       tags: ['noun'],
     });
+  });
+
+  it('should parse a single line record when ontly the id column contains quotes', () => {
+    const input = ['"bB$#T"	Basic (and reversed card)	Deutsch::Verben	tauen ;; to thaw	taute ;; ist getaut	'];
+    const result = parseRecords(input, metadata);
+    expect(result.length).toStrictEqual(1);
+    expect(result[0].id).toStrictEqual('"bB$#T"');
+    expect(result[0].deckType).toStrictEqual('Basic (and reversed card)');
+    expect(result[0].deckName).toStrictEqual('Deutsch::Verben');
+    expect(result[0].card1).toStrictEqual('tauen ;; to thaw');
+    expect(result[0].card2).toStrictEqual('taute ;; ist getaut');
+    expect(result[0].tags).toStrictEqual(undefined);
   });
 
   it('should parse multi line records', () => {
