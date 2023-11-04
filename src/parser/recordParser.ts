@@ -44,8 +44,7 @@ export function parseRecords(input: string[], metadata: AnkiMetadata): AnkiRecor
   for (let i = 0; i < input.length; i++) {
     const line = input[i];
 
-    // todo: use separator from the metadata
-    const tabsCount = (line.match(/\t/g) || []).length;
+    const tabsCount = (line.match(new RegExp(metadata.separator, 'g')) || []).length;
     const quotesCount = (line.match(/"/g) || []).length;
 
     // record is not split into several lines

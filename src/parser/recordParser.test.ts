@@ -116,7 +116,7 @@ describe('parseRecords', () => {
     });
   });
 
-  describe('mixed lines containing single and multiline records', () => {
+  describe('mixed lines containing single and multi line records', () => {
     it('should correctly parse mixed lines', () => {
       const input = [
         'd-UyP	Basic (and reversed card)	Deutsch::Wörterbuch	das Verhältnis	the ratio, the rate, the love affair	noun',
