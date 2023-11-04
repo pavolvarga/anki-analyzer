@@ -58,7 +58,7 @@ describe('parseRecords', () => {
   });
 
   describe('multi line records', () => {
-    it('should parse a multiline line record when the card1 is split into several lines', () => {
+    it('should parse a multi line record when the card1 is split into several lines', () => {
       const input = [
         'UBN+T	Basic (and reversed card)	Deutsch::Wörterbuch	"die Brieftasche, ',
         'die Geldtasche, ',
@@ -79,7 +79,23 @@ describe('parseRecords', () => {
         tags: ['noun'],
       });
     });
-    it('should parse a multiline line record when both the card1 and card2 are split into several lines', () => {
+    it('should parse a multi line record when the card2 is split into several lines', () => {
+      const input = [
+        '1e>xL	Basic (and reversed card)	Deutsch::Wörterbuch	absprechen	"to agree upon sth., ',
+        'to deny sb. sth. (talent)"	verb',
+      ];
+      const result = parseRecords(input, metadata);
+      expect(result.length).toStrictEqual(1);
+      expect(result[0]).toStrictEqual({
+        id: '1e>xL',
+        deckType: 'Basic (and reversed card)',
+        deckName: 'Deutsch::Wörterbuch',
+        card1: 'absprechen',
+        card2: '"to agree upon sth.,to deny sb. sth. (talent)"',
+        tags: ['verb'],
+      });
+    });
+    it('should parse a multi line line record when both the card1 and card2 are split into several lines', () => {
       const input = [
         'wn4)D	Basic (and reversed card)	Deutsch::Verben	"dazwischen-kommen ;; ',
         'to interfere, to intervene"	"kam dazwischen ;; ',
@@ -100,7 +116,40 @@ describe('parseRecords', () => {
     });
   });
 
-  // describe('multile lines containing both single and multi line records', () => {
-
-  // });
+  describe('mixed lines containing single and multiline records', () => {
+    it('should correctly parse mixed lines', () => {
+      const input = [
+        'd-UyP	Basic (and reversed card)	Deutsch::Wörterbuch	das Verhältnis	the ratio, the rate, the love affair	noun',
+        '1e>xL	Basic (and reversed card)	Deutsch::Wörterbuch	absprechen	"to agree upon sth., ',
+        'to deny sb. sth. (talent)"	verb',
+        '(M%c9	Basic (and reversed card)	Deutsch::Wörterbuch	nahezu	virtually, nearly	adverb',
+      ];
+      const result = parseRecords(input, metadata);
+      expect(result.length).toStrictEqual(3);
+      expect(result[0]).toStrictEqual({
+        id: 'd-UyP',
+        deckType: 'Basic (and reversed card)',
+        deckName: 'Deutsch::Wörterbuch',
+        card1: 'das Verhältnis',
+        card2: 'the ratio, the rate, the love affair',
+        tags: ['noun'],
+      });
+      expect(result[1]).toStrictEqual({
+        id: '1e>xL',
+        deckType: 'Basic (and reversed card)',
+        deckName: 'Deutsch::Wörterbuch',
+        card1: 'absprechen',
+        card2: '"to agree upon sth.,to deny sb. sth. (talent)"',
+        tags: ['verb'],
+      });
+      expect(result[2]).toStrictEqual({
+        id: '(M%c9',
+        deckType: 'Basic (and reversed card)',
+        deckName: 'Deutsch::Wörterbuch',
+        card1: 'nahezu',
+        card2: 'virtually, nearly',
+        tags: ['adverb'],
+      });
+    });
+  });
 });

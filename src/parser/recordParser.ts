@@ -26,9 +26,12 @@ function parseRecordLine(line: string, metadata: AnkiMetadata, splitRecord: bool
   };
 }
 
-function isFullRecord(metadata: AnkiMetadata, tabsCount: number): boolean {
+function isFullRecord(metadata: AnkiMetadata, tabsCount: number, quotesCount: number): boolean {
   const { tagsColumnPosition } = metadata;
-  return tabsCount === tagsColumnPosition - 1 || tabsCount === tagsColumnPosition - 2;
+  const tabsOk = tabsCount === tagsColumnPosition - 1 || tabsCount === tagsColumnPosition - 2;
+  const quotesOk = quotesCount % 2 === 0;
+
+  return tabsOk && quotesOk;
 }
 
 export function parseRecords(input: string[], metadata: AnkiMetadata): AnkiRecord[] {
@@ -43,19 +46,20 @@ export function parseRecords(input: string[], metadata: AnkiMetadata): AnkiRecor
 
     // todo: use separator from the metadata
     const tabsCount = (line.match(/\t/g) || []).length;
+    const quotesCount = (line.match(/"/g) || []).length;
 
     // record is not split into several lines
-    if (isFullRecord(metadata, tabsCount)) {
+    if (isFullRecord(metadata, tabsCount, quotesCount)) {
       result.push(parseRecordLine(line, metadata, false));
     } else {
       // record is split into multiple lines
 
       splitRecordTabsCount += tabsCount;
-      splitRecordQuotesCount += (line.match(/"/g) || []).length;
+      splitRecordQuotesCount += quotesCount;
       splitRecordLines.push(line);
 
       // all record's lines are collected - we have the whole record saved
-      if (isFullRecord(metadata, splitRecordTabsCount) && splitRecordQuotesCount % 2 === 0) {
+      if (isFullRecord(metadata, splitRecordTabsCount, splitRecordQuotesCount)) {
         const wholeRecord = splitRecordLines.join('');
         result.push(parseRecordLine(wholeRecord, metadata, true));
 
