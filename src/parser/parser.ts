@@ -1,16 +1,35 @@
 import fs from 'fs';
 
-import { ParsedAnkiFile } from './types';
+import { AnkiRecord, AnkiRecordContainer, ParsedAnkiFile } from './types';
 import { parseMedata } from './metadataParser';
 import { parseRecords } from './recordParser';
 
-export function parse(fileName: string): void {
+function createRecordContainer(records: AnkiRecord[]): AnkiRecordContainer {
+  const all = new Map<string, AnkiRecord>();
+  const byDeck = new Map<string, Map<string, AnkiRecord>>();
+
+  records.forEach((record: AnkiRecord) => {
+    all.set(record.id, record);
+
+    if (byDeck.get(record.deckName) === undefined) {
+      byDeck.set(record.deckName, new Map<string, AnkiRecord>());
+    }
+    byDeck.get(record.deckName)!.set(record.id, record);
+  });
+
+  return {
+    all,
+    byDeck,
+  };
+}
+
+export function parse(fileName: string): AnkiRecordContainer {
   const { metadata: metadataLines, cards: cardsLines } = loadFile(fileName);
 
   const metadata = parseMedata(metadataLines);
   const records = parseRecords(cardsLines, metadata);
 
-  console.log(records);
+  return createRecordContainer(records);
 }
 
 /**

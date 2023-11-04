@@ -20,3 +20,8 @@ export type ParsedAnkiFile = {
   metadata: string[];
   cards: string[];
 };
+
+export type AnkiRecordContainer = {
+  all: Map<string, AnkiRecord>;
+  byDeck: Map<string, Map<string, AnkiRecord>>;
+};

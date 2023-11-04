@@ -1,5 +1,8 @@
 import { parse } from '../parser/parser';
 
 export function commandInfo(file: string): void {
-  parse(file);
+  const records = parse(file);
+
+  console.log(records.all.size, records.byDeck.size);
+  console.log(records.byDeck.keys());
 }
