@@ -1,8 +1,9 @@
 import fs from 'fs';
 
-import { AnkiRecord, AnkiRecordContainer, ParsedAnkiFile } from './types';
+import { ParsedAnkiFile } from './types';
 import { parseMedata } from './metadataParser';
 import { parseRecords } from './recordParser';
+import { AnkiRecord, AnkiRecordContainer } from '../types';
 
 function createRecordContainer(records: AnkiRecord[]): AnkiRecordContainer {
   const all = new Map<string, AnkiRecord>();

@@ -1,12 +1,3 @@
-export type AnkiRecord = {
-  id: string;
-  deckType: string;
-  deckName: string;
-  card1: string;
-  card2: string;
-  tags?: string[];
-};
-
 export type AnkiMetadata = {
   separator: string;
   usedHtml: boolean;
@@ -19,9 +10,4 @@ export type AnkiMetadata = {
 export type ParsedAnkiFile = {
   metadata: string[];
   cards: string[];
-};
-
-export type AnkiRecordContainer = {
-  all: Map<string, AnkiRecord>;
-  byDeck: Map<string, Map<string, AnkiRecord>>;
 };
