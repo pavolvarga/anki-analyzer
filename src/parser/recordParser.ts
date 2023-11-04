@@ -1,6 +1,18 @@
 import { AnkiMetadata, AnkiRecord } from './types';
 
-function parseRecordLine(line: string, metadata: AnkiMetadata): AnkiRecord {
+function parseCardContent(splitRecord: boolean, content: string): string {
+  if (!splitRecord) {
+    return content.trim();
+  }
+
+  // in case of split record normalize how are words connected - no space, just ','
+  if (content.includes(',')) {
+    return content.trim().replace(/,\s{1}/g, ',');
+  }
+  return content.trim();
+}
+
+function parseRecordLine(line: string, metadata: AnkiMetadata, splitRecord: boolean): AnkiRecord {
   const { separator, deckColumnPosition, guidColumnPosition, notetypeColumnPosition, tagsColumnPosition } = metadata;
   const splitted = line.trim().split(separator);
 
@@ -9,65 +21,48 @@ function parseRecordLine(line: string, metadata: AnkiMetadata): AnkiRecord {
     deckName: splitted[deckColumnPosition - 1].trim(),
     deckType: splitted[notetypeColumnPosition - 1].trim(),
     tags: splitted.length === tagsColumnPosition ? splitted[tagsColumnPosition - 1].trim().split(' ') : undefined,
-    card1: splitted[deckColumnPosition].trim(),
-    card2: splitted[deckColumnPosition + 1].trim(),
+    card1: parseCardContent(splitRecord, splitted[deckColumnPosition]),
+    card2: parseCardContent(splitRecord, splitted[deckColumnPosition + 1]),
   };
 }
 
-export function mergeMultilineRecord(splittedRecord: string[]): string {
-  return splittedRecord
-    .map((r: string) => r.replace('\n', ''))
-    .map((r: string) => r.replace('"', ''))
-    .join('');
-}
-
-/**
- * The `"` character is used for marking begin and end of content split into multiple lines.
- * However it can be also part of an ID.
- * This method returns true if the `"` is used only in ID and not for content of a card.
- */
-export function onlyIdColumnContainsQuotes(line: string): boolean {
-  const firstSeparator = line.indexOf('\t');
-  const chars = line.split('');
-  for (let i = 0; i < chars.length; i++) {
-    if (chars[i] === '"') {
-      if (i > firstSeparator) {
-        return false;
-      }
-    }
-  }
-  return true;
+function isFullRecord(metadata: AnkiMetadata, tabsCount: number): boolean {
+  const { tagsColumnPosition } = metadata;
+  return tabsCount === tagsColumnPosition - 1 || tabsCount === tagsColumnPosition - 2;
 }
 
 export function parseRecords(input: string[], metadata: AnkiMetadata): AnkiRecord[] {
   const result: AnkiRecord[] = [];
 
-  let splitRecords = [];
+  let splitRecordTabsCount = 0;
+  let splitRecordQuotesCount = 0;
+  let splitRecordLines = [];
 
   for (let i = 0; i < input.length; i++) {
     const line = input[i];
 
-    // take care of specific case - the ID contains the `"` character
-    if (line.includes('"') && splitRecords.length === 0 && onlyIdColumnContainsQuotes(line)) {
-      result.push(parseRecordLine(line, metadata));
-      continue;
-    }
+    // todo: use separator from the metadata
+    const tabsCount = (line.match(/\t/g) || []).length;
 
-    if (line.includes('"')) {
-      if (splitRecords.length === 0) {
-        splitRecords.push(line);
-      } else {
-        splitRecords.push(line);
-        // join and parse
-        const mergeIntoSingleLine = mergeMultilineRecord(splitRecords);
-        result.push(parseRecordLine(mergeIntoSingleLine, metadata));
-        splitRecords = [];
-      }
+    // record is not split into several lines
+    if (isFullRecord(metadata, tabsCount)) {
+      result.push(parseRecordLine(line, metadata, false));
     } else {
-      if (splitRecords.length === 0) {
-        result.push(parseRecordLine(line, metadata));
-      } else {
-        splitRecords.push(line);
+      // record is split into multiple lines
+
+      splitRecordTabsCount += tabsCount;
+      splitRecordQuotesCount += (line.match(/"/g) || []).length;
+      splitRecordLines.push(line);
+
+      // all record's lines are collected - we have the whole record saved
+      if (isFullRecord(metadata, splitRecordTabsCount) && splitRecordQuotesCount % 2 === 0) {
+        const wholeRecord = splitRecordLines.join('');
+        result.push(parseRecordLine(wholeRecord, metadata, true));
+
+        // reset temp vars for next usage
+        splitRecordTabsCount = 0;
+        splitRecordQuotesCount = 0;
+        splitRecordLines = [];
       }
     }
   }
