@@ -1,6 +1,6 @@
 export type AnkiRecord = {
   id: string;
-  noteType: string;
+  deckType: string;
   deckName: string;
   card1: string;
   card2: string;

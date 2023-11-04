@@ -20,7 +20,7 @@ function parseRecordLine(line: string, metadata: AnkiMetadata, splitRecord: bool
   return {
     id: splitted[guidColumnPosition - 1].trim(),
     deckName: splitted[deckColumnPosition - 1].trim(),
-    noteType: splitted[notetypeColumnPosition - 1].trim(),
+    deckType: splitted[notetypeColumnPosition - 1].trim(),
     tags: splitted.length === tagsColumnPosition ? splitted[tagsColumnPosition - 1].trim().split(' ') : undefined,
     card1: parseCardContent(splitRecord, splitted[deckColumnPosition]),
     card2: parseCardContent(splitRecord, splitted[deckColumnPosition + 1]),
