@@ -11,3 +11,10 @@ export type DeckAnalysis = {
   // one note can be one card (Basic type) or two (Basic and Reversed type)
   noteCount: number;
 };
+
+export type TableRow = {
+  Name: string;
+  Notes: number;
+  Cards: number;
+  'Same Note Type': 'yes' | 'no' | '';
+};
