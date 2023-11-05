@@ -19,18 +19,30 @@ function sumCards(deck: Map<string, AnkiRecord>) {
   );
 }
 
-function analyzeDeck(deck: Map<string, AnkiRecord>): DeckAnalysis {
+function analyzeDeck(deck: Map<string, AnkiRecord>, name: string): DeckAnalysis {
   return {
+    name,
     sameNoteType: useAllCardsSameNoteType(deck),
     cardCount: sumCards(deck),
+    noteCount: deck.size,
   };
+}
+
+function convertToTableFormat(analysis: DeckAnalysis[]) {
+  return analysis.map((one: DeckAnalysis) => ({
+    Name: one.name,
+    Notes: one.noteCount,
+    Cards: one.cardCount,
+    'Same Note Type': one.sameNoteType ? 'yes' : 'no',
+  }));
 }
 
 export function commandInfo(file: string): void {
   const records = parse(file);
   const analysis = Array.from(records.byDeck.entries())
-    .map(([name, deck]) => [name, analyzeDeck(deck), deck.size])
-    .sort((a, b) => (b[2] as number) - (a[2] as number));
+    .map(([name, deck]) => analyzeDeck(deck, name))
+    .sort((analysis1: DeckAnalysis, analysis2: DeckAnalysis) => analysis2.noteCount - analysis1.noteCount);
+  const table = convertToTableFormat(analysis);
 
-  console.table(analysis);
+  console.table(table);
 }
