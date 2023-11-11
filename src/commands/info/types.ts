@@ -1,3 +1,6 @@
+
+export type ExplanationBracketType = 'round' | 'square' | 'curly' | 'angle';
+
 export type DeckAnalysis = {
   //
   // mandatory analysis
@@ -27,6 +30,9 @@ export type DeckAnalysis = {
 
   // count of cards which use synonym separator
   cardsWithSynonymSeparator?: number;
+
+  // if additional explanation is used, what type of brackets it is in
+  cardsWithExplanation?: number;
 };
 
 export type TableRow = {
@@ -40,9 +46,11 @@ export type TableRow = {
 
   'Cards with Meaning Separator'?: number;
   'Cards with Synonym separator'?: number;
+  'Cards with explanation'?: number;
 };
 
 export type InfoCmdOptions = {
   meaningSeparator?: string;
   synonymSeparator?: string;
+  explanationBracket?: ExplanationBracketType;
 };

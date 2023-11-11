@@ -1,6 +1,6 @@
-import { parse as parseFile } from '../fileParser/fileParser';
+import { parse as parseFile } from '../../fileParser/fileParser';
 import { parse as parseOptions } from './optionsParser';
-import { AnkiRecord } from '../types';
+import { AnkiRecord } from '../../types';
 import { DeckAnalysis, InfoCmdOptions, TableRow } from './types';
 
 function useAllCardsSameNoteType(deck: Map<string, AnkiRecord>): boolean {

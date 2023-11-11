@@ -25,5 +25,8 @@ export function parse(options: any): InfoCmdOptions | undefined {
   if (typeof options.synonymSeparator === 'string') {
     result.synonymSeparator = options.synonymSeparator;
   }
+  if (options.explanationBrackets) {
+    result.explanationBracket = options.explanationBrackets;
+  }
   return Object.values(result).length === 0 ? undefined : result;
 }

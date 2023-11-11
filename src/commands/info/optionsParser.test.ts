@@ -29,4 +29,9 @@ describe('parseOptions', () => {
     const result = parse(options);
     expect(result).toStrictEqual({ synonymSeparator: '-' });
   });
+  it('handles option for explanantion bracket with mandatory choice argument', () => {
+    const options = { explanationBrackets: 'round' };
+    const result = parse(options);
+    expect(result).toStrictEqual({ explanationBracket: 'round' });
+  });
 });
