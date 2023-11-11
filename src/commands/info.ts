@@ -1,6 +1,7 @@
-import { parse } from '../parser/parser';
+import { parse as parseFile } from '../fileParser/fileParser';
+import { parse as parseOptions } from './optionsParser';
 import { AnkiRecord } from '../types';
-import { DeckAnalysis, TableRow } from './types';
+import { DeckAnalysis, InfoCmdOptions, TableRow } from './types';
 
 function useAllCardsSameNoteType(deck: Map<string, AnkiRecord>): boolean {
   const values = Array.from(deck.values());
@@ -62,7 +63,7 @@ function createSummary(analysis: DeckAnalysis[]): TableRow {
 }
 
 export function commandInfo(file: string): void {
-  const records = parse(file);
+  const records = parseFile(file);
   const analysis = Array.from(records.byDeck.entries())
     .map(([name, deck]) => analyzeDeck(deck, name))
     .sort((analysis1: DeckAnalysis, analysis2: DeckAnalysis) => analysis2.noteCount - analysis1.noteCount);

@@ -13,8 +13,10 @@ program
 
 program
   .command('info')
-  .description('Display basic information about exported Anki Decks')
+  .description('Display basic information about exported Anki Decks.\nUse optional options to show adiditonal information.')
   .argument('<file>', 'File containing exported Anki Decks')
+  .option('-m, --meaning-separator [separator]', 'Separator for `pieces of information`, like: `essen ;; to eat`, if none is used it defaults to `;;`')
+  .option('-s, --synonym-separator [separator]', 'Separator for synonyms, when one word has multiple translations, like: `to repel, to fight off` for `abwehren`, if none is used it defaults to `,`')
   .action(commandInfo);
 
 console.log(figlet.textSync('Anki Analyzer'));

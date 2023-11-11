@@ -21,3 +21,8 @@ export type TableRow = {
   Cards: number;
   'Same Note Type': 'yes' | 'no' | '';
 };
+
+export type InfoCmdOptions = {
+  meaningSeparator?: string;
+  synonymSeparator?: string;
+};
