@@ -79,7 +79,7 @@ function convertToTableFormat(analysis: DeckAnalysis[], options: InfoCmdOptions 
 }
 
 function createSummary(analysis: DeckAnalysis[], options: InfoCmdOptions | undefined): TableRow {
-  return analysis.reduce(
+  const tableRow: TableRow = analysis.reduce(
     (acc, current) => {
       acc.Notes += current.noteCount;
       acc.Cards += current.cardCount;
@@ -98,6 +98,14 @@ function createSummary(analysis: DeckAnalysis[], options: InfoCmdOptions | undef
       'Cards with Synonym separator': 0,
     },
   );
+  if (options?.meaningSeparator === undefined) {
+    delete tableRow['Cards with Meaning Separator'];
+  }
+  if (options?.synonymSeparator === undefined) {
+    delete tableRow['Cards with Synonym separator'];
+  }
+
+  return tableRow;
 }
 
 export function commandInfo(file: string, cmdOptions: any): void {
