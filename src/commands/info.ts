@@ -19,12 +19,17 @@ function sumCards(deck: Map<string, AnkiRecord>) {
   );
 }
 
+function sumNotesWithTags(deck: Map<string, AnkiRecord>) {
+  return Array.from(deck.values()).reduce((acc, record) => (acc += record.tags ? 1 : 0), 0);
+}
+
 function analyzeDeck(deck: Map<string, AnkiRecord>, name: string): DeckAnalysis {
   return {
     name,
     sameNoteType: useAllCardsSameNoteType(deck),
     cardCount: sumCards(deck),
     noteCount: deck.size,
+    tagsCount: sumNotesWithTags(deck),
   };
 }
 
@@ -34,6 +39,7 @@ function convertToTableFormat(analysis: DeckAnalysis[]): TableRow[] {
     Notes: one.noteCount,
     Cards: one.cardCount,
     'Same Note Type': one.sameNoteType ? 'yes' : 'no',
+    'Notes with Tags': one.tagsCount,
   }));
 }
 
@@ -42,6 +48,7 @@ function createSummary(analysis: DeckAnalysis[]): TableRow {
     (acc, current) => {
       acc.Notes += current.noteCount;
       acc.Cards += current.cardCount;
+      acc['Notes with Tags'] += current.tagsCount;
       return acc;
     },
     {
@@ -49,6 +56,7 @@ function createSummary(analysis: DeckAnalysis[]): TableRow {
       Notes: 0,
       Cards: 0,
       'Same Note Type': '',
+      'Notes with Tags': 0,
     },
   );
 }
