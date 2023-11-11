@@ -1,7 +1,7 @@
 import { parse as parseFile } from '../../fileParser/fileParser';
 import { parse as parseOptions } from './optionsParser';
 import { AnkiRecord } from '../../types';
-import { DeckAnalysis, InfoCmdOptions, TableRow } from './types';
+import { DeckAnalysis, ExplanationBracketType, InfoCmdOptions, TableRow } from './types';
 
 function useAllCardsSameNoteType(deck: Map<string, AnkiRecord>): boolean {
   const values = Array.from(deck.values());
@@ -36,6 +36,36 @@ function sumCardsWithSeparator(deck: Map<string, AnkiRecord>, separator: string)
   }, 0);
 }
 
+function containsExplanation(card: string, bracket: ExplanationBracketType): boolean {
+  switch (bracket) {
+    case 'round':
+      return /\([^)]+\)/.test(card);
+    case 'square':
+      return /\[[^\]]+\]/.test(card);
+    case 'curly':
+      return /\{[^}]+\}/.test(card);
+    case 'angle':
+      return /<[^>]+>/.test(card);
+    default:
+      throw new Error(`Unknown bracket type for explanation: ${bracket}`);
+  }
+}
+
+function sumCardsWithExplanation(deck: Map<string, AnkiRecord>, explanationBracket: ExplanationBracketType) {
+  return Array.from(deck.values()).reduce(
+    (acc, record) => {
+      if (containsExplanation(record.card1, explanationBracket)) {
+        acc += 1;
+      }
+      if (containsExplanation(record.card2, explanationBracket)) {
+        acc += 1;
+      }
+      return acc;
+    },
+    0,
+  );
+}
+
 function analyzeDeck(deck: Map<string, AnkiRecord>, name: string, options: InfoCmdOptions | undefined): DeckAnalysis {
   // basic analyze
   const analyze: DeckAnalysis = {
@@ -52,6 +82,9 @@ function analyzeDeck(deck: Map<string, AnkiRecord>, name: string, options: InfoC
   }
   if (options?.synonymSeparator) {
     analyze.cardsWithSynonymSeparator = sumCardsWithSeparator(deck, options.synonymSeparator);
+  }
+  if (options?.explanationBracket) {
+    analyze.cardsWithExplanation = sumCardsWithExplanation(deck, options.explanationBracket);
   }
 
   return analyze;
@@ -71,6 +104,9 @@ function convertOneAnalysis(analysis: DeckAnalysis, options: InfoCmdOptions | un
   if (options?.synonymSeparator) {
     tableRow['Cards with Synonym separator'] = analysis.cardsWithSynonymSeparator;
   }
+  if (options?.explanationBracket) {
+    tableRow['Cards with Explanation'] = analysis.cardsWithExplanation;
+  }
   return tableRow;
 }
 
@@ -86,6 +122,7 @@ function createSummary(analysis: DeckAnalysis[], options: InfoCmdOptions | undef
       acc['Notes with Tags'] += current.tagsCount;
       acc['Cards with Meaning Separator'] += options?.meaningSeparator ? current!.cardsWithMeaningSeparator! : 0;
       acc['Cards with Synonym separator'] += options?.synonymSeparator ? current!.cardsWithSynonymSeparator! : 0;
+      acc['Cards with Explanation'] += options?.explanationBracket ? current!.cardsWithExplanation! : 0;
       return acc;
     },
     {
@@ -96,6 +133,7 @@ function createSummary(analysis: DeckAnalysis[], options: InfoCmdOptions | undef
       'Notes with Tags': 0,
       'Cards with Meaning Separator': 0,
       'Cards with Synonym separator': 0,
+      'Cards with Explanation': 0,
     },
   );
   if (options?.meaningSeparator === undefined) {
@@ -103,6 +141,9 @@ function createSummary(analysis: DeckAnalysis[], options: InfoCmdOptions | undef
   }
   if (options?.synonymSeparator === undefined) {
     delete tableRow['Cards with Synonym separator'];
+  }
+  if (options?.explanationBracket === undefined) {
+    delete tableRow['Cards with Explanation'];
   }
 
   return tableRow;
@@ -122,6 +163,9 @@ export function commandInfo(file: string, cmdOptions: any): void {
   }
   if (options?.synonymSeparator) {
     console.log(`Used meaning separator: "${options!.synonymSeparator}"`);
+  }
+  if (options?.explanationBracket) {
+    console.log(`Used bracket type for explanation: "${options!.explanationBracket}"`);
   }
   const table = [...convertToTableFormat(analysis, options), summary];
 

@@ -46,7 +46,7 @@ export type TableRow = {
 
   'Cards with Meaning Separator'?: number;
   'Cards with Synonym separator'?: number;
-  'Cards with explanation'?: number;
+  'Cards with Explanation'?: number;
 };
 
 export type InfoCmdOptions = {
