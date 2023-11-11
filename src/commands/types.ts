@@ -1,4 +1,8 @@
 export type DeckAnalysis = {
+  //
+  // mandatory analysis
+  //
+
   // name of deck
   name: string;
 
@@ -13,6 +17,16 @@ export type DeckAnalysis = {
 
   // how many notes in a deck have tags
   tagsCount: number;
+
+  //
+  // optional analysis if user has used optional options
+  //
+
+  // count of cards which use the meaning separator
+  cardsWithMeaningSeparator?: number;
+
+  // count of cards which use synonym separator
+  cardsWithSynonymSeparator?: number;
 };
 
 export type TableRow = {
@@ -20,6 +34,12 @@ export type TableRow = {
   Notes: number;
   Cards: number;
   'Same Note Type': 'yes' | 'no' | '';
+  'Notes with Tags': number;
+
+  // optional
+
+  'Cards with Meaning Separator'?: number;
+  'Cards with Synonym separator'?: number;
 };
 
 export type InfoCmdOptions = {

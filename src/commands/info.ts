@@ -24,52 +24,98 @@ function sumNotesWithTags(deck: Map<string, AnkiRecord>) {
   return Array.from(deck.values()).reduce((acc, record) => (acc += record.tags ? 1 : 0), 0);
 }
 
-function analyzeDeck(deck: Map<string, AnkiRecord>, name: string): DeckAnalysis {
-  return {
+function sumCardsWithSeparator(deck: Map<string, AnkiRecord>, separator: string) {
+  return Array.from(deck.values()).reduce((acc, record) => {
+    if (record.card1.includes(separator)) {
+      acc += 1;
+    }
+    if (record.card2.includes(separator)) {
+      acc += 1;
+    }
+    return acc;
+  }, 0);
+}
+
+function analyzeDeck(deck: Map<string, AnkiRecord>, name: string, options: InfoCmdOptions | undefined): DeckAnalysis {
+  // basic analyze
+  const analyze: DeckAnalysis = {
     name,
     sameNoteType: useAllCardsSameNoteType(deck),
     cardCount: sumCards(deck),
     noteCount: deck.size,
     tagsCount: sumNotesWithTags(deck),
   };
+
+  // adiditonal / optional analyze
+  if (options?.meaningSeparator) {
+    analyze.cardsWithMeaningSeparator = sumCardsWithSeparator(deck, options.meaningSeparator);
+  }
+  if (options?.synonymSeparator) {
+    analyze.cardsWithSynonymSeparator = sumCardsWithSeparator(deck, options.synonymSeparator);
+  }
+
+  return analyze;
 }
 
-function convertToTableFormat(analysis: DeckAnalysis[]): TableRow[] {
-  return analysis.map((one: DeckAnalysis) => ({
-    Name: one.name,
-    Notes: one.noteCount,
-    Cards: one.cardCount,
-    'Same Note Type': one.sameNoteType ? 'yes' : 'no',
-    'Notes with Tags': one.tagsCount,
-  }));
+function convertOneAnalysis(analysis: DeckAnalysis, options: InfoCmdOptions | undefined): TableRow {
+  const tableRow: TableRow = {
+    Name: analysis.name,
+    Notes: analysis.noteCount,
+    Cards: analysis.cardCount,
+    'Same Note Type': analysis.sameNoteType ? 'yes' : 'no',
+    'Notes with Tags': analysis.tagsCount,
+  };
+  if (options?.meaningSeparator) {
+    tableRow['Cards with Meaning Separator'] = analysis.cardsWithMeaningSeparator;
+  }
+  if (options?.synonymSeparator) {
+    tableRow['Cards with Synonym separator'] = analysis.cardsWithSynonymSeparator;
+  }
+  return tableRow;
 }
 
-function createSummary(analysis: DeckAnalysis[]): TableRow {
+function convertToTableFormat(analysis: DeckAnalysis[], options: InfoCmdOptions | undefined): TableRow[] {
+  return analysis.map((one: DeckAnalysis) => convertOneAnalysis(one, options));
+}
+
+function createSummary(analysis: DeckAnalysis[], options: InfoCmdOptions | undefined): TableRow {
   return analysis.reduce(
     (acc, current) => {
       acc.Notes += current.noteCount;
       acc.Cards += current.cardCount;
       acc['Notes with Tags'] += current.tagsCount;
+      acc['Cards with Meaning Separator'] += options?.meaningSeparator ? current!.cardsWithMeaningSeparator! : 0;
+      acc['Cards with Synonym separator'] += options?.synonymSeparator ? current!.cardsWithSynonymSeparator! : 0;
       return acc;
     },
     {
-      Name: '',
+      Name: '--Summary--',
       Notes: 0,
       Cards: 0,
       'Same Note Type': '',
       'Notes with Tags': 0,
+      'Cards with Meaning Separator': 0,
+      'Cards with Synonym separator': 0,
     },
   );
 }
 
-export function commandInfo(file: string): void {
+export function commandInfo(file: string, cmdOptions: any): void {
   const records = parseFile(file);
-  const analysis = Array.from(records.byDeck.entries())
-    .map(([name, deck]) => analyzeDeck(deck, name))
-    .sort((analysis1: DeckAnalysis, analysis2: DeckAnalysis) => analysis2.noteCount - analysis1.noteCount);
-  const summary = createSummary(analysis);
+  const options = parseOptions(cmdOptions);
 
-  const table = [...convertToTableFormat(analysis), summary];
+  const analysis = Array.from(records.byDeck.entries())
+    .map(([name, deck]) => analyzeDeck(deck, name, options))
+    .sort((analysis1: DeckAnalysis, analysis2: DeckAnalysis) => analysis2.noteCount - analysis1.noteCount);
+  const summary = createSummary(analysis, options);
+
+  if (options?.meaningSeparator) {
+    console.log(`Used meaning separator: "${options!.meaningSeparator}"`);
+  }
+  if (options?.synonymSeparator) {
+    console.log(`Used meaning separator: "${options!.synonymSeparator}"`);
+  }
+  const table = [...convertToTableFormat(analysis, options), summary];
 
   console.table(table);
 }

@@ -1,11 +1,11 @@
-import { InfoCmdOptions } from "./types";
+import { InfoCmdOptions } from './types';
 
 const DEFAULT_MEANING_SEPARATOR = ';;';
 const DEFAULT_SYNONYM_SEPARATOR = ',';
 
 /**
  * If no options were used return undefined.
- * If an option or options were used then return an object either containing default values for options without argument 
+ * If an option or options were used then return an object either containing default values for options without argument
  * or passed arguments as values.
  */
 export function parse(options: any): InfoCmdOptions | undefined {
