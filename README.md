@@ -15,6 +15,8 @@ You also must have **node** and **npm** executables on the **PATH**.
 
 ### Installation
 
+Clone this repository:
+
 ```sh
 git clone https://github.com/pavolvarga/anki-analyzer.git
 ```

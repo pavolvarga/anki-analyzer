@@ -50,18 +50,15 @@ function containsExplanation(card: string, bracket: ExplanationBracketType): boo
 }
 
 function sumCardsWithExplanation(deck: Map<string, AnkiRecord>, explanationBracket: ExplanationBracketType) {
-  return Array.from(deck.values()).reduce(
-    (acc, record) => {
-      if (containsExplanation(record.card1, explanationBracket)) {
-        acc += 1;
-      }
-      if (containsExplanation(record.card2, explanationBracket)) {
-        acc += 1;
-      }
-      return acc;
-    },
-    0,
-  );
+  return Array.from(deck.values()).reduce((acc, record) => {
+    if (containsExplanation(record.card1, explanationBracket)) {
+      acc += 1;
+    }
+    if (containsExplanation(record.card2, explanationBracket)) {
+      acc += 1;
+    }
+    return acc;
+  }, 0);
 }
 
 function analyzeDeck(deck: Map<string, AnkiRecord>, name: string, options: InfoCmdOptions | undefined): DeckAnalysis {

@@ -1,12 +1,11 @@
 {
   "name": "anki-analyzer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Command line app for analyzing anki decks",
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
-    "lint": "eslint src/**/*.ts",
-    "format": "eslint src/**/*.ts --fix",
+    "lint": "eslint \"src/**/*.ts\"",
     "start": "npm run build && node ./dist/index.js",
     "test": "jest"
   },
