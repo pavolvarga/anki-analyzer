@@ -1,12 +1,15 @@
 import { parse as parseFile } from '../../fileParser/fileParser';
 import { AnkiRecord, AnkiRecordContainer } from '../../types';
+import { analyzeDeck, convertOneAnalysis } from '../common';
 
 /**
  * Find a deck either by an exact match or by a startsWith match.
  * If a deck is not found, error is thrown.
  * If multiple decks matches the startsWitch, error is thrown.
+ *
+ * Returns a tuple - [deckName, deck]
  */
-function findDeck(name: string, container: AnkiRecordContainer): Map<string, AnkiRecord> {
+function findDeck(name: string, container: AnkiRecordContainer): [string, Map<string, AnkiRecord>] {
   const exactMatch = name.charAt(name.length - 1) !== '*';
 
   // full name - try to find a deck by the provided name
@@ -15,7 +18,7 @@ function findDeck(name: string, container: AnkiRecordContainer): Map<string, Ank
     if (deck === undefined) {
       throw new Error(`Deck not found: ${name}`);
     }
-    return deck;
+    return [name, deck];
   }
 
   // startsWith - try to find a single deck to match it
@@ -27,14 +30,18 @@ function findDeck(name: string, container: AnkiRecordContainer): Map<string, Ank
     throw new Error(`Deck not found: ${name}`);
   }
   if (matches.length > 1) {
-    throw new Error(`Name ${name} is not unique, ${matches.length} decks match it.`);
+    throw new Error(`Name ${name} is not unique, these decks ${matches.join((', '))} match it.`);
   }
-  return container.byDeck.get(matches[0])!;
+  return [matches[0], container.byDeck.get(matches[0])!];
 }
 
-export function commandDeck(file: string, deckName: string): void {
+export function commandDeck(file: string, inputDeckName: string): void {
   const records = parseFile(file);
-  const deck = findDeck(deckName, records);
+  const [name, deck] = findDeck(inputDeckName, records);
 
-  console.log(deck.size);
+  // todo: replace undefined with proper options
+  const analysis = analyzeDeck(deck, name, undefined);
+  const table = convertOneAnalysis(analysis, undefined);
+
+  console.table(table);
 }
