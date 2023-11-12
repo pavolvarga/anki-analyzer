@@ -44,8 +44,6 @@ function containsExplanation(card: string, bracket: ExplanationBracketType): boo
       return /\[[^\]]+\]/.test(card);
     case 'curly':
       return /\{[^}]+\}/.test(card);
-    case 'angle':
-      return /<[^>]+>/.test(card);
     default:
       throw new Error(`Unknown bracket type for explanation: ${bracket}`);
   }

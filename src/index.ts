@@ -17,7 +17,7 @@ program
   .argument('<file>', 'File containing exported Anki Decks')
   .addOption(new Option('-m, --meaning-separator [separator]', 'Specify separator for `pieces of information`, like: `essen ;; to eat`, if none is used it defaults to `;;`'))
   .addOption(new Option('-s, --synonym-separator [separator]', 'Specify separator for synonyms, when one word has multiple translations, like: `to repel, to fight off` for `abwehren`, if none is used it defaults to `,`'))
-  .addOption(new Option('-e, --explanation-brackets <bracket-type>', 'Specify type of brackets for additional explanation').choices(['round', 'square', 'curly', 'angle']))
+  .addOption(new Option('-e, --explanation-brackets <bracket-type>', 'Specify type of brackets for additional explanation').choices(['round', 'square', 'curly']))
   .action(commandInfo);
 
 console.log(figlet.textSync('Anki Analyzer'));

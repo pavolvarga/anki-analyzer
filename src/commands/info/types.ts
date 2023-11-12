@@ -1,5 +1,5 @@
 
-export type ExplanationBracketType = 'round' | 'square' | 'curly' | 'angle';
+export type ExplanationBracketType = 'round' | 'square' | 'curly';
 
 export type DeckAnalysis = {
   //
