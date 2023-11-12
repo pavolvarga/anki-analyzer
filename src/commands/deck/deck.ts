@@ -1,4 +1,4 @@
-import { parse as parseFile } from './../fileParser/fileParser';
+import { parse as parseFile } from '../../fileParser/fileParser';
 import { AnkiRecord, AnkiRecordContainer } from '../../types';
 
 /**
