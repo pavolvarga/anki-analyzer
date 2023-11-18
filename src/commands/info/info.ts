@@ -1,5 +1,5 @@
 import { parse as parseFile } from '../../fileParser/fileParser';
-import { parse as parseOptions } from './optionsParser';
+import { parse as parseOptions } from '../optionsParser';
 import { DeckAnalysis, InfoCmdOptions, TableRow } from '../types';
 import { analyzeDeck, convertOneAnalysis } from '../common';
 

@@ -1,4 +1,4 @@
-import { InfoCmdOptions } from '../types';
+import { InfoCmdOptions } from './types';
 
 const DEFAULT_MEANING_SEPARATOR = ';;';
 const DEFAULT_SYNONYM_SEPARATOR = ',';

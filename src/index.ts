@@ -38,12 +38,17 @@ program
 
 program
   .command('deck')
-  .description('Display, filter, search operations on one specific Anki Deck.')
+  .description(
+    'Display information about one specific Anki Decks.\nUse optional options to show adiditonal information.',
+  )
   .argument('<file>', 'File containing exported Anki Decks.')
   .argument(
     '<deck-name>',
     'Name of one Anki Deck. Either use full name, or append `*` to start of a name to indicate search by startsWith, when multiple decks match the beginning of the name, error is thrown.',
   )
+  .addOption(meaningSeparatorOption)
+  .addOption(synonymSeparatorOption)
+  .addOption(explanationBracketsOption)
   .action(commandDeck);
 
 console.log(figlet.textSync('Anki Analyzer'));

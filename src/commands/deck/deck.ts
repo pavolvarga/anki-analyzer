@@ -1,4 +1,5 @@
 import { parse as parseFile } from '../../fileParser/fileParser';
+import { parse as parseOptions } from '../optionsParser';
 import { AnkiRecord, AnkiRecordContainer } from '../../types';
 import { analyzeDeck, convertOneAnalysis } from '../common';
 
@@ -35,13 +36,13 @@ function findDeck(name: string, container: AnkiRecordContainer): [string, Map<st
   return [matches[0], container.byDeck.get(matches[0])!];
 }
 
-export function commandDeck(file: string, inputDeckName: string): void {
+export function commandDeck(file: string, inputDeckName: string, cmdOptions: any): void {
   const records = parseFile(file);
+  const options = parseOptions(cmdOptions);
   const [name, deck] = findDeck(inputDeckName, records);
 
-  // todo: replace undefined with proper options
-  const analysis = analyzeDeck(deck, name, undefined);
-  const table = convertOneAnalysis(analysis, undefined);
+  const analysis = analyzeDeck(deck, name, options);
+  const table = convertOneAnalysis(analysis, options);
 
   console.table(table);
 }
