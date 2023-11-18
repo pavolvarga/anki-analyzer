@@ -50,9 +50,12 @@ program
   .addOption(synonymSeparatorOption)
   .addOption(explanationBracketsOption)
   .addOption(
+    new Option('-t, --tags', 'If present and if tags are used for specified deck, count of individual tags is shown.'),
+  )
+  .addOption(
     new Option(
-      '-t, --tags',
-      'If present and if tags are used for specified deck another table with counts for tags is shown',
+      '-c, --tag-combinations',
+      'If present and if tags are used for specified deck, then count of tag combinations is shown.\nIf no combination of tags is used, nothing is shown.',
     ),
   )
   .action(commandDeck);

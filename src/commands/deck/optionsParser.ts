@@ -9,5 +9,6 @@ export function parse(options: any): InfoCmdOptions | undefined {
   return {
     ...cmdOptions,
     tags: options.tags ? true : false,
+    tagCombinations: options.tagCombinations ? true : false,
   };
 }

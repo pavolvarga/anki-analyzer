@@ -2,7 +2,7 @@ import { parse as parseFile } from '../../fileParser/fileParser';
 import { parse as parseOptions } from './optionsParser';
 import { AnkiRecord, AnkiRecordContainer } from '../../types';
 import { analyzeDeck, convertOneAnalysis } from '../common';
-import { IndividualTags } from './types';
+import { TagCount, createTagMapFn } from './types';
 
 /**
  * Find a deck either by an exact match or by a startsWith match.
@@ -37,13 +37,8 @@ function findDeck(name: string, container: AnkiRecordContainer): [string, Map<st
   return [matches[0], container.byDeck.get(matches[0])!];
 }
 
-type TagCount = {
-  tag: string;
-  count: number;
-};
-
-function countIndividualTags(deck: Map<string, AnkiRecord>): IndividualTags {
-  const tagMap = Array.from(deck.values()).reduce((acc, current) => {
+function createIndividualTagsMap(deck: Map<string, AnkiRecord>): Map<string, number> {
+  return Array.from(deck.values()).reduce((acc, current) => {
     (current.tags ?? []).forEach((tag: string) => {
       if (acc.has(tag)) {
         acc.set(tag, acc.get(tag)! + 1);
@@ -53,8 +48,25 @@ function countIndividualTags(deck: Map<string, AnkiRecord>): IndividualTags {
     });
     return acc;
   }, new Map<string, number>());
+}
 
-  const arr = Array.from(tagMap.entries()).reduce((acc, entry) => {
+function createTagCombinations(deck: Map<string, AnkiRecord>): Map<string, number> {
+  return Array.from(deck.values()).reduce((acc, current) => {
+    if ((current.tags ?? []).length === 0) {
+      return acc;
+    }
+    const combination = current.tags!.join(', ');
+    if (acc.has(combination)) {
+      acc.set(combination, acc.get(combination)! + 1);
+    } else {
+      acc.set(combination, 1);
+    }
+    return acc;
+  }, new Map<string, number>());
+}
+
+function countTags(deck: Map<string, AnkiRecord>, createTagMap: createTagMapFn) {
+  const arr = Array.from(createTagMap(deck).entries()).reduce((acc, entry) => {
     acc.push({ tag: entry[0], count: entry[1] });
     return acc;
   }, [] as TagCount[]);
@@ -77,11 +89,21 @@ export function commandDeck(file: string, inputDeckName: string, cmdOptions: any
 
   // add tags if requested and they exists
   if (options?.tags) {
-    const individualTagsCount = countIndividualTags(deck);
+    const individualTagsCount = countTags(deck, createIndividualTagsMap);
     if (Object.keys(individualTagsCount).length !== 0) {
       // @ts-ignore
-      table['---------'] = '---------';
+      table['---------'] = '';
       table = Object.assign(table, individualTagsCount);
+    }
+  }
+
+  // add tag combinations if requested and they exists
+  if (options?.tagCombinations) {
+    const tagCombinationsCount = countTags(deck, createTagCombinations);
+    if (Object.keys(tagCombinationsCount).length !== 0) {
+      // @ts-ignore
+      table['-----------'] = '';
+      table = Object.assign(table, tagCombinationsCount);
     }
   }
 
