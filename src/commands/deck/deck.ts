@@ -30,7 +30,7 @@ function findDeck(name: string, container: AnkiRecordContainer): [string, Map<st
     throw new Error(`Deck not found: ${name}`);
   }
   if (matches.length > 1) {
-    throw new Error(`Name ${name} is not unique, these decks ${matches.join((', '))} match it.`);
+    throw new Error(`Name ${name} is not unique, these decks ${matches.join(', ')} match it.`);
   }
   return [matches[0], container.byDeck.get(matches[0])!];
 }
