@@ -48,7 +48,10 @@ export type TableRow = {
   'Cards with Explanation'?: number;
 };
 
-export type InfoCmdOptions = {
+/**
+ * Common options used in all commands.
+ */
+export type CmdOptions = {
   meaningSeparator?: string;
   synonymSeparator?: string;
   explanationBracket?: ExplanationBracketType;

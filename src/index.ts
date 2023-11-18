@@ -49,6 +49,12 @@ program
   .addOption(meaningSeparatorOption)
   .addOption(synonymSeparatorOption)
   .addOption(explanationBracketsOption)
+  .addOption(
+    new Option(
+      '-t, --tags',
+      'If present and if tags are used for specified deck another table with counts for tags is shown',
+    ),
+  )
   .action(commandDeck);
 
 console.log(figlet.textSync('Anki Analyzer'));
