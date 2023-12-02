@@ -100,6 +100,13 @@ program
       'Verify that tags are used in all notes\n. If used together with the `--tags option, error is thrown.`',
     ),
   )
+  // todo: implement this option
+  // .addOption(
+  //   new Option(
+  //     '--verify-tags-not-used',
+  //     'Verify that tags are not used in any note\n. If used together with the `--tags option, error is thrown.`',
+  //   ),
+  // )
   .action(commandVerify);
 
 program
@@ -128,6 +135,7 @@ program
   .action(commandCompare);
 
 console.log(figlet.textSync('Anki Analyzer'));
+console.log('\n');
 
 try {
   program.parse(process.argv);
