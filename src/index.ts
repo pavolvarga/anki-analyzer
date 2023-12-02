@@ -4,6 +4,7 @@ import figlet from 'figlet';
 import { commandInfo } from './commands/info/info';
 import { commandDeck } from './commands/deck/deck';
 import { commandCompare } from './commands/compare/compare';
+import { commandVerify } from './commands/verify/verify';
 
 const program = new Command();
 
@@ -64,26 +65,42 @@ program
 program
   .command('verify')
   .description(
-    'Verify that specified Anki Deck is in expected format.\nThose notes that do not match the expected format are displayed.',
+    'Verify that specified Anki Deck is in expected format.\n' +
+      'Those notes that do not match the expected format are displayed.\n' +
+      'It is possible to use only single --verify-* option at same time.\n' +
+      'One --verify-* option must be used, otherwise an error is thrown.',
   )
+  .argument('<file>', 'File containing exported Anki Decks.')
   .argument(
     '<deck-name>',
     'Name of one Anki Deck. Either use full name, or append `*` to start of a name to indicate search by startsWith, when multiple decks match the beginning of the name, error is thrown.',
   )
   .addOption(meaningSeparatorOption)
-  .addOption(new Option('-t, --tags <tags...>', 'Narrow verification to specified tags.'))
   .addOption(
     new Option(
-      '--meaning-separator-used',
+      '-t, --tags <tags...>',
+      'Narrow verification to specified tags. This option can not be used together with the `--verify-tags-used` option.',
+    ),
+  )
+  .addOption(
+    new Option(
+      '--verify-meaning-separator-used <card>',
       'Verify that meaning separtor is used, either in card1, card2 or both',
     ).choices(['card1', 'card2', 'both']),
   )
   .addOption(
     new Option(
-      '--meaning-separator-not-used',
-      'Verify that meaning separtor is used, either in card1, card2 or both',
+      '--verify-meaning-separator-not-used <card>',
+      'Verify that meaning separtor is not used, either in card1, card2 or both',
     ).choices(['card1', 'card2', 'both']),
-  );
+  )
+  .addOption(
+    new Option(
+      '--verify-tags-used',
+      'Verify that tags are used in all notes\n. If used together with the `--tags option, error is thrown.`',
+    ),
+  )
+  .action(commandVerify);
 
 program
   .command('compare')
@@ -112,9 +129,9 @@ program
 
 console.log(figlet.textSync('Anki Analyzer'));
 
-program.parse(process.argv);
-
-if (process.argv.length < 3) {
-  program.help();
-  process.exit();
+try {
+  program.parse(process.argv);
+} catch (err: any) {
+  console.error(`Error occurred: ${err?.message ?? 'unknown'}`);
+  process.exit(1);
 }
