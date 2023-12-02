@@ -8,7 +8,7 @@ export function parse(options: any): VerifyCmdOptions {
 
   const result: any = {};
 
-  if (options.meaningSeparator === true) {
+  if (options.meaningSeparator === true || options.meaningSeparator === undefined) {
     result.meaningSeparator = DEFAULT_MEANING_SEPARATOR;
   }
   if (typeof options.meaningSeparator === 'string') {

@@ -49,7 +49,7 @@ export type TableRow = {
 };
 
 /**
- * Common options used in all commands.
+ * Common options used in most commands.
  */
 export type CmdOptions = {
   meaningSeparator?: string;
