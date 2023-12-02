@@ -1,7 +1,5 @@
+import { DEFAULT_MEANING_SEPARATOR, DEFAULT_SYNONYM_SEPARATOR } from './const';
 import { CmdOptions } from './types';
-
-const DEFAULT_MEANING_SEPARATOR = ';;';
-const DEFAULT_SYNONYM_SEPARATOR = ',';
 
 /**
  * If no options were used return undefined.
