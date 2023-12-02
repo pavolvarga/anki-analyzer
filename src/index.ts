@@ -62,6 +62,30 @@ program
   .action(commandDeck);
 
 program
+  .command('verify')
+  .description(
+    'Verify that specified Anki Deck is in expected format.\nThose notes that do not match the expected format are displayed.',
+  )
+  .argument(
+    '<deck-name>',
+    'Name of one Anki Deck. Either use full name, or append `*` to start of a name to indicate search by startsWith, when multiple decks match the beginning of the name, error is thrown.',
+  )
+  .addOption(meaningSeparatorOption)
+  .addOption(new Option('-t, --tags <tags...>', 'Narrow verification to specified tags.'))
+  .addOption(
+    new Option(
+      '--meaning-separator-used',
+      'Verify that meaning separtor is used, either in card1, card2 or both',
+    ).choices(['card1', 'card2', 'both']),
+  )
+  .addOption(
+    new Option(
+      '--meaning-separator-not-used',
+      'Verify that meaning separtor is used, either in card1, card2 or both',
+    ).choices(['card1', 'card2', 'both']),
+  );
+
+program
   .command('compare')
   .description(
     'Compares two Anki Decks.\n' +
@@ -71,8 +95,16 @@ program
       'This command then enables to compare the two decks and see what is missing and what is different in the general deck or in the specific deck and vice versa.\n',
   )
   .argument('<file>', 'File containing exported Anki Decks.')
-  .argument('<general-deck-name>', 'Name of the general Anki Deck.')
-  .argument('<specific-deck-name>', 'Name of the specific Anki Deck.')
+  .argument(
+    '<general-deck-name>',
+    'Name of the general Anki Deck\n.' +
+      'Either use full name, or append `*` to start of a name to indicate search by startsWith, when multiple decks match the beginning of the name, error is thrown.',
+  )
+  .argument(
+    '<specific-deck-name>',
+    'Name of the specific Anki Deck\n.' +
+      'Either use full name, or append `*` to start of a name to indicate search by startsWith, when multiple decks match the beginning of the name, error is thrown.',
+  )
   .argument('<tag-name>', 'Name of the tag used in the general deck.')
   .addOption(meaningSeparatorOption)
   .addOption(synonymSeparatorOption)

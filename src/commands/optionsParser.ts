@@ -30,3 +30,16 @@ export function parse(options: any): CmdOptions | undefined {
   }
   return Object.values(result).length === 0 ? undefined : result;
 }
+
+/**
+ * If options do not exist then return default options.
+ */
+export function useDefaults(options: CmdOptions | undefined): CmdOptions {
+  if (options) {
+    return options;
+  }
+  return {
+    meaningSeparator: DEFAULT_MEANING_SEPARATOR,
+    synonymSeparator: DEFAULT_SYNONYM_SEPARATOR,
+  };
+}
