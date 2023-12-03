@@ -97,16 +97,15 @@ program
   .addOption(
     new Option(
       '--verify-tags-used',
-      'Verify that tags are used in all notes\n. If used together with the `--tags option, error is thrown.`',
+      'Verify that tags are used in all notes.\n If used together with the `--tags option, error is thrown.`',
     ),
   )
-  // todo: implement this option
-  // .addOption(
-  //   new Option(
-  //     '--verify-tags-not-used',
-  //     'Verify that tags are not used in any note\n. If used together with the `--tags option, error is thrown.`',
-  //   ),
-  // )
+  .addOption(
+    new Option(
+      '--verify-tags-not-used',
+      'Verify that tags are not used in any note.\n If used together with the `--tags option, error is thrown.`',
+    ),
+  )
   .action(commandVerify);
 
 program

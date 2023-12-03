@@ -7,5 +7,6 @@ export type VerifyCmdOptions = {
 
 export type VerifyOperation =
   | 'verify-tags-used'
+  | 'verify-tags-not-used'
   | 'verify-meaning-separator-used'
   | 'verify-meaning-separator-not-used';

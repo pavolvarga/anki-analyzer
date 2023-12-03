@@ -22,6 +22,11 @@ describe('parseOptions', () => {
       parse({ verifyTagsUsed: true, tags: 'verb' });
     }).toThrow('Option --verify-tags-used can not be used together with the --tags option.');
   });
+  it('should thrown an error in case of --verify-tags-not-used and --tags options used', () => {
+    expect(() => {
+      parse({ verifyTagsNotUsed: true, tags: 'verb' });
+    }).toThrow('Option --verify-tags-not-used can not be used together with the --tags option.');
+  });
   describe('should use default meaning separator', () => {
     it('when the --meaning-separator option is not used', () => {
       {
