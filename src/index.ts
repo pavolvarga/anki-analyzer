@@ -62,6 +62,10 @@ program
   )
   .action(commandDeck);
 
+// todo: add 2 new verifications
+// --verify-html-used
+// --verify-html-not-used
+
 program
   .command('verify')
   .description(
@@ -112,10 +116,14 @@ program
   .command('compare')
   .description(
     'Compares two Anki Decks.\n' +
-      'It assumes that one deck is a general deck with tagged cards and the other is a deck specific for one particular tag.\n' +
+      'It assumes that one deck is a general deck with tagged cards and the other one is a deck specific for exactly one tag.\n' +
       'For example the general deck has tags for `Nouns`, `Verbs`, `Adjectives`.\n' +
       'The specific deck is for Nouns (to practice also plural forms), or is for Verbs (to practice also past tense forms).\n' +
-      'This command then enables to compare the two decks and see what is missing and what is different in the general deck or in the specific deck and vice versa.\n',
+      'This command then enables comparison of the two decks to list what is missing and what is different in the general deck or in the specific deck and vice versa.\n' +
+      'For command to work, these assertions must be true:\n' +
+      'General deck is not using meaning separator in both cards.\n' +
+      'Specific deck is using meaning separator in card1\n' +
+      'If these assertions are not true, then the command will fail on the first record that fails one of these assertions',
   )
   .argument('<file>', 'File containing exported Anki Decks.')
   .argument(
