@@ -1,4 +1,4 @@
-import { CardType } from '../../types';
+import { AnkiRecord, CardType } from '../../types';
 
 export type VerifyCmdOptions = {
   meaningSeparator: string;
@@ -12,3 +12,10 @@ export type VerifyOperation =
   | 'verify-tags-not-used'
   | 'verify-meaning-separator-used'
   | 'verify-meaning-separator-not-used';
+
+export type VerificationResult = {
+  outcome: 'success' | 'failure';
+  failed?: AnkiRecord[];
+  successMsg?: string;
+  failureMsg?: string;
+};

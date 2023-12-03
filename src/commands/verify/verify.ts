@@ -1,7 +1,10 @@
 import { parse as parseFile } from '../../fileParser/fileParser';
 import { parse as parseOptions } from './optionsParser';
 import { findDeck } from '../common';
-import { verifyMeaningSeparatorNotUsed, verifyMeaningSeparatorUsed, verifyTagsNotUsed, verifyTagsUsed } from './verifications';
+import { verifyTagsNotUsed, verifyTagsUsed } from './verfications/tags';
+import { verifyMeaningSeparatorNotUsed, verifyMeaningSeparatorUsed } from './verfications/meaningSeparator';
+import { VerificationResult } from './types';
+import { printRecord } from '../../print';
 
 export function commandVerify(file: string, deckName: string, cmdOptions: any): void {
   const records = parseFile(file);
@@ -9,20 +12,32 @@ export function commandVerify(file: string, deckName: string, cmdOptions: any): 
 
   const [name, deck] = findDeck(deckName, records);
 
+  let result: VerificationResult;
+
   switch (options.operation) {
     case 'verify-meaning-separator-used':
-      verifyMeaningSeparatorUsed(name, deck, options);
+      result = verifyMeaningSeparatorUsed(name, deck, options);
       break;
     case 'verify-meaning-separator-not-used':
-      verifyMeaningSeparatorNotUsed(name, deck, options);
+      result = verifyMeaningSeparatorNotUsed(name, deck, options);
       break;
     case 'verify-tags-used':
-      verifyTagsUsed(name, deck);
+      result = verifyTagsUsed(name, deck);
       break;
     case 'verify-tags-not-used':
-      verifyTagsNotUsed(name, deck);
+      result = verifyTagsNotUsed(name, deck);
       break;
     default:
       throw new Error(`Unknown verify operation: ${options.operation}`);
   }
+
+  // success
+  if (result.outcome === 'success') {
+    console.info(result.successMsg);
+    return;
+  }
+
+  // failure
+  console.info(result.failureMsg);
+  result.failed?.forEach((record) => printRecord(record, true));
 }
