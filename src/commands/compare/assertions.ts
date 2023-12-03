@@ -7,8 +7,10 @@ export function assertMeaningSepartorIsNotUsed(record: AnkiRecord, meaningSepara
   const cardVar = `card${cardNum}`;
   // @ts-ignore
   if (record[cardVar].includes(meaningSeparator)) {
-    // @ts-ignore
-    throw new Error(`Meaning separator is used in record ${record.id} in ${cardVar}: ${record[cardVar]}`);
+    throw new Error(
+      // @ts-ignore
+      `Assertion failed - meaning separator is used in record ${record.id} in ${cardVar}: ${record[cardVar]}`,
+    );
   }
 }
 
@@ -16,8 +18,10 @@ export function assertMeaningSepartorIsUsed(record: AnkiRecord, meaningSeparator
   const cardVar = `card${cardNum}`;
   // @ts-ignore
   if (!record[cardVar].includes(meaningSeparator)) {
-    // @ts-ignore
-    throw new Error(`Meaning separator is not used in record ${record.id} in ${cardVar}: ${record[cardVar]}`);
+    throw new Error(
+      // @ts-ignore
+      `Assertion failed - meaning separator is not used in record ${record.id} in ${cardVar}: ${record[cardVar]}`,
+    );
   }
 }
 
