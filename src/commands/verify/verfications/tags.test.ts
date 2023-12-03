@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { AnkiRecord } from '../../../types';
 import { verifyTagsNotUsed, verifyTagsUsed } from './tags';
 
@@ -7,9 +9,7 @@ describe('verifyTagsUsed', () => {
     deck.set('1', { id: '1', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2', tags: ['noun'] });
     deck.set('2', { id: '2', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2', tags: ['noun'] });
     deck.set('3', { id: '3', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2', tags: ['verb'] });
-    // eslint-disable-next-line
     deck.set('4', { id: '4', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2', tags: ['adjective', 'adverb'] });
-    // eslint-disable-next-line
     deck.set('5', { id: '5', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2', tags: ['preposition'] });
 
     const result = verifyTagsUsed('words', deck);
@@ -25,7 +25,6 @@ describe('verifyTagsUsed', () => {
     deck.set('1', { id: '1', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2', tags: ['noun'] });
     deck.set('2', { id: '2', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2', tags: [] });
     deck.set('3', { id: '3', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2', tags: ['verb'] });
-    // eslint-disable-next-line
     deck.set('4', { id: '4', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2', tags: ['adjective', 'adverb'] });
     deck.set('5', { id: '5', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2' });
 

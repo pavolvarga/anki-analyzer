@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { partialRight } from 'lodash';
 import { AnkiRecord } from '../../types';
 import { assertMeaningSepartorIsNotUsed, assertMeaningSepartorIsUsed, assertRecords } from './assertions';

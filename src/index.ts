@@ -130,7 +130,14 @@ program
   )
   .argument('<tag-name>', 'Name of the tag used in the general deck.')
   .addOption(meaningSeparatorOption)
-  .addOption(synonymSeparatorOption)
+  .addOption(
+    new Option(
+      '-p, --prefix-separator <separator>',
+      'Specify separator for prefixes. For example vor-stellen, the root verb is stellen, and vor is the prefix.\n' +
+        'If none is used, it is assummed that prefix separation is not used.\n' +
+        'If prefix is specified, then during comparisions it is removed.\n',
+    ),
+  )
   .action(commandCompare);
 
 console.log(figlet.textSync('Anki Analyzer'));

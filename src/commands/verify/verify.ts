@@ -4,7 +4,7 @@ import { findDeck } from '../common';
 import { verifyTagsNotUsed, verifyTagsUsed } from './verfications/tags';
 import { verifyMeaningSeparatorNotUsed, verifyMeaningSeparatorUsed } from './verfications/meaningSeparator';
 import { VerificationResult } from './types';
-import { printRecord } from '../print';
+import { printRecord } from './print';
 
 export function commandVerify(file: string, deckName: string, cmdOptions: any): void {
   const records = parseFile(file);
