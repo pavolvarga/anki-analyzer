@@ -46,11 +46,13 @@ export function verifyMeaningSeparatorUsed(deckName: string, deck: Map<string, A
       console.info(
         `Deck ${deckName} passed --verify-meaning-separator-used verfication. All records have meaning separator.`,
       );
+      return;
     } else {
       console.info(
         // eslint-disable-next-line
-        `Deck ${deckName} passed --verify-meaning-separator-used verfication. All records with tags ${tags.join(',')} have meaning separator.`,
+        `Deck ${deckName} passed --verify-meaning-separator-used verfication. All records with tags '${tags.join(', ')}' have meaning separator.`,
       );
+      return;
     }
   }
 
@@ -61,12 +63,72 @@ export function verifyMeaningSeparatorUsed(deckName: string, deck: Map<string, A
       `Deck ${deckName} failed --verify-meaning-separator-used verfication. ${failed.length} records have no meaning separator in ${operationArg === 'both' ? operationArg + ' cards' : operationArg}:`,
     );
     failed.forEach((record) => printRecord(record, true));
+    return;
   } else {
     console.info(
       // eslint-disable-next-line
-      `Deck ${deckName} failed --verify-meaning-separator-used verfication. ${failed.length} records with tags ${tags.join(',')} have no meaning separator in ${operationArg === 'both' ? operationArg + ' cards' : operationArg}:`,
+      `Deck ${deckName} failed --verify-meaning-separator-used verfication. ${failed.length} records with tags '${tags.join(', ')}' have no meaning separator in ${operationArg === 'both' ? operationArg + ' cards' : operationArg}:`,
     );
     failed.forEach((record) => printRecord(record, true));
+    return;
+  }
+}
+
+export function verifyMeaningSeparatorNotUsed(deckName: string, deck: Map<string, AnkiRecord>, options: VerifyCmdOptions) {
+  const { meaningSeparator, tags, operationArg } = options;
+
+  const records = filterRecords(deck, tags);
+
+  let failed: AnkiRecord[] = [];
+
+  switch (operationArg) {
+    case 'card1':
+      failed = records.filter((record) => hasMeaningSeparator(record.card1, meaningSeparator));
+      break;
+    case 'card2':
+      failed = records.filter((record) => hasMeaningSeparator(record.card2, meaningSeparator));
+      break;
+    case 'both':
+      failed = records.filter(
+        (record) =>
+          hasMeaningSeparator(record.card1, meaningSeparator) || hasMeaningSeparator(record.card2, meaningSeparator),
+      );
+      break;
+    default:
+      throw new Error(`Unknown card type: ${operationArg}`);
+  }
+
+  // success
+  if (failed.length === 0) {
+    if (tags === undefined || tags.length === 0) {
+      console.info(
+        `Deck ${deckName} passed --verify-meaning-separator-not-used verfication. No records have meaning separator.`,
+      );
+      return;
+    } else {
+      console.info(
+        // eslint-disable-next-line
+        `Deck ${deckName} passed --verify-meaning-separator-not-used verfication. No records with tags '${tags.join(', ')}' have meaning separator.`,
+      );
+      return;
+    }
+  }
+
+  // failure
+  if (tags === undefined || tags.length === 0) {
+    console.info(
+      // eslint-disable-next-line
+      `Deck ${deckName} failed --verify-meaning-separator-not-used verfication. ${failed.length} records have meaning separator in ${operationArg === 'both' ? operationArg + ' cards' : operationArg}:`,
+    );
+    failed.forEach((record) => printRecord(record, true));
+    return;
+  } else {
+    console.info(
+      // eslint-disable-next-line
+      `Deck ${deckName} failed --verify-meaning-separator-not-used verfication. ${failed.length} records with tags '${tags.join(', ')}' have meaning separator in ${operationArg === 'both' ? operationArg + ' cards' : operationArg}:`,
+    );
+    failed.forEach((record) => printRecord(record, true));
+    return;
   }
 }
 
