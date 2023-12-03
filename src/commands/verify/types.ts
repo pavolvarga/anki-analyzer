@@ -1,8 +1,10 @@
+import { CardType } from '../../types';
+
 export type VerifyCmdOptions = {
   meaningSeparator: string;
   tags?: string[];
   operation: VerifyOperation;
-  operationArg?: 'card1' | 'card2' | 'both';
+  operationArg?: CardType;
 };
 
 export type VerifyOperation =
