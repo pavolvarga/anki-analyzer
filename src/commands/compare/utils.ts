@@ -1,7 +1,7 @@
 import { split, cloneDeep } from 'lodash';
 import { AnkiRecord } from '../../types';
 import { CardWrapper, CompareCmdOptions, ComparisonResult } from './types';
-import { Holder } from './types';
+import { CardWrapperPair } from './types';
 
 function removePrefixSeparator(card: string, prefixSeparator?: string): string {
   if (prefixSeparator === undefined) {
@@ -44,14 +44,14 @@ export function normalizeCards(deck: AnkiRecord[], options: CompareCmdOptions): 
   });
 }
 
-function extractIds(holders: Holder[][], fieldName: string): string[] {
+function extractIds(holders: CardWrapperPair[][], fieldName: string): string[] {
   // @ts-ignore
-  return holders.map((holder: Holder[]) => holder.map((holder: Holder) => holder[fieldName])).flat();
+  return holders.map((holder: CardWrapperPair[]) => holder.map((holder: CardWrapperPair) => holder[fieldName])).flat();
 }
 
 export function compareCards(deckA: CardWrapper[], deckB: CardWrapper[]): ComparisonResult {
-  const sameCards: Holder[] = [];
-  const differentCards: Holder[] = [];
+  const sameCards: CardWrapperPair[] = [];
+  const differentCards: CardWrapperPair[] = [];
 
   deckA.forEach((cardA: CardWrapper) => {
     const cardB = deckB.find((card: CardWrapper) => card.card1 === cardA.card1);

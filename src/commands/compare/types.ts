@@ -24,7 +24,7 @@ export type CardWrapper = {
   record: AnkiRecord;
 };
 
-export type Holder = {
+export type CardWrapperPair = {
   deckA: CardWrapper;
   deckB: CardWrapper;
   deckAId: string;
@@ -32,8 +32,8 @@ export type Holder = {
 };
 
 export type ComparisonResult = {
-  sameCards: Holder[];
-  differentCards: Holder[];
+  sameCards: CardWrapperPair[];
+  differentCards: CardWrapperPair[];
 
   cardsOnlyInDeckA: CardWrapper[];
   cardsOnlyInDeckB: CardWrapper[];

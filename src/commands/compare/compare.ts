@@ -6,7 +6,7 @@ import { assertMeaningSepartorIsNotUsed, assertMeaningSepartorIsUsed, assertReco
 import { compareCards, filterDeck, normalizeCards } from './utils';
 import { AnkiRecord } from '../../types';
 import { CompareCmdOptions } from './types';
-import { printStatus } from './print';
+import { printDetails, printStatus } from './print';
 
 // assert that both decks are in expected format
 function assert(generalDeck: AnkiRecord[], specificDeck: AnkiRecord[], options: CompareCmdOptions): void {
@@ -26,8 +26,6 @@ export function commandCompare(
 ): void {
   const records = parseFile(file);
   const options = parseOptions(cmdOptions);
-
-  console.log(cmdOptions);
 
   // find both decks
   const [fullGeneralDeckName, generalDeck] = findDeck(generalDeckName, records);
@@ -54,4 +52,5 @@ export function commandCompare(
     normalizedGeneralDeck.length,
     normalizedSpecificDeck.length,
   );
+  printDetails(result, options, fullGeneralDeckName, fullSpecificDeckName);
 }

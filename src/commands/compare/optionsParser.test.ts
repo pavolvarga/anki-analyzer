@@ -18,7 +18,12 @@ describe('parse', () => {
   });
   it('should use max rows if is was provided', () => {
     const result = parse({ maxRowCount: 5 });
-    const expected = { meaningSeparator: ';;', maxRowCount: 5, prefixSeparator: undefined, comparisionTable: undefined };
+    const expected = {
+      meaningSeparator: ';;',
+      maxRowCount: 5,
+      prefixSeparator: undefined,
+      comparisionTable: undefined,
+    };
     expect(result).toStrictEqual(expected);
   });
 });
