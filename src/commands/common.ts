@@ -1,5 +1,6 @@
-import { AnkiRecord, AnkiRecordContainer } from '../types';
-import { DeckAnalysis, ExplanationBracketType, CmdOptions, TableRow } from './types';
+import { AnkiRecord, AnkiRecordContainer, InfoTableRow } from '../types';
+import { DeckAnalysis, CmdOptions } from './info/types';
+import { ExplanationBracketType } from '../types';
 
 function sumCardsWithSeparator(deck: Map<string, AnkiRecord>, separator: string) {
   return Array.from(deck.values()).reduce((acc, record) => {
@@ -59,8 +60,8 @@ function useAllCardsSameNoteType(deck: Map<string, AnkiRecord>): boolean {
   );
 }
 
-export function convertOneAnalysis(analysis: DeckAnalysis, options: CmdOptions | undefined): TableRow {
-  const tableRow: TableRow = {
+export function convertOneAnalysis(analysis: DeckAnalysis, options: CmdOptions | undefined): InfoTableRow {
+  const tableRow: InfoTableRow = {
     Name: analysis.name,
     Notes: analysis.noteCount,
     Cards: analysis.cardCount,

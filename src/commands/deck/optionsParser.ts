@@ -1,5 +1,5 @@
 import { InfoCmdOptions } from './types';
-import { parse as baseParseOptions } from '../optionsParser';
+import { parse as baseParseOptions } from '../info/optionsParser';
 
 export function parse(options: any): InfoCmdOptions | undefined {
   const cmdOptions = baseParseOptions(options);

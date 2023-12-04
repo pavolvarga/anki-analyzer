@@ -1,14 +1,15 @@
 import { parse as parseFile } from '../../fileParser/fileParser';
-import { parse as parseOptions } from '../optionsParser';
-import { DeckAnalysis, CmdOptions, TableRow } from '../types';
+import { parse as parseOptions } from './optionsParser';
+import { DeckAnalysis, CmdOptions } from './types';
 import { analyzeDeck, convertOneAnalysis } from '../common';
+import { InfoTableRow } from '../../types';
 
-function convertToTableFormat(analysis: DeckAnalysis[], options: CmdOptions | undefined): TableRow[] {
+function convertToTableFormat(analysis: DeckAnalysis[], options: CmdOptions | undefined): InfoTableRow[] {
   return analysis.map((one: DeckAnalysis) => convertOneAnalysis(one, options));
 }
 
-function createSummary(analysis: DeckAnalysis[], options: CmdOptions | undefined): TableRow {
-  const tableRow: TableRow = analysis.reduce(
+function createSummary(analysis: DeckAnalysis[], options: CmdOptions | undefined): InfoTableRow {
+  const tableRow: InfoTableRow = analysis.reduce(
     (acc, current) => {
       acc.Notes += current.noteCount;
       acc.Cards += current.cardCount;

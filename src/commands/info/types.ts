@@ -1,4 +1,4 @@
-export type ExplanationBracketType = 'round' | 'square' | 'curly';
+import { ExplanationBracketType } from '../../types';
 
 export type DeckAnalysis = {
   //
@@ -34,23 +34,6 @@ export type DeckAnalysis = {
   cardsWithExplanation?: number;
 };
 
-export type TableRow = {
-  Name: string;
-  Notes: number;
-  Cards: number;
-  'Same Note Type': 'yes' | 'no' | '';
-  'Notes with Tags': number;
-
-  // optional
-
-  'Cards with Meaning Separator'?: number;
-  'Cards with Synonym separator'?: number;
-  'Cards with Explanation'?: number;
-};
-
-/**
- * Common options used in most commands.
- */
 export type CmdOptions = {
   meaningSeparator?: string;
   synonymSeparator?: string;
