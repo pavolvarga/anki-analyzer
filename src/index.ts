@@ -11,7 +11,11 @@ const program = new Command();
 program
   .name('anki-analyzer')
   .version('0.3.0', '-v, --version', 'Display current version')
-  .description('App for analyzing exported Anki Decks')
+  .description(
+    'App for analyzing exported Anki Decks.\n' +
+      'It is assumed that the exported Anki Decks do not contain HTML or multimedia links.\n' +
+      'If that is not the case, error will be thrown.',
+  )
   .option('-h, --help', 'Display help');
 
 const meaningSeparatorOption = new Option(
@@ -61,10 +65,6 @@ program
     ),
   )
   .action(commandDeck);
-
-// todo: add 2 new verifications
-// --verify-html-used
-// --verify-html-not-used
 
 program
   .command('verify')

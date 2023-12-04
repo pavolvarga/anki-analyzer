@@ -4,6 +4,7 @@ import { ParsedAnkiFile } from './types';
 import { parseMedata } from './metadataParser';
 import { parseRecords } from './recordParser';
 import { AnkiRecord, AnkiRecordContainer } from '../types';
+import { assertRecords } from './assertions';
 
 function createRecordContainer(records: AnkiRecord[]): AnkiRecordContainer {
   const all = new Map<string, AnkiRecord>();
@@ -29,6 +30,9 @@ export function parse(fileName: string): AnkiRecordContainer {
 
   const metadata = parseMedata(metadataLines);
   const records = parseRecords(cardsLines, metadata);
+
+  // exported decks must be valid
+  assertRecords(records);
 
   return createRecordContainer(records);
 }
