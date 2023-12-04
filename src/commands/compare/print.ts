@@ -65,8 +65,8 @@ function printTable(header: string, cards: CardWrapper[], limit: number, deckNam
   const tableRows = cards.slice(0, limit).map((card) => {
     return {
       Deck: deckName,
-      'Card 1': card.card1,
-      'Card 2': card.card2,
+      'Card 1': card.record.card1,
+      'Card 2': card.record.card2,
     };
   });
 
