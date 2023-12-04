@@ -1,6 +1,7 @@
 import { AnkiRecord, AnkiRecordContainer, InfoTableRow } from '../types';
 import { DeckAnalysis, CmdOptions } from './info/types';
 import { ExplanationBracketType } from '../types';
+import { intersection } from 'lodash';
 
 function sumCardsWithSeparator(deck: Map<string, AnkiRecord>, separator: string) {
   return Array.from(deck.values()).reduce((acc, record) => {
@@ -139,4 +140,17 @@ export function findDeck(name: string, container: AnkiRecordContainer): [string,
     throw new Error(`Name ${name} is not unique, these decks ${matches.join(', ')} match it.`);
   }
   return [matches[0], container.byDeck.get(matches[0])!];
+}
+
+/**
+ * If tags are provided, then filter records by tags.
+ * If no tags are provided, then return all records.
+ */
+export function filterRecords(deck: Map<string, AnkiRecord>, tags?: string[]): AnkiRecord[] {
+  return (tags ?? []).length === 0
+    ? Array.from(deck.values())
+    : Array.from(deck.values()).filter((record) => {
+        const recordTags = record.tags ?? [];
+        return intersection(tags, recordTags).length > 0;
+      });
 }

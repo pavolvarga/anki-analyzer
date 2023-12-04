@@ -5,6 +5,7 @@ import { commandInfo } from './commands/info/info';
 import { commandDeck } from './commands/deck/deck';
 import { commandCompare } from './commands/compare/compare';
 import { commandVerify } from './commands/verify/verify';
+import { commandDuplicate } from './commands/duplicate/duplicate';
 
 const program = new Command();
 
@@ -185,7 +186,8 @@ program
       '-t, --tags <tags...>',
       'Narrow search to specified tags. If not specified, then whole deck is searched.',
     ),
-  );
+  )
+  .action(commandDuplicate);
 
 console.log(figlet.textSync('Anki Analyzer'));
 console.log('\n');

@@ -1,7 +1,7 @@
 import { partialRight, sortBy } from 'lodash';
 import { parse as parseFile } from '../../fileParser/fileParser';
-import { findDeck } from '../common';
 import { parse as parseOptions } from './optionsParser';
+import { findDeck } from '../common';
 import { assertMeaningSepartorIsNotUsed, assertMeaningSepartorIsUsed, assertRecords } from './assertions';
 import { compareCards, filterDeck, normalizeCards } from './utils';
 import { AnkiRecord } from '../../types';

@@ -1,18 +1,9 @@
-import { intersection } from 'lodash';
 import { AnkiRecord, CardType } from '../../../types';
 import { VerificationResult, VerifyCmdOptions } from '../types';
+import { filterRecords } from '../../common';
 
 function hasMeaningSeparator(card: string, meaningSeparator: string): boolean {
   return card.includes(meaningSeparator);
-}
-
-function filterRecords(deck: Map<string, AnkiRecord>, tags?: string[]): AnkiRecord[] {
-  return (tags ?? []).length === 0
-    ? Array.from(deck.values())
-    : Array.from(deck.values()).filter((record) => {
-        const recordTags = record.tags ?? [];
-        return intersection(tags, recordTags).length > 0;
-      });
 }
 
 function createCardMsg(cardType: CardType): string {
