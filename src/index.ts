@@ -165,6 +165,28 @@ program
   )
   .action(commandCompare);
 
+program
+  .command('duplicate')
+  .description(
+    'Find duplicate notes in specified Anki Deck.\n' +
+      'Cards are split using the synonym separator. So if two notes have the same word in card2, they will be considered duplicates.\n' +
+      'It is assumed that meaning separator is not used in both cards.\n' +
+      'It is assumed that synonym separator is used in both cards.\n' +
+      'Use tags option to narrow search to specified tags.\n',
+  )
+  .argument('<file>', 'File containing exported Anki Decks.')
+  .argument(
+    '<deck-name>',
+    'Name of one Anki Deck. Either use full name, or append `*` to start of a name to indicate search by startsWith, when multiple decks match the beginning of the name, error is thrown.',
+  )
+  .addOption(synonymSeparatorOption)
+  .addOption(
+    new Option(
+      '-t, --tags <tags...>',
+      'Narrow search to specified tags. If not specified, then whole deck is searched.',
+    ),
+  );
+
 console.log(figlet.textSync('Anki Analyzer'));
 console.log('\n');
 
