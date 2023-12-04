@@ -27,6 +27,8 @@ export function commandCompare(
   const records = parseFile(file);
   const options = parseOptions(cmdOptions);
 
+  console.log(cmdOptions);
+
   // find both decks
   const [fullGeneralDeckName, generalDeck] = findDeck(generalDeckName, records);
   const [fullSpecificDeckName, specificDeck] = findDeck(specificDeckName, records);

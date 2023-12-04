@@ -12,6 +12,8 @@ export type AnkiRecordByCard = {
 export type CompareCmdOptions = {
   meaningSeparator: string;
   prefixSeparator?: string;
+  comparisionTable?: 'all' | 'different' | 'only-in-general' | 'only-in-specific';
+  maxRowCount: number;
 };
 
 export type CardWrapper = {

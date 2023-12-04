@@ -147,6 +147,22 @@ program
         'If prefix is specified, then during comparisions it is removed.\n',
     ),
   )
+  .addOption(
+    new Option(
+      '--show-comparision-table <table>',
+      'If present then either one of the comparision table is shown or all of them.\n' +
+        'For breviety, for each table (or all of them) only first 10 rows are shown.\n' +
+        'To change the number of rows shown use the --max-row-count option.\n' +
+        'If this option is not used, then only short status is shown.',
+    ).choices(['all', 'different', 'only-in-general', 'only-in-specific']),
+  )
+  .addOption(
+    new Option(
+      '--max-row-count <count>',
+      'Specify maximum number of rows to show in comparision table. If not specified, then 10 is used.\n' +
+        'This option is used only when --show-comparision-table is used as well.',
+    ),
+  )
   .action(commandCompare);
 
 console.log(figlet.textSync('Anki Analyzer'));
