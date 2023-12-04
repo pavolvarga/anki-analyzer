@@ -55,6 +55,25 @@ describe('parseRecords', () => {
         tags: undefined,
       });
     });
+    it('should remove duplicate spaces', () => {
+      const input = [
+        ':%M8C	Basic (and reversed card)	Deutsch::Verben	ab-gewöhnen ;;  to teach sb. to stop doing sth. (oducit zlozvyk)	gewöhnte ab ;; hat abgewöht',
+        'yPL$!>_|P]	Basic (and reversed card)	Deutsch::Verben	ab-schreiben ;;  to copy, to transcribe, to plagiarize,  to write off	schrieb ab ;; hat abgeschrieben	',
+        "^_%R	Basic (and reversed card)	Deutsch::Wörterbuch	abkriegen	to get (one's share),  to be able to remove sth.	verb",
+      ];
+
+      const result = parseRecords(input, metadata);
+      const expected = [
+        // eslint-disable-next-line
+        { id: ':%M8C', deckName: 'Deutsch::Verben', deckType: 'Basic (and reversed card)', card1: 'ab-gewöhnen ;; to teach sb. to stop doing sth. (oducit zlozvyk)', card2: 'gewöhnte ab ;; hat abgewöht', tags: undefined },
+        // eslint-disable-next-line
+        { id: 'yPL$!>_|P]', deckName: 'Deutsch::Verben', deckType: 'Basic (and reversed card)', card1: 'ab-schreiben ;; to copy, to transcribe, to plagiarize, to write off', card2: 'schrieb ab ;; hat abgeschrieben', tags: undefined },
+        // eslint-disable-next-line
+        { id: "^_%R", deckName: 'Deutsch::Wörterbuch', deckType: 'Basic (and reversed card)', card1: 'abkriegen', card2: "to get (one's share), to be able to remove sth.", tags: ['verb'] },
+      ];
+
+      expect(result).toStrictEqual(expected);
+    });
   });
 
   describe('multi line records', () => {

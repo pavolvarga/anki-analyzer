@@ -35,6 +35,22 @@ function isFullRecord(metadata: AnkiMetadata, tabsCount: number, quotesCount: nu
   return tabsOk && quotesOk;
 }
 
+/**
+ * In case of multiple spaces in string they are removed.
+ * Other white characters are not touched.
+ */
+function removeDuplicateSpaces(input: string): string {
+  return input.replace(/ +/g, ' ');
+}
+
+function removeWhiteCharacters(record: AnkiRecord): AnkiRecord {
+  return {
+    ...record,
+    card1: removeDuplicateSpaces(record.card1.trim()),
+    card2: removeDuplicateSpaces(record.card2.trim()),
+  };
+}
+
 export function parseRecords(input: string[], metadata: AnkiMetadata): AnkiRecord[] {
   const result: AnkiRecord[] = [];
 
@@ -71,5 +87,5 @@ export function parseRecords(input: string[], metadata: AnkiMetadata): AnkiRecor
     }
   }
 
-  return result;
+  return result.map(removeWhiteCharacters);
 }

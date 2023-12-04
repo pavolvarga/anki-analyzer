@@ -40,10 +40,12 @@ function printDifferentTable(differentCards: CardWrapperPair[], limit: number, d
     const { deckA, deckB } = cardPair;
     return {
       'General Deck': deckAName,
+      'Note Id (general)': deckA.record.id,
       'Card 1 (general)': deckA.record.card1,
       'Card 2 (general)': deckA.record.card2,
 
       'Specific Deck': deckBName,
+      'Note Id (specific)': deckB.record.id,
       'Card 1 (specific)': deckB.record.card1,
       'Card 2 (specific)': deckB.record.card2,
     };
