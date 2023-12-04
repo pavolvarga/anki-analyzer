@@ -21,3 +21,18 @@ export type CardWrapper = {
   meainingSeparatorCar1Used: boolean;
   record: AnkiRecord;
 };
+
+export type Holder = {
+  deckA: CardWrapper;
+  deckB: CardWrapper;
+  deckAId: string;
+  deckBId: string;
+};
+
+export type ComparisonResult = {
+  sameCards: Holder[];
+  differentCards: Holder[];
+
+  cardsOnlyInDeckA: CardWrapper[];
+  cardsOnlyInDeckB: CardWrapper[];
+};

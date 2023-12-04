@@ -3,8 +3,6 @@ import { AnkiRecord } from '../../types';
 // eslint-disable-next-line no-unused-vars
 type MeaningSeparatorAssertionFn = (record: AnkiRecord) => void;
 
-// todo: assertion that html is not used
-
 export function assertMeaningSepartorIsNotUsed(record: AnkiRecord, meaningSeparator: string, cardNum: 1 | 2): void {
   const cardVar = `card${cardNum}`;
   // @ts-ignore

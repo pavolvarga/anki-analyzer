@@ -123,7 +123,8 @@ program
       'For command to work, these assertions must be true:\n' +
       'General deck is not using meaning separator in both cards.\n' +
       'Specific deck is using meaning separator in card1\n' +
-      'If these assertions are not true, then the command will fail on the first record that fails one of these assertions',
+      'If these assertions are not true, then the command will fail on the first record that fails one of these assertions.\n' +
+      'By default it prints short status of the comparison, to see more details use specific options.',
   )
   .argument('<file>', 'File containing exported Anki Decks.')
   .argument(

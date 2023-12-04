@@ -3,10 +3,10 @@ import { parse as parseFile } from '../../fileParser/fileParser';
 import { findDeck } from '../common';
 import { parse as parseOptions } from './optionsParser';
 import { assertMeaningSepartorIsNotUsed, assertMeaningSepartorIsUsed, assertRecords } from './assertions';
-import { filterDeck, normalizeCards } from './utils';
+import { compareCards, filterDeck, normalizeCards } from './utils';
 import { AnkiRecord } from '../../types';
 import { CompareCmdOptions } from './types';
-import { findMissingInGeneralButPresentInSpecific, findPresentInGeneralButMissingInSpecific } from './comparisons';
+import { printStatus } from './print';
 
 // assert that both decks are in expected format
 function assert(generalDeck: AnkiRecord[], specificDeck: AnkiRecord[], options: CompareCmdOptions): void {
@@ -28,8 +28,8 @@ export function commandCompare(
   const options = parseOptions(cmdOptions);
 
   // find both decks
-  const generalDeck = findDeck(generalDeckName, records)[1];
-  const specificDeck = findDeck(specificDeckName, records)[1];
+  const [fullGeneralDeckName, generalDeck] = findDeck(generalDeckName, records);
+  const [fullSpecificDeckName, specificDeck] = findDeck(specificDeckName, records);
 
   // filter general deck to only contain cards with the tag, spedific deck is already narrowed down to only contain cards with the tag
   const generalDeckList = filterDeck(generalDeck, tag);
@@ -42,9 +42,14 @@ export function commandCompare(
   const normalizedGeneralDeck = sortBy(normalizeCards(generalDeckList, options), ['card1']);
   const normalizedSpecificDeck = sortBy(normalizeCards(specificDeckList, options), ['card1']);
 
-  console.log(normalizedGeneralDeck.slice(0, 2));
-  console.log(normalizedSpecificDeck.slice(0, 2));
+  const result = compareCards(normalizedGeneralDeck, normalizedSpecificDeck);
 
-  console.log(findPresentInGeneralButMissingInSpecific(normalizedGeneralDeck, normalizedSpecificDeck).slice(0, 2));
-  console.log(findMissingInGeneralButPresentInSpecific(normalizedGeneralDeck, normalizedSpecificDeck).slice(0, 2));
+  printStatus(
+    fullGeneralDeckName,
+    fullSpecificDeckName,
+    tag,
+    result,
+    normalizedGeneralDeck.length,
+    normalizedSpecificDeck.length,
+  );
 }

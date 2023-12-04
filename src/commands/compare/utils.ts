@@ -1,12 +1,7 @@
-import { split } from 'lodash';
+import { split, cloneDeep } from 'lodash';
 import { AnkiRecord } from '../../types';
-import { CardWrapper, CompareCmdOptions } from './types';
-
-// n!fX9	Basic (and reversed card)	Deutsch::Wörterbuch	mögen	to like, to enjoy	verb
-// pU1h/@tD$O	Basic (and reversed card)	Deutsch::Verben	mögen ;; to like, to enjoy	mochte ;; hat gemocht
-
-// "f7PKX_|#3p"	Basic (and reversed card)	Deutsch::Verben	"ab-geben ;;
-// to give in, to hand in, to turn in (work)"	gab ab ;; hat abgegeben
+import { CardWrapper, CompareCmdOptions, ComparisonResult } from './types';
+import { Holder } from './types';
 
 function removePrefixSeparator(card: string, prefixSeparator?: string): string {
   if (prefixSeparator === undefined) {
@@ -47,4 +42,51 @@ export function normalizeCards(deck: AnkiRecord[], options: CompareCmdOptions): 
       record,
     };
   });
+}
+
+function extractIds(holders: Holder[][], fieldName: string): string[] {
+  // @ts-ignore
+  return holders.map((holder: Holder[]) => holder.map((holder: Holder) => holder[fieldName])).flat();
+}
+
+export function compareCards(deckA: CardWrapper[], deckB: CardWrapper[]): ComparisonResult {
+  const sameCards: Holder[] = [];
+  const differentCards: Holder[] = [];
+
+  deckA.forEach((cardA: CardWrapper) => {
+    const cardB = deckB.find((card: CardWrapper) => card.card1 === cardA.card1);
+
+    // both have same card1
+    if (cardB) {
+      if (cardA.card2 === cardB.card2) {
+        sameCards.push({
+          deckA: cardA,
+          deckB: cardB,
+          deckAId: cardA.record.id,
+          deckBId: cardB.record.id,
+        });
+        // same card1 but different card2
+      } else {
+        differentCards.push({
+          deckA: cardA,
+          deckB: cardB,
+          deckAId: cardA.record.id,
+          deckBId: cardB.record.id,
+        });
+      }
+    }
+  });
+
+  const idsFromDeckA = extractIds([sameCards, differentCards], 'deckAId');
+  const idsFromDeckB = extractIds([sameCards, differentCards], 'deckBId');
+
+  const deckAOnly = cloneDeep(deckA).filter((card: CardWrapper) => !idsFromDeckA.includes(card.record.id));
+  const deckBOnly = cloneDeep(deckB).filter((card: CardWrapper) => !idsFromDeckB.includes(card.record.id));
+
+  return {
+    sameCards,
+    differentCards,
+    cardsOnlyInDeckA: deckAOnly,
+    cardsOnlyInDeckB: deckBOnly,
+  };
 }
