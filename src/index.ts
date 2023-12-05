@@ -32,6 +32,8 @@ const explanationBracketsOption = new Option(
   'Specify type of brackets for additional explanation',
 ).choices(['round', 'square', 'curly']);
 
+const cardChoices = ['card1', 'card2', 'both'];
+
 program
   .command('info')
   .description(
@@ -91,13 +93,13 @@ program
     new Option(
       '--verify-meaning-separator-used <card>',
       'Verify that meaning separtor is used, either in card1, card2 or both',
-    ).choices(['card1', 'card2', 'both']),
+    ).choices(cardChoices),
   )
   .addOption(
     new Option(
       '--verify-meaning-separator-not-used <card>',
       'Verify that meaning separtor is not used, either in card1, card2 or both',
-    ).choices(['card1', 'card2', 'both']),
+    ).choices(cardChoices),
   )
   .addOption(
     new Option(
@@ -173,7 +175,8 @@ program
       'Cards are split using the synonym separator. So if two notes have the same word in card2, they will be considered duplicates.\n' +
       'It is assumed that meaning separator is not used in both cards.\n' +
       'It is assumed that synonym separator is used in both cards.\n' +
-      'Use tags option to narrow search to specified tags.\n',
+      'Use tags option to narrow search to specified tags.\n' +
+      'By default it prints short status of the duplicates, to see more details use specific options.',
   )
   .argument('<file>', 'File containing exported Anki Decks.')
   .argument(
@@ -185,6 +188,22 @@ program
     new Option(
       '-t, --tags <tags...>',
       'Narrow search to specified tags. If not specified, then whole deck is searched.',
+    ),
+  )
+  .addOption(
+    new Option(
+      '--show-duplicates-table',
+      'If present then table with all duplicates is shown.\n' +
+        'For breviety, only first 10 rows are shown.\n' +
+        'To change the number of rows shown use the --max-row-count option.\n' +
+        'If this option is not used, then only short status is shown.',
+    ).choices(cardChoices),
+  )
+  .addOption(
+    new Option(
+      '--max-row-count <count>',
+      'Specify maximum number of rows to show in duplicates table. If not specified, then 10 is used.\n' +
+        'This option is used only when --show-duplicates-table is used as well.',
     ),
   )
   .action(commandDuplicate);

@@ -1,9 +1,10 @@
+import { DEFAULT_MAX_ROW_COUNT, DEFAULT_MEANING_SEPARATOR } from '../const';
 import { parse } from './optionsParser';
 
 describe('parse', () => {
   it('should use default meaning separator if no options are provided', () => {
     const result = parse(undefined);
-    const expected = { meaningSeparator: ';;', maxRowCount: 10 };
+    const expected = { meaningSeparator: DEFAULT_MEANING_SEPARATOR, maxRowCount: DEFAULT_MAX_ROW_COUNT };
     expect(result).toStrictEqual(expected);
   });
   it('should use prefix separator if is was provided', () => {
