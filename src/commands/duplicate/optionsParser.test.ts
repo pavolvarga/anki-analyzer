@@ -47,7 +47,7 @@ describe('parse', () => {
     expect(parse(options)).toEqual(expected);
   });
   it('should use passed card type if is was provided', () => {
-    const options = { showDuplicatesTable1: 'card2' };
+    const options = { showDuplicatesTable: 'card2' };
     const expected = {
       synonymSeparator: DEFAULT_SYNONYM_SEPARATOR,
       tags: undefined,
