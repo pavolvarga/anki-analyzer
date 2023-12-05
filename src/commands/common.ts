@@ -75,7 +75,7 @@ export function convertOneAnalysis(analysis: DeckAnalysis, options: CmdOptions |
   if (options?.synonymSeparator) {
     tableRow['Cards with Synonym separator'] = analysis.cardsWithSynonymSeparator;
   }
-  if (options?.explanationBracket) {
+  if (options?.explanationBrackets) {
     tableRow['Cards with Explanation'] = analysis.cardsWithExplanation;
   }
   return tableRow;
@@ -102,8 +102,8 @@ export function analyzeDeck(
   if (options?.synonymSeparator) {
     analyze.cardsWithSynonymSeparator = sumCardsWithSeparator(deck, options.synonymSeparator);
   }
-  if (options?.explanationBracket) {
-    analyze.cardsWithExplanation = sumCardsWithExplanation(deck, options.explanationBracket);
+  if (options?.explanationBrackets) {
+    analyze.cardsWithExplanation = sumCardsWithExplanation(deck, options.explanationBrackets);
   }
 
   return analyze;

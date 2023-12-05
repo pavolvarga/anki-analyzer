@@ -1,10 +1,7 @@
 import { AnkiRecord } from '../../types';
-import { ExplanationBracketType } from '../../types';
+import { CmdOptions } from '../info/types';
 
-export type InfoCmdOptions = {
-  meaningSeparator?: string;
-  synonymSeparator?: string;
-  explanationBracket?: ExplanationBracketType;
+export type InfoCmdOptions = CmdOptions & {
   tags: boolean;
   tagCombinations: boolean;
 };

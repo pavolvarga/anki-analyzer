@@ -1,6 +1,6 @@
 import { parse } from './optionsParser';
 
-describe('parseOptions', () => {
+describe('parse', () => {
   it('handles posibility that there are no cmd options', () => {
     const result = parse(undefined);
     expect(result).toBeUndefined();
@@ -32,6 +32,6 @@ describe('parseOptions', () => {
   it('handles option for explanantion bracket with mandatory choice argument', () => {
     const options = { explanationBrackets: 'round' };
     const result = parse(options);
-    expect(result).toStrictEqual({ explanationBracket: 'round' });
+    expect(result).toStrictEqual({ explanationBrackets: 'round' });
   });
 });

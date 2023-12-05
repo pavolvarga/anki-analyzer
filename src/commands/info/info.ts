@@ -16,7 +16,7 @@ function createSummary(analysis: DeckAnalysis[], options: CmdOptions | undefined
       acc['Notes with Tags'] += current.tagsCount;
       acc['Cards with Meaning Separator'] += options?.meaningSeparator ? current!.cardsWithMeaningSeparator! : 0;
       acc['Cards with Synonym separator'] += options?.synonymSeparator ? current!.cardsWithSynonymSeparator! : 0;
-      acc['Cards with Explanation'] += options?.explanationBracket ? current!.cardsWithExplanation! : 0;
+      acc['Cards with Explanation'] += options?.explanationBrackets ? current!.cardsWithExplanation! : 0;
       return acc;
     },
     {
@@ -36,7 +36,7 @@ function createSummary(analysis: DeckAnalysis[], options: CmdOptions | undefined
   if (options?.synonymSeparator === undefined) {
     delete tableRow['Cards with Synonym separator'];
   }
-  if (options?.explanationBracket === undefined) {
+  if (options?.explanationBrackets === undefined) {
     delete tableRow['Cards with Explanation'];
   }
 
@@ -58,8 +58,8 @@ export function commandInfo(file: string, cmdOptions: any): void {
   if (options?.synonymSeparator) {
     console.log(`Used meaning separator: "${options!.synonymSeparator}"`);
   }
-  if (options?.explanationBracket) {
-    console.log(`Used bracket type for explanation: "${options!.explanationBracket}"`);
+  if (options?.explanationBrackets) {
+    console.log(`Used bracket type for explanation: "${options!.explanationBrackets}"`);
   }
   const table = [...convertToTableFormat(analysis, options), summary];
 

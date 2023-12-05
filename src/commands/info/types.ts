@@ -37,5 +37,5 @@ export type DeckAnalysis = {
 export type CmdOptions = {
   meaningSeparator?: string;
   synonymSeparator?: string;
-  explanationBracket?: ExplanationBracketType;
+  explanationBrackets?: ExplanationBracketType;
 };
