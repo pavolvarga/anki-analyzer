@@ -1,7 +1,7 @@
 import { parse as parseFile } from '../../fileParser/fileParser';
 import { filterRecords, findDeck } from '../common';
 import { parse as parseOptions } from './optionsParser';
-import { printStatus } from './print';
+import { printDetails, printStatus } from './print';
 import { findDuplicatesInCardWords } from './util';
 
 export function commandDuplicate(file: string, deckName: string, cmdOptions: any): void {
@@ -14,4 +14,7 @@ export function commandDuplicate(file: string, deckName: string, cmdOptions: any
   const duplicates = findDuplicatesInCardWords(filteredDeck, options.synonymSeparator);
 
   printStatus(duplicates, name, options.tags);
+  if (options.cardType) {
+    printDetails(duplicates, name, options);
+  }
 }

@@ -52,5 +52,7 @@ export function commandCompare(
     normalizedGeneralDeck.length,
     normalizedSpecificDeck.length,
   );
-  printDetails(result, options, fullGeneralDeckName, fullSpecificDeckName);
+  if (options.comparisionTable) {
+    printDetails(result, options, fullGeneralDeckName, fullSpecificDeckName);
+  }
 }

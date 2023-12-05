@@ -192,7 +192,7 @@ program
   )
   .addOption(
     new Option(
-      '--show-duplicates-table',
+      '--show-duplicates-table <card>',
       'If present then table with all duplicates is shown.\n' +
         'For breviety, only first 10 rows are shown.\n' +
         'To change the number of rows shown use the --max-row-count option.\n' +
