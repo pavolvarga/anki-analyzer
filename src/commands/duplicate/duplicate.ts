@@ -1,6 +1,6 @@
 import { parse as parseFile } from '../../fileParser/fileParser';
-import { filterRecords, findDeck } from '../common';
 import { parse as parseOptions } from './optionsParser';
+import { filterRecords, findDeck } from '../common';
 import { printDetails, printStatus } from './print';
 import { findDuplicatesInCardWords } from './util';
 

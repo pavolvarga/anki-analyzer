@@ -6,6 +6,7 @@ import { commandDeck } from './commands/deck/deck';
 import { commandCompare } from './commands/compare/compare';
 import { commandVerify } from './commands/verify/verify';
 import { commandDuplicate } from './commands/duplicate/duplicate';
+import { commandList } from './commands/list/list';
 
 const program = new Command();
 
@@ -19,6 +20,9 @@ program
   )
   .option('-h, --help', 'Display help');
 
+const explanationBracketsChoices = ['curly', 'round', 'square'];
+const cardChoices = ['card1', 'card2', 'both'];
+
 const meaningSeparatorOption = new Option(
   '-m, --meaning-separator [separator]',
   'Specify separator for `pieces of information`, like: `essen ;; to eat`, if none is used it defaults to `;;`',
@@ -30,9 +34,7 @@ const synonymSeparatorOption = new Option(
 const explanationBracketsOption = new Option(
   '-e, --explanation-brackets <bracket-type>',
   'Specify type of brackets for additional explanation',
-).choices(['round', 'square', 'curly']);
-
-const cardChoices = ['card1', 'card2', 'both'];
+).choices(explanationBracketsChoices);
 
 program
   .command('info')
@@ -207,6 +209,60 @@ program
     ),
   )
   .action(commandDuplicate);
+
+program
+  .command('list')
+  .description(
+    'List those Records in specified Anki deck that contain specified separators.\n' +
+      'At least one --list* option must be used, but more can be used at same time.\n' +
+      'By default it print 10 records, to change this use --max-row-count option.\n' +
+      'Separators use default values if not provided, use options to specify them',
+  )
+  .argument(
+    '<deck-name>',
+    'Name of one Anki Deck. Either use full name, or append `*` to start of a name to indicate search by startsWith, when multiple decks match the beginning of the name, error is thrown.',
+  )
+  .argument('<file>', 'File containing exported Anki Decks.')
+  .addOption(meaningSeparatorOption)
+  .addOption(synonymSeparatorOption)
+  .addOption(explanationBracketsOption)
+  .addOption(
+    new Option(
+      '-t, --tags <tags...>',
+      'Narrow listing to specified tags. If not specified, then whole deck is searched.',
+    ),
+  )
+  .addOption(
+    new Option(
+      '-c, --card <card>',
+      'Specify card for testing presence of separators. If not specified, then both cards are tested by default.',
+    ).choices(cardChoices),
+  )
+  .addOption(
+    new Option(
+      '--list-cards-with-meaning-separator',
+      'If used, then all records that contain meaning separator in card1, card2 or both are listed',
+    ),
+  )
+  .addOption(
+    new Option(
+      '--list-cards-with-synonym-separator',
+      'If used, then all records that contain synonym separator in card1, card2 or both are listed',
+    ),
+  )
+  .addOption(
+    new Option(
+      '--list-cards-with-explanation-brackets',
+      'If used, then all records that contain explanation brackets in card1, card2 or both are listed',
+    ),
+  )
+  .addOption(
+    new Option(
+      '--max-row-count <count>',
+      'Specify maximum number of rows to show in outputed table. If not specified, then 10 is used.',
+    ),
+  )
+  .action(commandList);
 
 console.log(figlet.textSync('Anki Analyzer'));
 console.log('\n');
