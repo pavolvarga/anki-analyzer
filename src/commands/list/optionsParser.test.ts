@@ -14,7 +14,7 @@ describe('parse', () => {
       const expected: ListCmdOptions = {
         meaningSeparator: ';;',
         synonymSeparator: ',',
-        explanationBrackets: 'curly',
+        explanationBrackets: 'round',
         tags: undefined,
         cardType: 'both',
         maxRowCount: 100,
@@ -27,7 +27,7 @@ describe('parse', () => {
       const expected: ListCmdOptions = {
         meaningSeparator: '||',
         synonymSeparator: ',',
-        explanationBrackets: 'curly',
+        explanationBrackets: 'round',
         tags: undefined,
         cardType: 'both',
         maxRowCount: 100,
@@ -42,7 +42,7 @@ describe('parse', () => {
       const expected: ListCmdOptions = {
         meaningSeparator: ';;',
         synonymSeparator: ',',
-        explanationBrackets: 'curly',
+        explanationBrackets: 'round',
         tags: undefined,
         cardType: 'both',
         maxRowCount: 100,
@@ -55,7 +55,7 @@ describe('parse', () => {
       const expected: ListCmdOptions = {
         meaningSeparator: ';;',
         synonymSeparator: '||',
-        explanationBrackets: 'curly',
+        explanationBrackets: 'round',
         tags: undefined,
         cardType: 'both',
         maxRowCount: 100,
@@ -70,7 +70,7 @@ describe('parse', () => {
       const expected: ListCmdOptions = {
         meaningSeparator: ';;',
         synonymSeparator: ',',
-        explanationBrackets: 'curly',
+        explanationBrackets: 'round',
         tags: undefined,
         cardType: 'both',
         maxRowCount: 100,
@@ -98,7 +98,7 @@ describe('parse', () => {
       const expected: ListCmdOptions = {
         meaningSeparator: ';;',
         synonymSeparator: ',',
-        explanationBrackets: 'curly',
+        explanationBrackets: 'round',
         tags: undefined,
         cardType: 'both',
         maxRowCount: 100,
@@ -111,7 +111,7 @@ describe('parse', () => {
       const expected: ListCmdOptions = {
         meaningSeparator: ';;',
         synonymSeparator: ',',
-        explanationBrackets: 'curly',
+        explanationBrackets: 'round',
         tags: ['noun', 'verb'],
         cardType: 'both',
         maxRowCount: 100,
@@ -126,7 +126,7 @@ describe('parse', () => {
       const expected: ListCmdOptions = {
         meaningSeparator: ';;',
         synonymSeparator: ',',
-        explanationBrackets: 'curly',
+        explanationBrackets: 'round',
         tags: undefined,
         cardType: 'both',
         maxRowCount: 100,
@@ -139,7 +139,7 @@ describe('parse', () => {
       const expected: ListCmdOptions = {
         meaningSeparator: ';;',
         synonymSeparator: ',',
-        explanationBrackets: 'curly',
+        explanationBrackets: 'round',
         tags: undefined,
         cardType: 'card1',
         maxRowCount: 100,
@@ -154,7 +154,7 @@ describe('parse', () => {
       const expected: ListCmdOptions = {
         meaningSeparator: ';;',
         synonymSeparator: ',',
-        explanationBrackets: 'curly',
+        explanationBrackets: 'round',
         tags: undefined,
         cardType: 'both',
         maxRowCount: 10,
@@ -167,7 +167,7 @@ describe('parse', () => {
       const expected: ListCmdOptions = {
         meaningSeparator: ';;',
         synonymSeparator: ',',
-        explanationBrackets: 'curly',
+        explanationBrackets: 'round',
         tags: undefined,
         cardType: 'both',
         maxRowCount: 200,
@@ -186,7 +186,7 @@ describe('parse', () => {
     const expected: ListCmdOptions = {
       meaningSeparator: ';;',
       synonymSeparator: ',',
-      explanationBrackets: 'curly',
+      explanationBrackets: 'round',
       tags: undefined,
       cardType: 'both',
       maxRowCount: 100,

@@ -1,4 +1,4 @@
-import { CardType, ExplanationBracketType } from '../../types';
+import { AnkiRecord, CardType, ExplanationBracketType } from '../../types';
 
 export type ListOperation =
   | '--list-cards-with-meaning-separator'
@@ -13,4 +13,10 @@ export type ListCmdOptions = {
   cardType: CardType;
   maxRowCount: number;
   operations: ListOperation[];
+};
+
+export type ListResult = {
+  recordsByMeaningSeparator?: AnkiRecord[];
+  recordsBySynonymSeparator?: AnkiRecord[];
+  recordsByExplanationBrackets?: AnkiRecord[];
 };
