@@ -172,7 +172,7 @@ program
   .command('duplicate')
   .description(
     'Find duplicate notes in specified Anki Deck.\n' +
-      'Cards are split using the synonym separator. So if two notes have the same word in card2, they will be considered duplicates.\n' +
+      'Cards are split using the synonym separator. So if two notes have the same word in card1 or in card2, they will be considered duplicates.\n' +
       'It is assumed that meaning separator is not used in both cards.\n' +
       'It is assumed that synonym separator is used in both cards.\n' +
       'Use tags option to narrow search to specified tags.\n' +
