@@ -10,8 +10,8 @@ The steps should be similar on other platforms.
 4. Include all decks or those decks that you want to export
 5. From the list of options deselect `Include HTML and media references`. <br/>
    Select <br/>
-   * `Include tags`,
-   * `Include deck name`,
+   * `Include tags`
+   * `Include deck name`
    * `Include notetype name`
    * `Include unique identifier`<br/>
   See the screenshot below for reference.<br/>
