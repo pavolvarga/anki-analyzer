@@ -15,8 +15,8 @@ describe('parse', () => {
       const result = parse(options);
       const expected = {
         meaningSeparator: ';;',
-        tags: false,
-        tagCombinations: false,
+        countTags: false,
+        countTagCombinations: false,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -25,8 +25,8 @@ describe('parse', () => {
       const result = parse(options);
       const expected = {
         meaningSeparator: '-',
-        tags: false,
-        tagCombinations: false,
+        countTags: false,
+        countTagCombinations: false,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -37,8 +37,8 @@ describe('parse', () => {
       const result = parse(options);
       const expected = {
         synonymSeparator: ',',
-        tags: false,
-        tagCombinations: false,
+        countTags: false,
+        countTagCombinations: false,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -47,8 +47,8 @@ describe('parse', () => {
       const result = parse(options);
       const expected = {
         synonymSeparator: ';',
-        tags: false,
-        tagCombinations: false,
+        countTags: false,
+        countTagCombinations: false,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -58,26 +58,26 @@ describe('parse', () => {
     const result = parse(options);
     const expected = {
       explanationBrackets: 'square',
-      tags: false,
-      tagCombinations: false,
+      countTags: false,
+      countTagCombinations: false,
     };
     expect(result).toStrictEqual(expected);
   });
   it('should set tags to true if it was specified', () => {
-    const options = { tags: true };
+    const options = { countTags: true };
     const result = parse(options);
     const expected = {
-      tags: true,
-      tagCombinations: false,
+      countTags: true,
+      countTagCombinations: false,
     };
     expect(result).toStrictEqual(expected);
   });
   it('should set tagCombinations to true if it was specified', () => {
-    const options = { tagCombinations: true };
+    const options = { countTagCombinations: true };
     const result = parse(options);
     const expected = {
-      tags: false,
-      tagCombinations: true,
+      countTags: false,
+      countTagCombinations: true,
     };
     expect(result).toStrictEqual(expected);
   });

@@ -2,8 +2,8 @@ import { AnkiRecord } from '../../types';
 import { InfoCmdOptions } from '../info/types';
 
 export type DeckCmdOptions = InfoCmdOptions & {
-  tags: boolean;
-  tagCombinations: boolean;
+  countTags: boolean;
+  countTagCombinations: boolean;
 };
 
 export type TagCount = {

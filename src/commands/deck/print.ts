@@ -8,7 +8,7 @@ export function printResult(
   deck: Map<string, AnkiRecord>,
 ): void {
   // add tags if requested and they exists
-  if (options?.tags) {
+  if (options?.countTags) {
     const individualTagsCount = countTags(deck, createIndividualTagsMap);
     if (Object.keys(individualTagsCount).length !== 0) {
       // @ts-ignore
@@ -18,7 +18,7 @@ export function printResult(
   }
 
   // add tag combinations if requested and they exists
-  if (options?.tagCombinations) {
+  if (options?.countTagCombinations) {
     const tagCombinationsCount = countTags(deck, createTagCombinations);
     if (Object.keys(tagCombinationsCount).length !== 0) {
       // @ts-ignore

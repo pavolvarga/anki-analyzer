@@ -66,11 +66,14 @@ program
   .addOption(synonymSeparatorOption)
   .addOption(explanationBracketsOption)
   .addOption(
-    new Option('-t, --tags', 'If present and if tags are used for specified deck, count of individual tags is shown.'),
+    new Option(
+      '--count-tags',
+      'If present and if tags are used for specified deck, count of individual tags is shown.',
+    ),
   )
   .addOption(
     new Option(
-      '-c, --tag-combinations',
+      '--count-tag-combinations',
       'If present and if tags are used for specified deck, then count of tag combinations is shown.\nIf no combination of tags is used, nothing is shown.',
     ),
   )
