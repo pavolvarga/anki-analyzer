@@ -1,5 +1,5 @@
-import { intersection } from 'lodash';
-import { AnkiRecord, AnkiRecordContainer } from '../types';
+import { intersection, sortBy } from 'lodash';
+import { AnkiRecord, AnkiRecordContainer, CardType } from '../types';
 import { ExplanationBracketType } from '../types';
 import { DeckAnalysis, InfoCmdOptions } from './info/types';
 
@@ -133,4 +133,9 @@ export function filterRecords(deck: Map<string, AnkiRecord>, tags?: string[]): A
         const recordTags = record.tags ?? [];
         return intersection(tags, recordTags).length > 0;
       });
+}
+
+export function sortRecords(records: AnkiRecord[], cardType: CardType): AnkiRecord[] {
+  const sort = cardType === 'card1' || cardType === 'both' ? 'card1' : 'card2';
+  return sortBy(records, sort);
 }

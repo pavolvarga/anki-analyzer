@@ -1,4 +1,5 @@
 import { AnkiRecord } from '../../../types';
+import { sortRecords } from '../../common';
 import { VerificationResult } from '../types';
 
 export function verifyTagsUsed(deckName: string, deck: Map<string, AnkiRecord>): VerificationResult {
@@ -17,8 +18,8 @@ export function verifyTagsUsed(deckName: string, deck: Map<string, AnkiRecord>):
   // failure
   return {
     outcome: 'failure',
-    failed: withoutTags,
-    failureMsg: `Deck ${deckName} failed --verify-tags-used verfication. ${withoutTags.length} records have no tags:`,
+    failed: sortRecords(withoutTags, 'card1'),
+    failureMsg: `Deck ${deckName} failed --verify-tags-used verfication. ${withoutTags.length} records have no tags.`,
   };
 }
 
@@ -36,7 +37,7 @@ export function verifyTagsNotUsed(deckName: string, deck: Map<string, AnkiRecord
   // failure
   return {
     outcome: 'failure',
-    failed: withTags,
-    failureMsg: `Deck ${deckName} failed --verify-tags-not-used verfication. ${withTags.length} records have tags:`,
+    failed: sortRecords(withTags, 'card1'),
+    failureMsg: `Deck ${deckName} failed --verify-tags-not-used verfication. ${withTags.length} records have tags.`,
   };
 }

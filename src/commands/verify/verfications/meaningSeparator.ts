@@ -1,6 +1,6 @@
 import { AnkiRecord, CardType } from '../../../types';
 import { VerificationResult, VerifyCmdOptions } from '../types';
-import { filterRecords } from '../../common';
+import { filterRecords, sortRecords } from '../../common';
 
 function hasMeaningSeparator(card: string, meaningSeparator: string): boolean {
   return card.includes(meaningSeparator);
@@ -56,8 +56,8 @@ export function verifyMeaningSeparatorUsed(
     failed,
     /* eslint-disable */
     failureMsg: tags === undefined || tags.length === 0
-      ? `Deck ${deckName} failed --verify-meaning-separator-used verfication. ${failed.length} records have no meaning separator in ${createCardMsg(operationArg)}:`
-      : `Deck ${deckName} failed --verify-meaning-separator-used verfication. ${failed.length} records with tags '${tags.join(', ')}' have no meaning separator in ${createCardMsg(operationArg)}:`,
+      ? `Deck ${deckName} failed --verify-meaning-separator-used verfication. ${failed.length} records have no meaning separator in ${createCardMsg(operationArg)}.`
+      : `Deck ${deckName} failed --verify-meaning-separator-used verfication. ${failed.length} records with tags '${tags.join(', ')}' have no meaning separator in ${createCardMsg(operationArg)}.`,
     /* eslint-enable */
   };
 }
@@ -105,11 +105,11 @@ export function verifyMeaningSeparatorNotUsed(
   // failure
   return {
     outcome: 'failure',
-    failed,
+    failed: sortRecords(failed, operationArg),
     /* eslint-disable */
     failureMsg: tags === undefined || tags.length === 0
-      ? `Deck ${deckName} failed --verify-meaning-separator-not-used verfication. ${failed.length} records have meaning separator in ${createCardMsg(operationArg)}:`
-      : `Deck ${deckName} failed --verify-meaning-separator-not-used verfication. ${failed.length} records with tags '${tags.join(', ')}' have meaning separator in ${createCardMsg(operationArg)}:`,
+      ? `Deck ${deckName} failed --verify-meaning-separator-not-used verfication. ${failed.length} records have meaning separator in ${createCardMsg(operationArg)}.`
+      : `Deck ${deckName} failed --verify-meaning-separator-not-used verfication. ${failed.length} records with tags '${tags.join(', ')}' have meaning separator in ${createCardMsg(operationArg)}.`,
     /* eslint-enable */
   };
 }

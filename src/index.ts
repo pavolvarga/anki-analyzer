@@ -119,6 +119,7 @@ program
     verifyCmdSummary +
       '\n\n' +
       'Those notes that do not match the expected format are displayed.\n' +
+      `For breviety, only first ${DEFAULT_LIMIT_ROW_COUNT} records are shown. Use option --limit-rows to show more.\n` +
       'It is possible to use only single --verify-* option at same time.\n' +
       'One --verify-* option must be used, otherwise an error is thrown.',
   )
@@ -129,27 +130,32 @@ program
   .addOption(
     new Option(
       '--verify-meaning-separator-used <card>',
-      'Verify that meaning separtor is used, either in card1, card2 or both',
+      'Verify that meaning separator is used, either in card1, card2 or both.\n' +
+        'Sorted by the card1 of in case of card1 and both, otherwise sorted by the card2.',
     ).choices(cardChoices),
   )
   .addOption(
     new Option(
       '--verify-meaning-separator-not-used <card>',
-      'Verify that meaning separtor is not used, either in card1, card2 or both',
+      'Verify that meaning separator is not used, either in card1, card2 or both.\n' +
+        'Sorted by the card1 of in case of card1 and both, otherwise sorted by the card2.',
     ).choices(cardChoices),
   )
   .addOption(
     new Option(
       '--verify-tags-used',
-      'Verify that tags are used in all notes. If used together with the `--tags` option, error is thrown.',
+      'Verify that tags are used in all notes. If used together with the `--tags` option, error is thrown.\n' +
+        'Sorted by the card1.',
     ),
   )
   .addOption(
     new Option(
       '--verify-tags-not-used',
-      'Verify that tags are not used in any note. If used together with the `--tags` option, error is thrown.',
+      'Verify that tags are not used in any note. If used together with the `--tags` option, error is thrown.\n' +
+        'Sorted by the card1.',
     ),
   )
+  .addOption(limitRowsOption)
   .action(commandVerify);
 
 const compareCmdSummary = 'Compares two Anki Decks.';

@@ -35,7 +35,7 @@ describe('verifyTagsUsed', () => {
         { id: '2', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2', tags: [] },
         { id: '5', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2' },
       ],
-      failureMsg: `Deck words failed --verify-tags-used verfication. 2 records have no tags:`,
+      failureMsg: `Deck words failed --verify-tags-used verfication. 2 records have no tags.`,
     };
 
     expect(result).toEqual(expected);
@@ -74,7 +74,7 @@ describe('verifyTagsNotUsed', () => {
         { id: '1', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2', tags: ['noun'] },
         { id: '3', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2', tags: ['verb'] },
       ],
-      failureMsg: `Deck words failed --verify-tags-not-used verfication. 2 records have tags:`,
+      failureMsg: `Deck words failed --verify-tags-not-used verfication. 2 records have tags.`,
     };
 
     expect(result).toEqual(expected);

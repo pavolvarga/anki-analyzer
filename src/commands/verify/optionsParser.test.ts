@@ -35,6 +35,7 @@ describe('parseOptions', () => {
           operation: 'verify-meaning-separator-used',
           operationArg: 'card1',
           meaningSeparator: ';;',
+          limitRowCount: 10,
         };
         expect(result).toEqual(expected);
       }
@@ -45,6 +46,7 @@ describe('parseOptions', () => {
         operation: 'verify-meaning-separator-used',
         operationArg: 'card1',
         meaningSeparator: ';;',
+        limitRowCount: 10,
       };
       expect(result).toEqual(expected);
     });
@@ -55,6 +57,7 @@ describe('parseOptions', () => {
       operation: 'verify-meaning-separator-used',
       operationArg: 'card1',
       meaningSeparator: '|',
+      limitRowCount: 10,
     };
     expect(result).toEqual(expected);
   });
@@ -65,6 +68,7 @@ describe('parseOptions', () => {
       tags: ['verb', 'noun'],
       operation: 'verify-meaning-separator-used',
       operationArg: 'card1',
+      limitRowCount: 10,
     };
     expect(result).toEqual(expected);
   });
@@ -74,6 +78,7 @@ describe('parseOptions', () => {
       meaningSeparator: ';;',
       operation: 'verify-meaning-separator-used',
       operationArg: 'card2',
+      limitRowCount: 10,
     };
     expect(result).toEqual(expected);
   });
@@ -83,6 +88,7 @@ describe('parseOptions', () => {
       meaningSeparator: ';;',
       operation: 'verify-meaning-separator-used',
       operationArg: 'both',
+      limitRowCount: 10,
     };
     expect(result).toEqual(expected);
   });

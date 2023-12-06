@@ -4,7 +4,7 @@ import { findDeck } from '../common';
 import { verifyTagsNotUsed, verifyTagsUsed } from './verfications/tags';
 import { verifyMeaningSeparatorNotUsed, verifyMeaningSeparatorUsed } from './verfications/meaningSeparator';
 import { VerificationResult } from './types';
-import { printRecord } from './print';
+import { printResult } from './print';
 
 export function commandVerify(file: string, deckName: string, cmdOptions: any): void {
   const records = parseFile(file);
@@ -31,13 +31,5 @@ export function commandVerify(file: string, deckName: string, cmdOptions: any): 
       throw new Error(`Unknown verify operation: ${options.operation}`);
   }
 
-  // success
-  if (result.outcome === 'success') {
-    console.info(result.successMsg);
-    return;
-  }
-
-  // failure
-  console.info(result.failureMsg);
-  result.failed?.forEach((record) => printRecord(record, true));
+  printResult(result, options);
 }

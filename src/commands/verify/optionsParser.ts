@@ -1,4 +1,4 @@
-import { DEFAULT_MEANING_SEPARATOR } from '../../const';
+import { DEFAULT_LIMIT_ROW_COUNT, DEFAULT_MEANING_SEPARATOR } from '../../const';
 import { VerifyCmdOptions } from './types';
 
 export function parse(options: any): VerifyCmdOptions {
@@ -18,6 +18,7 @@ export function parse(options: any): VerifyCmdOptions {
   if (options.tags) {
     result.tags = options.tags;
   }
+  result.limitRowCount = options.limitRows ? options.limitRows : DEFAULT_LIMIT_ROW_COUNT;
 
   const { verifyMeaningSeparatorUsed, verifyMeaningSeparatorNotUsed, verifyTagsUsed, verifyTagsNotUsed } = options;
 

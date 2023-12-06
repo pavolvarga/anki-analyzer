@@ -1,7 +1,7 @@
-import { sortBy } from 'lodash';
 import { AnkiRecord, CardType } from '../../types';
 import { createLimitMsg } from '../print';
 import { ListCmdOptions, ListResult } from './types';
+import { sortRecords } from '../common';
 
 function printTable(
   records: AnkiRecord[],
@@ -22,10 +22,7 @@ function printTable(
   const limitMsg = createLimitMsg(records.length, limit);
   console.log(`Showing ${limitMsg} records in deck ${deckName} using ${tagsMsg} ${cardMsg} with ${operationName}:`);
 
-  // select sorting
-  const sort = cardType === 'card1' || cardType === 'both' ? 'card1' : 'card2';
-
-  console.table(sortBy(records, sort).slice(0, limit));
+  console.table(sortRecords(records, cardType).slice(0, limit));
 }
 
 export function printListResult(result: ListResult, deckName: string, options: ListCmdOptions): void {

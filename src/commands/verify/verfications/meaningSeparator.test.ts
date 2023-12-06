@@ -9,7 +9,7 @@ describe('verifyMeaningSeparatorUsed', () => {
 
   describe('when tags are specified', () => {
     describe('and when card1 is specified', () => {
-      const options: VerifyCmdOptions = { operation, tags: ['noun', 'verb'], operationArg: 'card1', meaningSeparator: ';;' };
+      const options: VerifyCmdOptions = { operation, tags: ['noun', 'verb'], operationArg: 'card1', meaningSeparator: ';;', limitRowCount: 10 };
 
       it('should return success if all records with specified tags have meaning separator in card1', () => {
         const deck = new Map<string, AnkiRecord>();
@@ -42,14 +42,14 @@ describe('verifyMeaningSeparatorUsed', () => {
             { id: '2', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2', tags: ['noun'] },
             { id: '3', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2', tags: ['verb'] }
           ],
-          failureMsg: `Deck words failed --verify-meaning-separator-used verfication. 2 records with tags 'noun, verb' have no meaning separator in card1:`,
+          failureMsg: `Deck words failed --verify-meaning-separator-used verfication. 2 records with tags 'noun, verb' have no meaning separator in card1.`,
         };
 
         expect(result).toEqual(expected);
       });
     });
     describe('and when card2 is specified', () => {
-      const options: VerifyCmdOptions = { operation, tags: ['noun', 'verb'], operationArg: 'card2', meaningSeparator: ';;' };
+      const options: VerifyCmdOptions = { operation, tags: ['noun', 'verb'], operationArg: 'card2', meaningSeparator: ';;', limitRowCount: 10 };
 
       it('should return success if all records with specified tags have meaning separator in card2', () => {
         const deck = new Map<string, AnkiRecord>();
@@ -82,14 +82,14 @@ describe('verifyMeaningSeparatorUsed', () => {
             { id: '2', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2', tags: ['noun'] },
             { id: '3', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2', tags: ['verb'] }
           ],
-          failureMsg: `Deck words failed --verify-meaning-separator-used verfication. 2 records with tags 'noun, verb' have no meaning separator in card2:`,
+          failureMsg: `Deck words failed --verify-meaning-separator-used verfication. 2 records with tags 'noun, verb' have no meaning separator in card2.`,
         };
 
         expect(result).toEqual(expected);
       });
     });
     describe('and when both cards are specified', () => {
-      const options: VerifyCmdOptions = { operation, tags: ['verb'], operationArg: 'both', meaningSeparator: ';;' };
+      const options: VerifyCmdOptions = { operation, tags: ['verb'], operationArg: 'both', meaningSeparator: ';;', limitRowCount: 10 };
 
       it('should return success if all records with specified tags have meaning separator in both cards', () => {
         const deck = new Map<string, AnkiRecord>();
@@ -122,7 +122,7 @@ describe('verifyMeaningSeparatorUsed', () => {
             { id: '1', deckName: 'words', deckType: 'basic', card1: 'word ;, translation', card2: 'past tense ;; past participle', tags: ['verb'] },
             { id: '4', deckName: 'words', deckType: 'basic', card1: 'word ;; translation', card2: 'past tense ,; past participle', tags: ['verb'] }
           ],
-          failureMsg: `Deck words failed --verify-meaning-separator-used verfication. 2 records with tags 'verb' have no meaning separator in both cards:`,
+          failureMsg: `Deck words failed --verify-meaning-separator-used verfication. 2 records with tags 'verb' have no meaning separator in both cards.`,
         };
 
         expect(result).toEqual(expected);
@@ -131,7 +131,7 @@ describe('verifyMeaningSeparatorUsed', () => {
   });
   describe('when tags are not specified', () => {
     describe('and when card1 is specified', () => {
-      const options: VerifyCmdOptions = { operation, operationArg: 'card1', meaningSeparator: ';;' };
+      const options: VerifyCmdOptions = { operation, operationArg: 'card1', meaningSeparator: ';;', limitRowCount: 10 };
 
       it('should return success if all records have meaning separator in card1', () => {
         const deck = new Map<string, AnkiRecord>();
@@ -165,14 +165,14 @@ describe('verifyMeaningSeparatorUsed', () => {
             { id: '4', deckName: 'words', deckType: 'basic', card1: 'card1 ; context', card2: 'card2' },
             { id: '5', deckName: 'words', deckType: 'basic', card1: 'card1 ;, context', card2: 'card2' }
           ],
-          failureMsg: `Deck words failed --verify-meaning-separator-used verfication. 3 records have no meaning separator in card1:`,
+          failureMsg: `Deck words failed --verify-meaning-separator-used verfication. 3 records have no meaning separator in card1.`,
         };
 
         expect(result).toEqual(expected);
       });
     });
     describe('and when card2 is specified', () => {
-      const options: VerifyCmdOptions = { operation, operationArg: 'card2', meaningSeparator: ';;' };
+      const options: VerifyCmdOptions = { operation, operationArg: 'card2', meaningSeparator: ';;', limitRowCount: 10 };
 
       it('should return success if all records have meaning separator in card2', () => {
         const deck = new Map<string, AnkiRecord>();
@@ -205,14 +205,14 @@ describe('verifyMeaningSeparatorUsed', () => {
             { id: '2', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2' },
             { id: '3', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2' }
           ],
-          failureMsg: `Deck words failed --verify-meaning-separator-used verfication. 2 records have no meaning separator in card2:`,
+          failureMsg: `Deck words failed --verify-meaning-separator-used verfication. 2 records have no meaning separator in card2.`,
         };
 
         expect(result).toEqual(expected);
       });
     });
     describe('and when both cards are specified', () => {
-      const options: VerifyCmdOptions = { operation, operationArg: 'both', meaningSeparator: ';;' };
+      const options: VerifyCmdOptions = { operation, operationArg: 'both', meaningSeparator: ';;', limitRowCount: 10 };
 
       it('should return success if all records have meaning separator in both cards', () => {
         const deck = new Map<string, AnkiRecord>();
@@ -246,7 +246,7 @@ describe('verifyMeaningSeparatorUsed', () => {
             { id: '3', deckName: 'words', deckType: 'basic', card1: 'word ;; translation', card2: 'past tense ,; past participle' },
             { id: '5', deckName: 'words', deckType: 'basic', card1: 'word', card2: 'past tense ;; past participle' }
           ],
-          failureMsg: `Deck words failed --verify-meaning-separator-used verfication. 3 records have no meaning separator in both cards:`,
+          failureMsg: `Deck words failed --verify-meaning-separator-used verfication. 3 records have no meaning separator in both cards.`,
         };
 
         expect(result).toEqual(expected);
@@ -260,7 +260,7 @@ describe('verifyMeaningSeparatorNotUsed', () => {
 
   describe('when tags are specified', () => {
     describe('and when card1 is specified', () => {
-      const options: VerifyCmdOptions = { operation, tags: ['noun', 'verb'], operationArg: 'card1', meaningSeparator: ';;' };
+      const options: VerifyCmdOptions = { operation, tags: ['noun', 'verb'], operationArg: 'card1', meaningSeparator: ';;', limitRowCount: 10 };
 
       it('should return success if all records have no meaning separator in card1', () => {
         const deck = new Map<string, AnkiRecord>();
@@ -292,14 +292,14 @@ describe('verifyMeaningSeparatorNotUsed', () => {
           failed: [
             { id: '1', deckName: 'words', deckType: 'basic', card1: 'card1 ;; context', card2: 'card2', tags: ['noun'] },
           ],
-          failureMsg: `Deck words failed --verify-meaning-separator-not-used verfication. 1 records with tags 'noun, verb' have meaning separator in card1:`,
+          failureMsg: `Deck words failed --verify-meaning-separator-not-used verfication. 1 records with tags 'noun, verb' have meaning separator in card1.`,
         };
 
         expect(result).toEqual(expected);
       });
     });
     describe('and when card2 is specified', () => {
-      const options: VerifyCmdOptions = { operation, tags: ['noun', 'verb'], operationArg: 'card2', meaningSeparator: ';;' };
+      const options: VerifyCmdOptions = { operation, tags: ['noun', 'verb'], operationArg: 'card2', meaningSeparator: ';;', limitRowCount: 10 };
 
       it('should return success if all records have no meaning separator in card2', () => {
         const deck = new Map<string, AnkiRecord>();
@@ -333,14 +333,14 @@ describe('verifyMeaningSeparatorNotUsed', () => {
             { id: '4', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'past tense ;; past participle', tags: ['verb'] },
             { id: '5', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'past tense ;; past participle', tags: ['verb'] },
           ],
-          failureMsg: `Deck words failed --verify-meaning-separator-not-used verfication. 3 records with tags 'noun, verb' have meaning separator in card2:`,
+          failureMsg: `Deck words failed --verify-meaning-separator-not-used verfication. 3 records with tags 'noun, verb' have meaning separator in card2.`,
         };
 
         expect(result).toEqual(expected);
       });
     });
     describe('and when both cards are specified', () => {
-      const options: VerifyCmdOptions = { operation, tags: ['noun', 'verb'], operationArg: 'both', meaningSeparator: ';;' };
+      const options: VerifyCmdOptions = { operation, tags: ['noun', 'verb'], operationArg: 'both', meaningSeparator: ';;', limitRowCount: 10 };
 
       it('should return success if no records have meaning separator in both cards', () => {
         const deck = new Map<string, AnkiRecord>();
@@ -370,10 +370,10 @@ describe('verifyMeaningSeparatorNotUsed', () => {
         const expected = {
           outcome: 'failure',
           failed: [
-            { id: '1', deckName: 'words', deckType: 'basic', card1: 'card1 ;; context', card2: 'card2', tags: ['noun'] },
             { id: '2', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2 ;; context', tags: ['noun'] },
+            { id: '1', deckName: 'words', deckType: 'basic', card1: 'card1 ;; context', card2: 'card2', tags: ['noun'] },
           ],
-          failureMsg: `Deck words failed --verify-meaning-separator-not-used verfication. 2 records with tags 'noun, verb' have meaning separator in both cards:`,
+          failureMsg: `Deck words failed --verify-meaning-separator-not-used verfication. 2 records with tags 'noun, verb' have meaning separator in both cards.`,
         };
 
         expect(result).toEqual(expected);
@@ -382,7 +382,7 @@ describe('verifyMeaningSeparatorNotUsed', () => {
   });
   describe('when tags are not specified', () => {
     describe('and when card1 is specified', () => {
-      const options: VerifyCmdOptions = { operation, operationArg: 'card1', meaningSeparator: ';;' };
+      const options: VerifyCmdOptions = { operation, operationArg: 'card1', meaningSeparator: ';;', limitRowCount: 10 };
 
       it('should return success if all records have no meaning separator in card1', () => {
         const deck = new Map<string, AnkiRecord>();
@@ -415,14 +415,14 @@ describe('verifyMeaningSeparatorNotUsed', () => {
             { id: '1', deckName: 'words', deckType: 'basic', card1: 'card1 ;; context', card2: 'card2' },
             { id: '2', deckName: 'words', deckType: 'basic', card1: 'card1 ;; context', card2: 'card2' },
           ],
-          failureMsg: `Deck words failed --verify-meaning-separator-not-used verfication. 2 records have meaning separator in card1:`,
+          failureMsg: `Deck words failed --verify-meaning-separator-not-used verfication. 2 records have meaning separator in card1.`,
         };
 
         expect(result).toEqual(expected);
       });
     });
     describe('and when card2 is specified', () => {
-      const options: VerifyCmdOptions = { operation, operationArg: 'card2', meaningSeparator: ';;' };
+      const options: VerifyCmdOptions = { operation, operationArg: 'card2', meaningSeparator: ';;', limitRowCount: 10 };
 
       it('should return success if all records have no meaning separator in card2', () => {
         const deck = new Map<string, AnkiRecord>();
@@ -456,14 +456,14 @@ describe('verifyMeaningSeparatorNotUsed', () => {
             { id: '4', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'past tense ;; past participle' },
             { id: '5', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'past tense ;; past participle' },
           ],
-          failureMsg: `Deck words failed --verify-meaning-separator-not-used verfication. 3 records have meaning separator in card2:`,
+          failureMsg: `Deck words failed --verify-meaning-separator-not-used verfication. 3 records have meaning separator in card2.`,
         };
 
         expect(result).toEqual(expected);
       });
     });
     describe('and when both cards are specified', () => {
-      const options: VerifyCmdOptions = { operation, operationArg: 'both', meaningSeparator: ';;' };
+      const options: VerifyCmdOptions = { operation, operationArg: 'both', meaningSeparator: ';;', limitRowCount: 10 };
 
       it('should return success if all records have no meaning separator in both cards', () => {
         const deck = new Map<string, AnkiRecord>();
@@ -493,13 +493,13 @@ describe('verifyMeaningSeparatorNotUsed', () => {
         const expected = {
           outcome: 'failure',
           failed: [
-            { id: '1', deckName: 'words', deckType: 'basic', card1: 'card1 ;; context', card2: 'card2' },
             { id: '2', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2 ;; context' },
             { id: '3', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2 ;; context' },
             { id: '4', deckName: 'words', deckType: 'basic', card1: 'card1', card2: 'card2 ;; context' },
+            { id: '1', deckName: 'words', deckType: 'basic', card1: 'card1 ;; context', card2: 'card2' },
             { id: '5', deckName: 'words', deckType: 'basic', card1: 'card1 ;; context', card2: 'card2' },
           ],
-          failureMsg: `Deck words failed --verify-meaning-separator-not-used verfication. 5 records have meaning separator in both cards:`,
+          failureMsg: `Deck words failed --verify-meaning-separator-not-used verfication. 5 records have meaning separator in both cards.`,
         };
 
         expect(result).toEqual(expected);
