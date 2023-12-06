@@ -1,4 +1,4 @@
-import { Command, Option } from 'commander';
+import { Argument, Command, Option } from 'commander';
 import figlet from 'figlet';
 
 import { DEFAULT_EXPLANATION_BRACKET, DEFAULT_MEANING_SEPARATOR, DEFAULT_SYNONYM_SEPARATOR } from './const';
@@ -38,12 +38,18 @@ const explanationBracketsOption = new Option(
   `Specify type of brackets for additional explanation. If none is used, it defaults to ${DEFAULT_EXPLANATION_BRACKET} brackets.`,
 ).choices(explanationBracketsChoices);
 
+const argumentFile = new Argument('<file>', 'File containing exported Anki Decks');
+const argumentDeck = new Argument(
+  '<deck-name>',
+  'Name of one Anki Deck. Either use full name, or append `*` to start of a name to indicate search by startsWith, when multiple decks match the beginning of the name, error is thrown.',
+);
+
 program
   .command('info')
   .description(
     'Display basic information about exported Anki Decks.\nUse optional options to show adiditonal information.',
   )
-  .argument('<file>', 'File containing exported Anki Decks')
+  .addArgument(argumentFile)
   .addOption(meaningSeparatorOption)
   .addOption(synonymSeparatorOption)
   .addOption(explanationBracketsOption)
@@ -52,13 +58,10 @@ program
 program
   .command('deck')
   .description(
-    'Display information about one specific Anki Decks.\nUse optional options to show adiditonal information.',
+    'Display information about one specific Anki Deck.\nUse optional options to show adiditonal information.',
   )
-  .argument('<file>', 'File containing exported Anki Decks.')
-  .argument(
-    '<deck-name>',
-    'Name of one Anki Deck. Either use full name, or append `*` to start of a name to indicate search by startsWith, when multiple decks match the beginning of the name, error is thrown.',
-  )
+  .addArgument(argumentFile)
+  .addArgument(argumentDeck)
   .addOption(meaningSeparatorOption)
   .addOption(synonymSeparatorOption)
   .addOption(explanationBracketsOption)
@@ -81,11 +84,8 @@ program
       'It is possible to use only single --verify-* option at same time.\n' +
       'One --verify-* option must be used, otherwise an error is thrown.',
   )
-  .argument('<file>', 'File containing exported Anki Decks.')
-  .argument(
-    '<deck-name>',
-    'Name of one Anki Deck. Either use full name, or append `*` to start of a name to indicate search by startsWith, when multiple decks match the beginning of the name, error is thrown.',
-  )
+  .addArgument(argumentFile)
+  .addArgument(argumentDeck)
   .addOption(meaningSeparatorOption)
   .addOption(
     new Option(
@@ -133,7 +133,7 @@ program
       'If these assertions are not true, then the command will fail on the first record that fails one of these assertions.\n' +
       'By default it prints short status of the comparison, to see more details use specific options.',
   )
-  .argument('<file>', 'File containing exported Anki Decks.')
+  .addArgument(argumentFile)
   .argument(
     '<general-deck-name>',
     'Name of the general Anki Deck\n.' +
@@ -182,11 +182,8 @@ program
       'Use tags option to narrow search to specified tags.\n' +
       'By default it prints short status of the duplicates, to see more details use specific options.',
   )
-  .argument('<file>', 'File containing exported Anki Decks.')
-  .argument(
-    '<deck-name>',
-    'Name of one Anki Deck. Either use full name, or append `*` to start of a name to indicate search by startsWith, when multiple decks match the beginning of the name, error is thrown.',
-  )
+  .addArgument(argumentFile)
+  .addArgument(argumentDeck)
   .addOption(synonymSeparatorOption)
   .addOption(
     new Option(
@@ -224,7 +221,7 @@ program
     '<deck-name>',
     'Name of one Anki Deck. Either use full name, or append `*` to start of a name to indicate search by startsWith, when multiple decks match the beginning of the name, error is thrown.',
   )
-  .argument('<file>', 'File containing exported Anki Decks.')
+  .addArgument(argumentFile)
   .addOption(meaningSeparatorOption)
   .addOption(synonymSeparatorOption)
   .addOption(explanationBracketsOption)
