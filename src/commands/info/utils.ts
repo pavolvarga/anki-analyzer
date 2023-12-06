@@ -1,12 +1,31 @@
 import { InfoTableRow } from '../../types';
-import { convertOneAnalysis } from '../common';
-import { DeckAnalysis, CmdOptions } from './types';
+import { DeckAnalysis, InfoCmdOptions } from './types';
 
-export function convertToTableFormat(analysis: DeckAnalysis[], options: CmdOptions | undefined): InfoTableRow[] {
+export function convertOneAnalysis(analysis: DeckAnalysis, options: InfoCmdOptions | undefined): InfoTableRow {
+  const tableRow: InfoTableRow = {
+    Name: analysis.name,
+    Notes: analysis.noteCount,
+    Cards: analysis.cardCount,
+    'Same Note Type': analysis.sameNoteType ? 'yes' : 'no',
+    'Notes with Tags': analysis.tagsCount,
+  };
+  if (options?.meaningSeparator) {
+    tableRow['Cards with Meaning Separator'] = analysis.cardsWithMeaningSeparator;
+  }
+  if (options?.synonymSeparator) {
+    tableRow['Cards with Synonym separator'] = analysis.cardsWithSynonymSeparator;
+  }
+  if (options?.explanationBrackets) {
+    tableRow['Cards with Explanation'] = analysis.cardsWithExplanation;
+  }
+  return tableRow;
+}
+
+export function convertToTableFormat(analysis: DeckAnalysis[], options: InfoCmdOptions | undefined): InfoTableRow[] {
   return analysis.map((one: DeckAnalysis) => convertOneAnalysis(one, options));
 }
 
-export function createSummary(analysis: DeckAnalysis[], options: CmdOptions | undefined): InfoTableRow {
+export function createSummary(analysis: DeckAnalysis[], options: InfoCmdOptions | undefined): InfoTableRow {
   const tableRow: InfoTableRow = analysis.reduce(
     (acc, current) => {
       acc.Notes += current.noteCount;

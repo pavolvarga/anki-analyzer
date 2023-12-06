@@ -1,16 +1,16 @@
 import { DEFAULT_MEANING_SEPARATOR, DEFAULT_SYNONYM_SEPARATOR } from '../const';
-import { CmdOptions } from './types';
+import { InfoCmdOptions } from './types';
 
 /**
  * If no options were used return undefined.
  * If an option or options were used then return an object either containing default values for options without argument
  * or passed arguments as values.
  */
-export function parse(options: any): CmdOptions | undefined {
+export function parse(options: any): InfoCmdOptions | undefined {
   if (options === undefined) {
     return undefined;
   }
-  const result: CmdOptions = {};
+  const result: InfoCmdOptions = {};
   if (options.meaningSeparator === true) {
     result.meaningSeparator = DEFAULT_MEANING_SEPARATOR;
   }

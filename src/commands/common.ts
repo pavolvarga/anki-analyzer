@@ -1,7 +1,7 @@
-import { AnkiRecord, AnkiRecordContainer, InfoTableRow } from '../types';
-import { DeckAnalysis, CmdOptions } from './info/types';
-import { ExplanationBracketType } from '../types';
 import { intersection } from 'lodash';
+import { AnkiRecord, AnkiRecordContainer } from '../types';
+import { ExplanationBracketType } from '../types';
+import { DeckAnalysis, InfoCmdOptions } from './info/types';
 
 function sumCardsWithSeparator(deck: Map<string, AnkiRecord>, separator: string) {
   return Array.from(deck.values()).reduce((acc, record) => {
@@ -61,30 +61,10 @@ function useAllCardsSameNoteType(deck: Map<string, AnkiRecord>): boolean {
   );
 }
 
-export function convertOneAnalysis(analysis: DeckAnalysis, options: CmdOptions | undefined): InfoTableRow {
-  const tableRow: InfoTableRow = {
-    Name: analysis.name,
-    Notes: analysis.noteCount,
-    Cards: analysis.cardCount,
-    'Same Note Type': analysis.sameNoteType ? 'yes' : 'no',
-    'Notes with Tags': analysis.tagsCount,
-  };
-  if (options?.meaningSeparator) {
-    tableRow['Cards with Meaning Separator'] = analysis.cardsWithMeaningSeparator;
-  }
-  if (options?.synonymSeparator) {
-    tableRow['Cards with Synonym separator'] = analysis.cardsWithSynonymSeparator;
-  }
-  if (options?.explanationBrackets) {
-    tableRow['Cards with Explanation'] = analysis.cardsWithExplanation;
-  }
-  return tableRow;
-}
-
 export function analyzeDeck(
   deck: Map<string, AnkiRecord>,
   name: string,
-  options: CmdOptions | undefined,
+  options: InfoCmdOptions | undefined,
 ): DeckAnalysis {
   // basic analyze
   const analyze: DeckAnalysis = {

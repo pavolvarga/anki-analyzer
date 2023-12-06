@@ -1,6 +1,7 @@
 import { parse as parseFile } from '../../fileParser/fileParser';
 import { parse as parseOptions } from './optionsParser';
-import { analyzeDeck, convertOneAnalysis, findDeck } from '../common';
+import { convertOneAnalysis } from '../info/utils';
+import { analyzeDeck, findDeck } from '../common';
 import { printResult } from './print';
 
 export function commandDeck(file: string, inputDeckName: string, cmdOptions: any): void {

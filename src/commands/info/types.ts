@@ -34,7 +34,7 @@ export type DeckAnalysis = {
   cardsWithExplanation?: number;
 };
 
-export type CmdOptions = {
+export type InfoCmdOptions = {
   meaningSeparator?: string;
   synonymSeparator?: string;
   explanationBrackets?: ExplanationBracketType;
