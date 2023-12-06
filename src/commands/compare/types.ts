@@ -1,4 +1,5 @@
 import { AnkiRecord } from '../../types';
+import { OptionLimitRowCount } from '../types';
 
 /**
  * A named tuple for an anki record and card.
@@ -9,11 +10,10 @@ export type AnkiRecordByCard = {
   record: AnkiRecord;
 };
 
-export type CompareCmdOptions = {
+export type CompareCmdOptions = OptionLimitRowCount & {
   meaningSeparator: string;
   prefixSeparator?: string;
   comparisionTable?: 'all' | 'different' | 'only-in-general' | 'only-in-specific';
-  maxRowCount: number;
 };
 
 export type CardWrapper = {

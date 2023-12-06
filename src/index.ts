@@ -3,7 +3,7 @@ import figlet from 'figlet';
 
 import {
   DEFAULT_EXPLANATION_BRACKET,
-  DEFAULT_MAX_ROW_COUNT,
+  DEFAULT_LIMIT_ROW_COUNT,
   DEFAULT_MEANING_SEPARATOR,
   DEFAULT_SYNONYM_SEPARATOR,
 } from './const';
@@ -34,9 +34,10 @@ const explanationBracketsOption = new Option(
   '-e, --explanation-brackets <bracket-type>',
   `Specify type of brackets for additional explanation. If none is used, it defaults to ${DEFAULT_EXPLANATION_BRACKET} brackets.`,
 ).choices(explanationBracketsChoices);
-const maxRowCountOption = new Option(
-  '--max-row-count <count>',
-  `Specify maximum number of rows to show in output table(s). If not specified, then ${DEFAULT_MAX_ROW_COUNT} is used.`,
+const limitRowsOption = new Option(
+  '-l, --limit-rows <count>',
+  `If additional data is outputed in table format, then by default ${DEFAULT_LIMIT_ROW_COUNT} rows are shown. Use this option to change the number of rows shown.\n` +
+    'If multiple tables are shown, then this option applies to all of them.',
 );
 const tagsOption = new Option(
   '-t, --tags <tags...>',
@@ -193,12 +194,13 @@ program
     new Option(
       '--show-comparision-table <table>',
       'If present then either one of the comparision table is shown or all of them.\n' +
-        `For breviety, for each table (or all of them) only first ${DEFAULT_MAX_ROW_COUNT} rows are shown.\n` +
-        'To change the number of rows shown use the --max-row-count option.\n' +
+        'Each table is sorted by the card1 of the general deck.\n' +
+        `For breviety, for each table (or all of them) only first ${DEFAULT_LIMIT_ROW_COUNT} rows are shown.\n` +
+        'To change the number of rows shown use the --lmit option.\n' +
         'If this option is not used, then only short status is shown.',
     ).choices(['all', 'different', 'only-in-general', 'only-in-specific']),
   )
-  .addOption(maxRowCountOption)
+  .addOption(limitRowsOption)
   .action(commandCompare);
 
 const duplicatesCmdSummary = 'Find duplicate notes in specified Anki Deck.';
@@ -224,11 +226,12 @@ program
     new Option(
       '--show-duplicates-table <card>',
       'If present then table with all duplicates is shown.\n' +
-        `For breviety, only first ${DEFAULT_MAX_ROW_COUNT} rows are shown.\n` +
-        'To change the number of rows shown use the --max-row-count option.',
+        'Table or tables are sorted by the duplicated word.\n' +
+        `For breviety, only first ${DEFAULT_LIMIT_ROW_COUNT} rows are shown.\n` +
+        'To change the number of rows shown use the --limit-rows option.',
     ).choices(cardChoices),
   )
-  .addOption(maxRowCountOption)
+  .addOption(limitRowsOption)
   .action(commandDuplicates);
 
 const listCmdSummary = 'List those Records in specified Anki deck that contain specified separators.';
@@ -239,7 +242,7 @@ program
     listCmdSummary +
       '\n\n' +
       'At least one --list* option must be used, but more can be used at same time.\n' +
-      `By default it print ${DEFAULT_MAX_ROW_COUNT} records, to change this use --max-row-count option.\n` +
+      `By default it print ${DEFAULT_LIMIT_ROW_COUNT} records, to change this use --limit-rows option.\n` +
       'Separators use default values if not provided, use options to specify them.',
   )
   .addArgument(argumentFile)
@@ -251,7 +254,8 @@ program
   .addOption(
     new Option(
       '-c, --card <card>',
-      'Specify card for testing presence of separators. If not specified, then both cards are tested by default.',
+      'Specify card for testing presence of separators. If not specified, then both cards are tested by default.\n' +
+        'Output tables are sorted by this option. In case of both cards, then card1 is used for sorting.',
     ).choices(cardChoices),
   )
   .addOption(
@@ -272,7 +276,7 @@ program
       'If used, then all records that contain explanation brackets in card1, card2 or both are listed',
     ),
   )
-  .addOption(maxRowCountOption)
+  .addOption(limitRowsOption)
   .action(commandList);
 
 console.log(figlet.textSync('Anki Analyzer'));

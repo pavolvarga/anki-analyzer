@@ -1,4 +1,6 @@
+import { sortBy } from 'lodash';
 import { AnkiRecord } from '../../types';
+import { createLimitMsg } from '../print';
 import { DuplicateCmdOptions } from './types';
 
 function createStatusMessage(name: string, tags: string[], size: number, cardNum: 1 | 2): string {
@@ -25,25 +27,24 @@ function printDuplicatesTable(duplicates: Map<string, AnkiRecord[]>, limit: numb
     return;
   }
 
-  const tableRows = Array.from(duplicates.entries())
-    .slice(0, limit)
-    .map(([word, records]) => {
-      const row = { Word: word };
-      records.forEach((record, idx) => {
-        // @ts-ignore
-        row[`Dupl.${idx + 1} ID`] = record.id;
-        // @ts-ignore
-        row[`Dupl.${idx + 1} Card 1`] = record.card1;
-        // @ts-ignore
-        row[`Dupl.${idx + 1} Card 2`] = record.card2;
-      });
-      return row;
+  const tableRows = Array.from(duplicates.entries()).map(([word, records]) => {
+    const row = { Word: word };
+    records.forEach((record, idx) => {
+      // @ts-ignore
+      row[`Dupl.${idx + 1} ID`] = record.id;
+      // @ts-ignore
+      row[`Dupl.${idx + 1} Card 1`] = record.card1;
+      // @ts-ignore
+      row[`Dupl.${idx + 1} Card 2`] = record.card2;
     });
+    return row;
+  });
+  const tableRowsSorted = sortBy(tableRows, 'Word').slice(0, limit);
 
   console.log(
-    `\nShowing first ${limit} of ${duplicates.size} duplicated words in deck ${deckName} for card${cardNum}:`,
+    `\nShowing ${createLimitMsg(limit, duplicates.size)} duplicated words in deck ${deckName} for card${cardNum}:`,
   );
-  console.table(tableRows);
+  console.table(tableRowsSorted);
 }
 
 export function printDetails(
@@ -51,20 +52,20 @@ export function printDetails(
   fullDeckName: string,
   options: DuplicateCmdOptions,
 ) {
-  const { maxRowCount, cardType } = options;
+  const { limitRowCount, cardType } = options;
 
   switch (cardType) {
     case 'card1': {
-      printDuplicatesTable(duplicates[0], maxRowCount, 1, fullDeckName);
+      printDuplicatesTable(duplicates[0], limitRowCount, 1, fullDeckName);
       break;
     }
     case 'card2': {
-      printDuplicatesTable(duplicates[1], maxRowCount, 2, fullDeckName);
+      printDuplicatesTable(duplicates[1], limitRowCount, 2, fullDeckName);
       break;
     }
     case 'both': {
-      printDuplicatesTable(duplicates[0], maxRowCount, 1, fullDeckName);
-      printDuplicatesTable(duplicates[1], maxRowCount, 2, fullDeckName);
+      printDuplicatesTable(duplicates[0], limitRowCount, 1, fullDeckName);
+      printDuplicatesTable(duplicates[1], limitRowCount, 2, fullDeckName);
       break;
     }
     default:

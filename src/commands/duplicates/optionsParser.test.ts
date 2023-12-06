@@ -1,4 +1,4 @@
-import { DEFAULT_MAX_ROW_COUNT, DEFAULT_SYNONYM_SEPARATOR } from '../../const';
+import { DEFAULT_LIMIT_ROW_COUNT, DEFAULT_SYNONYM_SEPARATOR } from '../../const';
 import { parse } from './optionsParser';
 
 describe('parse', () => {
@@ -8,7 +8,7 @@ describe('parse', () => {
       synonymSeparator: DEFAULT_SYNONYM_SEPARATOR,
       tags: undefined,
       cardType: undefined,
-      maxRowCount: DEFAULT_MAX_ROW_COUNT,
+      limitRowCount: DEFAULT_LIMIT_ROW_COUNT,
     };
 
     expect(parse(options)).toEqual(expected);
@@ -19,18 +19,18 @@ describe('parse', () => {
       synonymSeparator: '##',
       tags: undefined,
       cardType: undefined,
-      maxRowCount: DEFAULT_MAX_ROW_COUNT,
+      limitRowCount: DEFAULT_LIMIT_ROW_COUNT,
     };
 
     expect(parse(options)).toEqual(expected);
   });
-  it('should use passed max row count if is was provided', () => {
-    const options = { maxRowCount: 5 };
+  it('should use passed limit row count if is was provided', () => {
+    const options = { limitRows: 5 };
     const expected = {
       synonymSeparator: DEFAULT_SYNONYM_SEPARATOR,
       tags: undefined,
       cardType: undefined,
-      maxRowCount: 5,
+      limitRowCount: 5,
     };
 
     expect(parse(options)).toEqual(expected);
@@ -41,7 +41,7 @@ describe('parse', () => {
       synonymSeparator: DEFAULT_SYNONYM_SEPARATOR,
       tags: ['tag1', 'tag2'],
       cardType: undefined,
-      maxRowCount: DEFAULT_MAX_ROW_COUNT,
+      limitRowCount: DEFAULT_LIMIT_ROW_COUNT,
     };
 
     expect(parse(options)).toEqual(expected);
@@ -52,7 +52,7 @@ describe('parse', () => {
       synonymSeparator: DEFAULT_SYNONYM_SEPARATOR,
       tags: undefined,
       cardType: 'card2',
-      maxRowCount: DEFAULT_MAX_ROW_COUNT,
+      limitRowCount: DEFAULT_LIMIT_ROW_COUNT,
     };
 
     expect(parse(options)).toEqual(expected);

@@ -1,3 +1,5 @@
+import { sortBy } from 'lodash';
+import { createLimitMsg } from '../print';
 import { CardWrapper, CardWrapperPair, CompareCmdOptions, ComparisonResult } from './types';
 
 function areIdentical(result: ComparisonResult) {
@@ -34,22 +36,24 @@ function printDifferentTable(differentCards: CardWrapperPair[], limit: number, d
     return;
   }
 
-  console.log(`\nDifferent cards (showing first ${limit} of ${differentCards.length} records):`);
+  console.log(`\nDifferent cards (${createLimitMsg(limit, differentCards.length)} records):`);
 
-  const tableRows = differentCards.slice(0, limit).map((cardPair) => {
-    const { deckA, deckB } = cardPair;
-    return {
-      'General Deck': deckAName,
-      'Note Id (general)': deckA.record.id,
-      'Card 1 (general)': deckA.record.card1,
-      'Card 2 (general)': deckA.record.card2,
+  const tableRows = sortBy(differentCards, ['deckA.record.card1'])
+    .slice(0, limit)
+    .map((cardPair) => {
+      const { deckA, deckB } = cardPair;
+      return {
+        'General Deck': deckAName,
+        'Note Id (general)': deckA.record.id,
+        'Card 1 (general)': deckA.record.card1,
+        'Card 2 (general)': deckA.record.card2,
 
-      'Specific Deck': deckBName,
-      'Note Id (specific)': deckB.record.id,
-      'Card 1 (specific)': deckB.record.card1,
-      'Card 2 (specific)': deckB.record.card2,
-    };
-  });
+        'Specific Deck': deckBName,
+        'Note Id (specific)': deckB.record.id,
+        'Card 1 (specific)': deckB.record.card1,
+        'Card 2 (specific)': deckB.record.card2,
+      };
+    });
 
   console.table(tableRows);
 }
@@ -62,13 +66,15 @@ function printTable(header: string, cards: CardWrapper[], limit: number, deckNam
 
   console.log(header);
 
-  const tableRows = cards.slice(0, limit).map((card) => {
-    return {
-      Deck: deckName,
-      'Card 1': card.record.card1,
-      'Card 2': card.record.card2,
-    };
-  });
+  const tableRows = sortBy(cards, ['card.record.card1'])
+    .slice(0, limit)
+    .map((card) => {
+      return {
+        Deck: deckName,
+        'Card 1': card.record.card1,
+        'Card 2': card.record.card2,
+      };
+    });
 
   console.table(tableRows);
 }
@@ -87,38 +93,38 @@ export function printDetails(
 
   switch (options.comparisionTable) {
     case 'different':
-      printDifferentTable(differentCards, options.maxRowCount, generalDeckFullName, specificDeckFullName);
+      printDifferentTable(differentCards, options.limitRowCount, generalDeckFullName, specificDeckFullName);
       break;
     case 'only-in-general': {
       printTable(
-        `\nCards only in ${generalDeckFullName} (showing first ${options.maxRowCount} of ${cardsOnlyInDeckA.length} records):`,
+        `\nCards only in ${generalDeckFullName} (showing first ${options.limitRowCount} of ${cardsOnlyInDeckA.length} records):`,
         cardsOnlyInDeckA,
-        options.maxRowCount,
+        options.limitRowCount,
         generalDeckFullName,
       );
       break;
     }
     case 'only-in-specific': {
       printTable(
-        `\nCards only in ${specificDeckFullName} (showing first ${options.maxRowCount} of ${cardsOnlyInDeckB.length} records):`,
+        `\nCards only in ${specificDeckFullName} (showing first ${options.limitRowCount} of ${cardsOnlyInDeckB.length} records):`,
         cardsOnlyInDeckB,
-        options.maxRowCount,
+        options.limitRowCount,
         specificDeckFullName,
       );
       break;
     }
     case 'all': {
-      printDifferentTable(differentCards, options.maxRowCount, generalDeckFullName, specificDeckFullName);
+      printDifferentTable(differentCards, options.limitRowCount, generalDeckFullName, specificDeckFullName);
       printTable(
-        `\nCards only in ${generalDeckFullName} (showing first ${options.maxRowCount} of ${cardsOnlyInDeckA.length} records):`,
+        `\nCards only in ${generalDeckFullName} (showing first ${options.limitRowCount} of ${cardsOnlyInDeckA.length} records):`,
         cardsOnlyInDeckA,
-        options.maxRowCount,
+        options.limitRowCount,
         generalDeckFullName,
       );
       printTable(
-        `\nCards only in ${specificDeckFullName} (showing first ${options.maxRowCount} of ${cardsOnlyInDeckB.length} records):`,
+        `\nCards only in ${specificDeckFullName} (showing first ${options.limitRowCount} of ${cardsOnlyInDeckB.length} records):`,
         cardsOnlyInDeckB,
-        options.maxRowCount,
+        options.limitRowCount,
         specificDeckFullName,
       );
       break;

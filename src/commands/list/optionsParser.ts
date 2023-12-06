@@ -1,7 +1,7 @@
 import { ListCmdOptions, ListOperation } from './types';
 import {
   DEFAULT_EXPLANATION_BRACKET,
-  DEFAULT_MAX_ROW_COUNT,
+  DEFAULT_LIMIT_ROW_COUNT,
   DEFAULT_MEANING_SEPARATOR,
   DEFAULT_SYNONYM_SEPARATOR,
 } from '../../const';
@@ -37,8 +37,8 @@ export function parse(options: any): ListCmdOptions {
     synonymSeparator: options.synonymSeparator ? options.synonymSeparator : DEFAULT_SYNONYM_SEPARATOR,
     explanationBrackets: options.explanationBracket ? options.explanationBracket : DEFAULT_EXPLANATION_BRACKET,
     tags: options.tags,
-    cardType: options.cardType ? options.cardType : 'both',
-    maxRowCount: options.maxRowCount ? options.maxRowCount : DEFAULT_MAX_ROW_COUNT,
+    cardType: options.card ? options.card : 'both',
+    limitRowCount: options.limitRows ? options.limitRows : DEFAULT_LIMIT_ROW_COUNT,
     operations,
   };
 }
