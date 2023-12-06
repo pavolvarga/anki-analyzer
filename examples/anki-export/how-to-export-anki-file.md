@@ -13,7 +13,7 @@ The steps should be similar on other platforms.
    * `Include tags`,
    * `Include deck name`,
    * `Include notetype name`
-   * `Include unique identifier`
+   * `Include unique identifier`<br/>
   See the screenshot below for reference.<br/>
   ![Anki export screenshot](./anki-export.png)<br/>
-6. Click on `Export` button and save to location from which it can be accessed by the app
+6. Click on `Export` button and save exported file to location from which it can be accessed by the app
