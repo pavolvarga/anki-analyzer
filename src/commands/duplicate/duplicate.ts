@@ -2,7 +2,7 @@ import { parse as parseFile } from '../../fileParser/fileParser';
 import { parse as parseOptions } from './optionsParser';
 import { filterRecords, findDeck } from '../common';
 import { printDetails, printStatus } from './print';
-import { findDuplicatesInCardWords } from './util';
+import { findDuplicatesInCardWords } from './utils';
 
 export function commandDuplicate(file: string, deckName: string, cmdOptions: any): void {
   const records = parseFile(file);
