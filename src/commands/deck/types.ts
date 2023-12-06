@@ -1,7 +1,7 @@
 import { AnkiRecord } from '../../types';
 import { CmdOptions } from '../info/types';
 
-export type InfoCmdOptions = CmdOptions & {
+export type DeckCmdOptions = CmdOptions & {
   tags: boolean;
   tagCombinations: boolean;
 };
