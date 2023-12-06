@@ -10,6 +10,8 @@ The goal of this command line app is to read exported decks (in the form of a CS
 To go beyond default counting of notes and cards a simple format of metadata is assumed to be used.
 
 ## Usage
+First, export your decks from Anki into a CSV file.<br/>
+You can used tutorial [How to export Anki Collection](./examples/anki-export/how-to-export-anki-file.md) for reference.<br/>
 App is written in [node.js](https://nodejs.org/en/), therefore you must install it.
 You also must have **node** and **npm** executables on the **PATH**.
 
