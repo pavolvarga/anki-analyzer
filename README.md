@@ -41,7 +41,7 @@ npm run build
 
 ### Running
 
-To print all command line options run:
+To see the help, type:
 
 ```sh
 node dist/index.js
@@ -50,7 +50,7 @@ node dist/index.js
 or
 
 ```sh
-node dist/index.js --help
+node dist/index.js help
 ```
 
 # Licence

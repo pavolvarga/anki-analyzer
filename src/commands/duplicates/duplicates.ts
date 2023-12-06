@@ -4,7 +4,7 @@ import { filterRecords, findDeck } from '../common';
 import { printDetails, printStatus } from './print';
 import { findDuplicatesInCardWords } from './utils';
 
-export function commandDuplicate(file: string, deckName: string, cmdOptions: any): void {
+export function commandDuplicates(file: string, deckName: string, cmdOptions: any): void {
   const records = parseFile(file);
   const options = parseOptions(cmdOptions);
 

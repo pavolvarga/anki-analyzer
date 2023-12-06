@@ -12,7 +12,7 @@ import { commandInfo } from './commands/info/info';
 import { commandDeck } from './commands/deck/deck';
 import { commandVerify } from './commands/verify/verify';
 import { commandCompare } from './commands/compare/compare';
-import { commandDuplicate } from './commands/duplicate/duplicate';
+import { commandDuplicates } from './commands/duplicates/duplicates';
 import { commandList } from './commands/list/list';
 
 // common choices
@@ -201,12 +201,12 @@ program
   .addOption(maxRowCountOption)
   .action(commandCompare);
 
-const duplicateCmdSummary = 'Find duplicate notes in specified Anki Deck.';
+const duplicatesCmdSummary = 'Find duplicate notes in specified Anki Deck.';
 program
-  .command('duplicate')
-  .summary(duplicateCmdSummary)
+  .command('duplicates')
+  .summary(duplicatesCmdSummary)
   .description(
-    duplicateCmdSummary +
+    duplicatesCmdSummary +
       '\n\n' +
       'Cards are split using the synonym separator.\n' +
       'So if two notes have the same word in card1 or in card2, they will be considered duplicates.\n' +
@@ -229,7 +229,7 @@ program
     ).choices(cardChoices),
   )
   .addOption(maxRowCountOption)
-  .action(commandDuplicate);
+  .action(commandDuplicates);
 
 const listCmdSummary = 'List those Records in specified Anki deck that contain specified separators.';
 program
