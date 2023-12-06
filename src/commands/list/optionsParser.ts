@@ -4,7 +4,7 @@ import {
   DEFAULT_MAX_ROW_COUNT,
   DEFAULT_MEANING_SEPARATOR,
   DEFAULT_SYNONYM_SEPARATOR,
-} from '../const';
+} from '../../const';
 
 export function parse(options: any): ListCmdOptions {
   if (options === undefined) {

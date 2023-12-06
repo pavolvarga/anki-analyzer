@@ -1,4 +1,4 @@
-import { DEFAULT_MEANING_SEPARATOR, DEFAULT_SYNONYM_SEPARATOR } from '../const';
+import { DEFAULT_MEANING_SEPARATOR, DEFAULT_SYNONYM_SEPARATOR } from '../../const';
 import { InfoCmdOptions } from './types';
 
 /**

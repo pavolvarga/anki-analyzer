@@ -1,4 +1,4 @@
-import { DEFAULT_MAX_ROW_COUNT, DEFAULT_SYNONYM_SEPARATOR } from '../const';
+import { DEFAULT_MAX_ROW_COUNT, DEFAULT_SYNONYM_SEPARATOR } from '../../const';
 import { DuplicateCmdOptions } from './types';
 
 export function parse(options: any): DuplicateCmdOptions {

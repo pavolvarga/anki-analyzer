@@ -1,6 +1,8 @@
 import { Command, Option } from 'commander';
 import figlet from 'figlet';
 
+import { DEFAULT_EXPLANATION_BRACKET, DEFAULT_MEANING_SEPARATOR, DEFAULT_SYNONYM_SEPARATOR } from './const';
+
 import { commandInfo } from './commands/info/info';
 import { commandDeck } from './commands/deck/deck';
 import { commandCompare } from './commands/compare/compare';
@@ -12,10 +14,10 @@ const program = new Command();
 
 program
   .name('anki-analyzer')
-  .version('0.3.0', '-v, --version', 'Display current version')
+  .version('0.6.0', '-v, --version', 'Display current version')
   .description(
     'App for analyzing exported Anki Decks.\n' +
-      'It is assumed that the exported Anki Decks do not contain HTML or multimedia links.\n' +
+      'It is assumed that the exported Anki Decks are in CSV format and do not contain HTML or multimedia links.\n' +
       'If that is not the case, error will be thrown.',
   )
   .option('-h, --help', 'Display help');
@@ -25,15 +27,15 @@ const cardChoices = ['card1', 'card2', 'both'];
 
 const meaningSeparatorOption = new Option(
   '-m, --meaning-separator [separator]',
-  'Specify separator for `pieces of information`, like: `essen ;; to eat`, if none is used it defaults to `;;`',
+  `Specify separator for 'pieces of information', like: 'essen ${DEFAULT_MEANING_SEPARATOR} to eat', if none is used it defaults to '${DEFAULT_MEANING_SEPARATOR}'`,
 );
 const synonymSeparatorOption = new Option(
   '-s, --synonym-separator [separator]',
-  'Specify separator for synonyms, when one word has multiple translations, like: `to repel, to fight off` for `abwehren`, if none is used it defaults to `,`',
+  `Specify separator for synonyms, when one word has multiple translations, like: 'to repel${DEFAULT_SYNONYM_SEPARATOR} to fight off' for 'abwehren', if none is used it defaults to '${DEFAULT_SYNONYM_SEPARATOR}'`,
 );
 const explanationBracketsOption = new Option(
   '-e, --explanation-brackets <bracket-type>',
-  'Specify type of brackets for additional explanation',
+  `Specify type of brackets for additional explanation. If none is used, it defaults to ${DEFAULT_EXPLANATION_BRACKET} brackets.`,
 ).choices(explanationBracketsChoices);
 
 program

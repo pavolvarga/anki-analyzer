@@ -1,4 +1,4 @@
-import { DEFAULT_MAX_ROW_COUNT, DEFAULT_MEANING_SEPARATOR } from '../const';
+import { DEFAULT_MAX_ROW_COUNT, DEFAULT_MEANING_SEPARATOR } from '../../const';
 import { parse } from './optionsParser';
 
 describe('parse', () => {

@@ -1,4 +1,4 @@
-import { DEFAULT_MEANING_SEPARATOR } from '../const';
+import { DEFAULT_MEANING_SEPARATOR } from '../../const';
 import { VerifyCmdOptions } from './types';
 
 export function parse(options: any): VerifyCmdOptions {
