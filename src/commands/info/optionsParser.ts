@@ -10,7 +10,7 @@ export function parse(options: any): InfoCmdOptions | undefined {
   if (options === undefined) {
     return undefined;
   }
-  const result: InfoCmdOptions = {};
+  const result: any = {};
   if (options.meaningSeparator === true) {
     result.meaningSeparator = DEFAULT_MEANING_SEPARATOR;
   }
@@ -25,6 +25,9 @@ export function parse(options: any): InfoCmdOptions | undefined {
   }
   if (options.explanationBrackets) {
     result.explanationBrackets = options.explanationBrackets;
+  }
+  if (options.prefixSeparator) {
+    result.prefixSeparator = options.prefixSeparator;
   }
   return Object.values(result).length === 0 ? undefined : result;
 }

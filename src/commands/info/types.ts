@@ -1,4 +1,5 @@
 import { ExplanationBracketType } from '../../types';
+import { OptionPrefixSeparator } from '../types';
 
 export type DeckAnalysis = {
   //
@@ -32,9 +33,12 @@ export type DeckAnalysis = {
 
   // if additional explanation is used, what type of brackets it is in
   cardsWithExplanation?: number;
+
+  // count of cards which use prefix separator
+  cardsWithPrefixSeparator?: number;
 };
 
-export type InfoCmdOptions = {
+export type InfoCmdOptions = OptionPrefixSeparator & {
   meaningSeparator?: string;
   synonymSeparator?: string;
   explanationBrackets?: ExplanationBracketType;

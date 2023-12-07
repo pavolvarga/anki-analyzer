@@ -18,6 +18,9 @@ export function convertOneAnalysis(analysis: DeckAnalysis, options: InfoCmdOptio
   if (options?.explanationBrackets) {
     tableRow['Cards with Explanation'] = analysis.cardsWithExplanation;
   }
+  if (options?.prefixSeparator) {
+    tableRow['Cards with Prefix Separator'] = analysis.cardsWithPrefixSeparator;
+  }
   return tableRow;
 }
 
@@ -34,6 +37,7 @@ export function createSummary(analysis: DeckAnalysis[], options: InfoCmdOptions 
       acc['Cards with Meaning Separator'] += options?.meaningSeparator ? current!.cardsWithMeaningSeparator! : 0;
       acc['Cards with Synonym separator'] += options?.synonymSeparator ? current!.cardsWithSynonymSeparator! : 0;
       acc['Cards with Explanation'] += options?.explanationBrackets ? current!.cardsWithExplanation! : 0;
+      acc['Cards with Prefix Separator'] += options?.prefixSeparator ? current!.cardsWithPrefixSeparator! : 0;
       return acc;
     },
     {
@@ -45,6 +49,7 @@ export function createSummary(analysis: DeckAnalysis[], options: InfoCmdOptions 
       'Cards with Meaning Separator': 0,
       'Cards with Synonym separator': 0,
       'Cards with Explanation': 0,
+      'Cards with Prefix Separator': 0,
     },
   );
   if (options?.meaningSeparator === undefined) {
@@ -55,6 +60,9 @@ export function createSummary(analysis: DeckAnalysis[], options: InfoCmdOptions 
   }
   if (options?.explanationBrackets === undefined) {
     delete tableRow['Cards with Explanation'];
+  }
+  if (options?.prefixSeparator === undefined) {
+    delete tableRow['Cards with Prefix Separator'];
   }
 
   return tableRow;

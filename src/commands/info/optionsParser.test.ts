@@ -34,4 +34,9 @@ describe('parse', () => {
     const result = parse(options);
     expect(result).toStrictEqual({ explanationBrackets: 'round' });
   });
+  it('handles option for prefix separator with specified value', () => {
+    const options = { prefixSeparator: '-' };
+    const result = parse(options);
+    expect(result).toStrictEqual({ prefixSeparator: '-' });
+  });
 });

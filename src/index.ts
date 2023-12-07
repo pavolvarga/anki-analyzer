@@ -30,6 +30,12 @@ const synonymSeparatorOption = new Option(
   '-s, --synonym-separator [separator]',
   `Specify separator for synonyms, when one word has multiple translations, like: 'to repel${DEFAULT_SYNONYM_SEPARATOR} to fight off' for 'abwehren', if none is used it defaults to '${DEFAULT_SYNONYM_SEPARATOR}'.`,
 );
+const prefixSeparatorOption = new Option(
+  '-p, --prefix-separator <separator>',
+  'Specify separator for prefixes or suffixes. For example vor-stellen, the root verb is stellen, and vor is the prefix.\n' +
+    'If none is used, it is assummed that prefix separation is not used.\n' +
+    'No space is allowed between prefix / suffix and the word it is attached to.',
+);
 const explanationBracketsOption = new Option(
   '-e, --explanation-brackets <bracket-type>',
   `Specify type of brackets for additional explanation. If none is used, it defaults to ${DEFAULT_EXPLANATION_BRACKET} brackets.`,
@@ -79,6 +85,7 @@ program
   .addArgument(argumentFile)
   .addOption(meaningSeparatorOption)
   .addOption(synonymSeparatorOption)
+  .addOption(prefixSeparatorOption)
   .addOption(explanationBracketsOption)
   .action(commandInfo);
 
@@ -96,6 +103,7 @@ program
   .addArgument(argumentDeck)
   .addOption(meaningSeparatorOption)
   .addOption(synonymSeparatorOption)
+  .addOption(prefixSeparatorOption)
   .addOption(explanationBracketsOption)
   .addOption(
     new Option(
@@ -108,8 +116,8 @@ program
     new Option(
       '--count-tag-combinations',
       'If present and if tags are used for specified deck, then count of tag combinations is shown.\n' +
-      'Sorted by the count of notes with the tag combination in descending order.\n' +
-      'If no combination of tags is used, nothing is shown.',
+        'Sorted by the count of notes with the tag combination in descending order.\n' +
+        'If no combination of tags is used, nothing is shown.',
     ),
   )
   .action(commandDeck);
@@ -176,7 +184,9 @@ program
       'General deck is not using meaning separator in both cards.\n' +
       'Specific deck is using meaning separator in card1.\n' +
       'If these assertions are not true, then the command will fail on the first record that fails one of these assertions.\n' +
-      'By default it prints short status of the comparison, to see more details use specific options.',
+      'By default it prints short status of the comparison, to see more details use specific options.\n' +
+      'It is assumed that words in both decks are same. If for example in one deck prefix / suffix separator used match will fail.\n' +
+      'Specify the prefix separator and it will be removed, so that the match can succeed.\n',
   )
   .addArgument(argumentFile)
   .argument(
@@ -191,14 +201,7 @@ program
   )
   .argument('<tag-name>', 'Name of the tag used in the general deck.')
   .addOption(meaningSeparatorOption)
-  .addOption(
-    new Option(
-      '-p, --prefix-separator <separator>',
-      'Specify separator for prefixes. For example vor-stellen, the root verb is stellen, and vor is the prefix.\n' +
-        'If none is used, it is assummed that prefix separation is not used.\n' +
-        'If prefix is specified, then during comparisions it is removed.\n',
-    ),
-  )
+  .addOption(prefixSeparatorOption)
   .addOption(
     new Option(
       '--show-comparision-table <table>',

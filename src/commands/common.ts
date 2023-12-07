@@ -27,6 +27,24 @@ function sumCardsWithExplanation(deck: Map<string, AnkiRecord>, explanationBrack
   }, 0);
 }
 
+function sumCardsWithPrefixSeparator(deck: Map<string, AnkiRecord>, prefixSeparator: string) {
+  return Array.from(deck.values()).reduce((acc, record) => {
+    if (containsPrefixSeparator(record.card1, prefixSeparator)) {
+      acc += 1;
+    }
+    if (containsPrefixSeparator(record.card2, prefixSeparator)) {
+      acc += 1;
+    }
+    return acc;
+  }, 0);
+}
+
+function containsPrefixSeparator(card: string, separator: string) {
+  // no spaces - separator must be withing the word
+  const regex = new RegExp(`([a-zA-Z])\\${separator}([a-zA-Z])`);
+  return regex.test(card);
+}
+
 function containsExplanation(card: string, bracket: ExplanationBracketType): boolean {
   switch (bracket) {
     case 'round':
@@ -84,6 +102,9 @@ export function analyzeDeck(
   }
   if (options?.explanationBrackets) {
     analyze.cardsWithExplanation = sumCardsWithExplanation(deck, options.explanationBrackets);
+  }
+  if (options?.prefixSeparator) {
+    analyze.cardsWithPrefixSeparator = sumCardsWithPrefixSeparator(deck, options.prefixSeparator);
   }
 
   return analyze;

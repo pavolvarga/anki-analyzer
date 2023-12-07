@@ -13,5 +13,5 @@ export function parse(options: any): DeckCmdOptions | undefined {
     ...baseParseOptions(options),
     countTags: options.countTags ? true : false,
     countTagCombinations: options.countTagCombinations ? true : false,
-  };
+  } as DeckCmdOptions;
 }

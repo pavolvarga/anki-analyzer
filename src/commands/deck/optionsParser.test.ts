@@ -81,4 +81,14 @@ describe('parse', () => {
     };
     expect(result).toStrictEqual(expected);
   });
+  it('should set prefixSeparator if it was specified', () => {
+    const options = { prefixSeparator: '-' };
+    const result = parse(options);
+    const expected = {
+      prefixSeparator: '-',
+      countTags: false,
+      countTagCombinations: false,
+    };
+    expect(result).toStrictEqual(expected);
+  });
 });

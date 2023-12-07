@@ -24,6 +24,7 @@ export type InfoTableRow = {
   'Cards with Meaning Separator'?: number;
   'Cards with Synonym separator'?: number;
   'Cards with Explanation'?: number;
+  'Cards with Prefix Separator'?: number;
 };
 
 export type CardType = 'card1' | 'card2' | 'both';

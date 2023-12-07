@@ -16,6 +16,9 @@ export function printResult(
   if (options?.explanationBrackets) {
     console.log(`Used bracket type for explanation: "${options!.explanationBrackets}"`);
   }
+  if (options?.prefixSeparator) {
+    console.log(`Used prefix separator: "${options!.prefixSeparator}"`);
+  }
   const table = [...convertToTableFormat(analysis, options), summary];
 
   console.table(table);
