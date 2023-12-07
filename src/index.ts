@@ -100,13 +100,16 @@ program
   .addOption(
     new Option(
       '--count-tags',
-      'If present and if tags are used for specified deck, count of individual tags is shown.',
+      'If present and if tags are used for specified deck, count of individual tags is shown.\n' +
+        'Sorted by the count of notes with the tag in descending order.\n',
     ),
   )
   .addOption(
     new Option(
       '--count-tag-combinations',
-      'If present and if tags are used for specified deck, then count of tag combinations is shown.\nIf no combination of tags is used, nothing is shown.',
+      'If present and if tags are used for specified deck, then count of tag combinations is shown.\n' +
+      'Sorted by the count of notes with the tag combination in descending order.\n' +
+      'If no combination of tags is used, nothing is shown.',
     ),
   )
   .action(commandDeck);
