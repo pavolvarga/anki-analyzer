@@ -11,14 +11,24 @@ export function parse(options: any): ListCmdOptions {
     throw new Error('At least one --list* option must be specified');
   }
 
-  const { listCardsWithMeaningSeparator, listCardsWithSynonymSeparator, listCardsWithExplanationBrackets } = options;
+  const {
+    listCardsWithMeaningSeparator,
+    listCardsWithSynonymSeparator,
+    listCardsWithExplanationBrackets,
+    listCardsWithPrefixSeparator,
+  } = options;
 
   if (
     listCardsWithMeaningSeparator === undefined &&
     listCardsWithSynonymSeparator === undefined &&
-    listCardsWithExplanationBrackets === undefined
+    listCardsWithExplanationBrackets === undefined &&
+    listCardsWithPrefixSeparator === undefined
   ) {
     throw new Error('At least one --list* option must be specified');
+  }
+
+  if (listCardsWithPrefixSeparator !== undefined && options.prefixSeparator === undefined) {
+    throw new Error('--prefix-separator must be specified when --list-cards-with-prefix-separator is specified');
   }
 
   let operations: ListOperation[] = [];
@@ -31,6 +41,9 @@ export function parse(options: any): ListCmdOptions {
   if (listCardsWithExplanationBrackets !== undefined) {
     operations.push('--list-cards-with-explanation-brackets');
   }
+  if (listCardsWithPrefixSeparator !== undefined) {
+    operations.push('--list-cards-with-prefix-separator');
+  }
 
   return {
     meaningSeparator: options.meaningSeparator ? options.meaningSeparator : DEFAULT_MEANING_SEPARATOR,
@@ -39,6 +52,7 @@ export function parse(options: any): ListCmdOptions {
     tags: options.tags,
     cardType: options.card ? options.card : 'both',
     limitRowCount: options.limitRows ? options.limitRows : DEFAULT_LIMIT_ROW_COUNT,
+    prefixSeparator: options.prefixSeparator ? options.prefixSeparator : undefined,
     operations,
   };
 }

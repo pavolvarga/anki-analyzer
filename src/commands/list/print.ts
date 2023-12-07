@@ -19,7 +19,7 @@ function printTable(
     return;
   }
 
-  const limitMsg = createLimitMsg(records.length, limit);
+  const limitMsg = createLimitMsg(limit, records.length);
   console.log(`Showing ${limitMsg} records in deck ${deckName} using ${tagsMsg} ${cardMsg} with ${operationName}:`);
 
   console.table(sortRecords(records, cardType).slice(0, limit));
@@ -43,5 +43,8 @@ export function printListResult(result: ListResult, deckName: string, options: L
       cardType,
       'Explanation Brackets',
     );
+  }
+  if (operations.includes('--list-cards-with-prefix-separator')) {
+    printTable(result.recordsByPrefixSeparator!, deckName, tags ?? [], limitRowCount, cardType, 'Prefix Separator');
   }
 }

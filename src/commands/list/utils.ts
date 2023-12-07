@@ -1,4 +1,5 @@
 import { AnkiRecord, CardType, ExplanationBracketType } from '../../types';
+import { containsPrefixSeparator } from '../common';
 import { ListCmdOptions, ListResult } from './types';
 
 function findRecordsBySeparator(deck: AnkiRecord[], separator: string, cardType: CardType): AnkiRecord[] {
@@ -49,8 +50,26 @@ function findRecordsByExplanationBrackets(
   });
 }
 
+function findRecordsByPrefixSeparator(deck: AnkiRecord[], prefixSeparator: string, cardType: CardType): AnkiRecord[] {
+  return deck.filter((record) => {
+    switch (cardType) {
+      case 'card1':
+        return containsPrefixSeparator(record.card1, prefixSeparator);
+      case 'card2':
+        return containsPrefixSeparator(record.card2, prefixSeparator);
+      case 'both':
+        return (
+          containsPrefixSeparator(record.card1, prefixSeparator) ||
+          containsPrefixSeparator(record.card2, prefixSeparator)
+        );
+      default:
+        throw new Error(`Unknown card type: ${cardType}`);
+    }
+  });
+}
+
 export function findRecordsForListOperations(deck: AnkiRecord[], options: ListCmdOptions): ListResult {
-  const { meaningSeparator, synonymSeparator, explanationBrackets, cardType, operations } = options;
+  const { meaningSeparator, synonymSeparator, explanationBrackets, cardType, operations, prefixSeparator } = options;
 
   const result: ListResult = {};
 
@@ -62,6 +81,9 @@ export function findRecordsForListOperations(deck: AnkiRecord[], options: ListCm
   }
   if (operations.includes('--list-cards-with-explanation-brackets')) {
     result.recordsByExplanationBrackets = findRecordsByExplanationBrackets(deck, explanationBrackets, cardType);
+  }
+  if (operations.includes('--list-cards-with-prefix-separator')) {
+    result.recordsByPrefixSeparator = findRecordsByPrefixSeparator(deck, prefixSeparator!, cardType);
   }
 
   return result;

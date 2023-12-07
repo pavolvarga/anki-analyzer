@@ -8,6 +8,11 @@ describe('parse', () => {
   it('should throw an error if no list* option is specified', () => {
     expect(() => parse({ maxRowCount: 100 })).toThrow('At least one --list* option must be specified');
   });
+  it('should throw an error if --list-cards-with-prefix-separator is specified but --prefix-separator is not specified', () => {
+    expect(() => parse({ listCardsWithPrefixSeparator: true })).toThrow(
+      '--prefix-separator must be specified when --list-cards-with-prefix-separator is specified',
+    );
+  });
   describe('meaningSeparator', () => {
     it('should use default meaningSeparator if not specified', () => {
       const result = parse({ limitRows: 100, listCardsWithMeaningSeparator: true });
@@ -19,6 +24,7 @@ describe('parse', () => {
         cardType: 'both',
         limitRowCount: 100,
         operations: ['--list-cards-with-meaning-separator'],
+        prefixSeparator: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -32,6 +38,7 @@ describe('parse', () => {
         cardType: 'both',
         limitRowCount: 100,
         operations: ['--list-cards-with-meaning-separator'],
+        prefixSeparator: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -47,6 +54,7 @@ describe('parse', () => {
         cardType: 'both',
         limitRowCount: 100,
         operations: ['--list-cards-with-synonym-separator'],
+        prefixSeparator: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -60,6 +68,7 @@ describe('parse', () => {
         cardType: 'both',
         limitRowCount: 100,
         operations: ['--list-cards-with-synonym-separator'],
+        prefixSeparator: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -75,6 +84,7 @@ describe('parse', () => {
         cardType: 'both',
         limitRowCount: 100,
         operations: ['--list-cards-with-explanation-brackets'],
+        prefixSeparator: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -88,6 +98,7 @@ describe('parse', () => {
         cardType: 'both',
         limitRowCount: 100,
         operations: ['--list-cards-with-explanation-brackets'],
+        prefixSeparator: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -103,6 +114,7 @@ describe('parse', () => {
         cardType: 'both',
         limitRowCount: 100,
         operations: ['--list-cards-with-meaning-separator'],
+        prefixSeparator: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -116,6 +128,7 @@ describe('parse', () => {
         cardType: 'both',
         limitRowCount: 100,
         operations: ['--list-cards-with-meaning-separator'],
+        prefixSeparator: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -131,6 +144,7 @@ describe('parse', () => {
         cardType: 'both',
         limitRowCount: 100,
         operations: ['--list-cards-with-meaning-separator'],
+        prefixSeparator: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -144,6 +158,7 @@ describe('parse', () => {
         cardType: 'card1',
         limitRowCount: 100,
         operations: ['--list-cards-with-meaning-separator'],
+        prefixSeparator: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -159,6 +174,7 @@ describe('parse', () => {
         cardType: 'both',
         limitRowCount: 10,
         operations: ['--list-cards-with-meaning-separator'],
+        prefixSeparator: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -172,6 +188,7 @@ describe('parse', () => {
         cardType: 'both',
         limitRowCount: 200,
         operations: ['--list-cards-with-meaning-separator'],
+        prefixSeparator: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -195,6 +212,25 @@ describe('parse', () => {
         '--list-cards-with-synonym-separator',
         '--list-cards-with-explanation-brackets',
       ],
+      prefixSeparator: undefined,
+    };
+    expect(result).toStrictEqual(expected);
+  });
+  it('should use specified prefixSeparator', () => {
+    const result = parse({
+      limitRows: 100,
+      listCardsWithMeaningSeparator: true,
+      prefixSeparator: '/',
+    });
+    const expected: ListCmdOptions = {
+      meaningSeparator: ';;',
+      synonymSeparator: ',',
+      explanationBrackets: 'round',
+      tags: undefined,
+      cardType: 'both',
+      limitRowCount: 100,
+      operations: ['--list-cards-with-meaning-separator'],
+      prefixSeparator: '/',
     };
     expect(result).toStrictEqual(expected);
   });

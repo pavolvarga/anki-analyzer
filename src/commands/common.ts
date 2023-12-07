@@ -39,7 +39,7 @@ function sumCardsWithPrefixSeparator(deck: Map<string, AnkiRecord>, prefixSepara
   }, 0);
 }
 
-function containsPrefixSeparator(card: string, separator: string) {
+export function containsPrefixSeparator(card: string, separator: string) {
   // no spaces - separator must be withing the word
   const regex = new RegExp(`([a-zA-Z])\\${separator}([a-zA-Z])`);
   return regex.test(card);

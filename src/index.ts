@@ -32,9 +32,9 @@ const synonymSeparatorOption = new Option(
 );
 const prefixSeparatorOption = new Option(
   '-p, --prefix-separator <separator>',
-  'Specify separator for prefixes or suffixes. For example vor-stellen, the root verb is stellen, and vor is the prefix.\n' +
+  'Specify separator for prefixes (or suffixes). For example vor-stellen, the root verb is stellen, and vor is the prefix.\n' +
     'If none is used, it is assummed that prefix separation is not used.\n' +
-    'No space is allowed between prefix / suffix and the word it is attached to.',
+    'No space is allowed between prefix (or suffix) and the word it is attached to.',
 );
 const explanationBracketsOption = new Option(
   '-e, --explanation-brackets <bracket-type>',
@@ -261,6 +261,7 @@ program
   .addArgument(argumentDeck)
   .addOption(meaningSeparatorOption)
   .addOption(synonymSeparatorOption)
+  .addOption(prefixSeparatorOption)
   .addOption(explanationBracketsOption)
   .addOption(tagsOption)
   .addOption(
@@ -286,6 +287,13 @@ program
     new Option(
       '--list-cards-with-explanation-brackets',
       'If used, then all records that contain explanation brackets in card1, card2 or both are listed',
+    ),
+  )
+  .addOption(
+    new Option(
+      '--list-cards-with-prefix-separator',
+      'If used, then all records that contain prefix separator in card1, card2 or both are listed \n' +
+        'You must specify prefix separator using the --prefix-separator option, otherwise error is thrown.',
     ),
   )
   .addOption(limitRowsOption)

@@ -4,6 +4,7 @@ import {
   OptionExplanationBracketOption,
   OptionLimitRowCount,
   OptionMeaningSeparator,
+  OptionPrefixSeparator,
   OptionSynonymSeparator,
   OptionTags,
 } from '../types';
@@ -11,6 +12,7 @@ import {
 export type ListCmdOptions = OptionMeaningSeparator &
   OptionSynonymSeparator &
   OptionExplanationBracketOption &
+  Partial<OptionPrefixSeparator> &
   OptionLimitRowCount &
   OptionTags &
   OptionCardType & {
@@ -20,10 +22,12 @@ export type ListCmdOptions = OptionMeaningSeparator &
 export type ListOperation =
   | '--list-cards-with-meaning-separator'
   | '--list-cards-with-synonym-separator'
-  | '--list-cards-with-explanation-brackets';
+  | '--list-cards-with-explanation-brackets'
+  | '--list-cards-with-prefix-separator';
 
 export type ListResult = {
   recordsByMeaningSeparator?: AnkiRecord[];
   recordsBySynonymSeparator?: AnkiRecord[];
   recordsByExplanationBrackets?: AnkiRecord[];
+  recordsByPrefixSeparator?: AnkiRecord[];
 };
