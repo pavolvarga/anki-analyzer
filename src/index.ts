@@ -64,7 +64,7 @@ const program = new Command();
 
 program
   .name('anki-analyzer')
-  .version('0.7.0', '-v, --version', 'Display current version')
+  .version('0.8.0', '-v, --version', 'Display current version')
   .description(
     'App for analyzing exported Anki Decks.\n' +
       'It is assumed that the exported Anki Decks are in CSV format and do not contain HTML or multimedia links.\n' +

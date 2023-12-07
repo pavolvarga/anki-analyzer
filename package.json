@@ -1,6 +1,6 @@
 {
   "name": "anki-analyzer",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Command line app for analyzing anki decks",
   "engines": {
     "node": ">=16.0.0"
