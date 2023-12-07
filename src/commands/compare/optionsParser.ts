@@ -6,6 +6,7 @@ export function parse(options: any): CompareCmdOptions {
     return {
       meaningSeparator: DEFAULT_MEANING_SEPARATOR,
       limitRowCount: DEFAULT_LIMIT_ROW_COUNT,
+      prefixSeparator: undefined,
     };
   }
 

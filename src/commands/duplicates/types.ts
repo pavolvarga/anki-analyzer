@@ -1,8 +1,3 @@
-import { CardType } from '../../types';
-import { OptionLimitRowCount } from '../types';
+import { OptionCardType, OptionLimitRowCount, OptionSynonymSeparator, OptionTags } from '../types';
 
-export type DuplicateCmdOptions = OptionLimitRowCount & {
-  synonymSeparator: string;
-  tags?: string[];
-  cardType?: CardType;
-};
+export type DuplicateCmdOptions = OptionSynonymSeparator & OptionLimitRowCount & OptionTags & Partial<OptionCardType>;

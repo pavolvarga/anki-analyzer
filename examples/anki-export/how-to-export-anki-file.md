@@ -8,7 +8,7 @@ The steps should be similar on other platforms.
 2. Click on `File` -> `Export` or press `Ctrl + E`
 3. As export format choose `Notes in Plain Text (*.txt)`
 4. Include all decks or those decks that you want to export
-5. From the list of options deselect `Include HTML and media references`. <br/>
+5. From the list of options deselect `Include HTML and media references`<br/>
    Select <br/>
    * `Include tags`
    * `Include deck name`

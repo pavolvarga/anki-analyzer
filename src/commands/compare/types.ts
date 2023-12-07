@@ -1,5 +1,11 @@
 import { AnkiRecord } from '../../types';
-import { OptionLimitRowCount } from '../types';
+import { OptionLimitRowCount, OptionMeaningSeparator, OptionPrefixSeparator } from '../types';
+
+export type CompareCmdOptions = OptionMeaningSeparator &
+  Partial<OptionPrefixSeparator> &
+  OptionLimitRowCount & {
+    comparisionTable?: 'all' | 'different' | 'only-in-general' | 'only-in-specific';
+  };
 
 /**
  * A named tuple for an anki record and card.
@@ -8,12 +14,6 @@ import { OptionLimitRowCount } from '../types';
 export type AnkiRecordByCard = {
   card: string;
   record: AnkiRecord;
-};
-
-export type CompareCmdOptions = OptionLimitRowCount & {
-  meaningSeparator: string;
-  prefixSeparator?: string;
-  comparisionTable?: 'all' | 'different' | 'only-in-general' | 'only-in-specific';
 };
 
 export type CardWrapper = {

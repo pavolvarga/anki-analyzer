@@ -4,7 +4,11 @@ import { parse } from './optionsParser';
 describe('parse', () => {
   it('should use default meaning separator if no options are provided', () => {
     const result = parse(undefined);
-    const expected = { meaningSeparator: DEFAULT_MEANING_SEPARATOR, limitRowCount: DEFAULT_LIMIT_ROW_COUNT };
+    const expected = {
+      meaningSeparator: DEFAULT_MEANING_SEPARATOR,
+      limitRowCount: DEFAULT_LIMIT_ROW_COUNT,
+      prefixSeparator: undefined,
+    };
     expect(result).toStrictEqual(expected);
   });
   it('should use prefix separator if is was provided', () => {

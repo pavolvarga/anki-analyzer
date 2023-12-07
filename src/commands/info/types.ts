@@ -1,5 +1,14 @@
-import { ExplanationBracketType } from '../../types';
-import { OptionPrefixSeparator } from '../types';
+import {
+  OptionExplanationBracketOption,
+  OptionMeaningSeparator,
+  OptionPrefixSeparator,
+  OptionSynonymSeparator,
+} from '../types';
+
+export type InfoCmdOptions = OptionMeaningSeparator &
+  OptionSynonymSeparator &
+  OptionPrefixSeparator &
+  OptionExplanationBracketOption;
 
 export type DeckAnalysis = {
   //
@@ -36,10 +45,4 @@ export type DeckAnalysis = {
 
   // count of cards which use prefix separator
   cardsWithPrefixSeparator?: number;
-};
-
-export type InfoCmdOptions = OptionPrefixSeparator & {
-  meaningSeparator?: string;
-  synonymSeparator?: string;
-  explanationBrackets?: ExplanationBracketType;
 };
