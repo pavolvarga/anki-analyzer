@@ -25,6 +25,7 @@ describe('parse', () => {
         limitRowCount: 100,
         operations: ['--list-cards-with-meaning-separator'],
         prefixSeparator: undefined,
+        omitRowCount: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -39,6 +40,7 @@ describe('parse', () => {
         limitRowCount: 100,
         operations: ['--list-cards-with-meaning-separator'],
         prefixSeparator: undefined,
+        omitRowCount: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -55,6 +57,7 @@ describe('parse', () => {
         limitRowCount: 100,
         operations: ['--list-cards-with-synonym-separator'],
         prefixSeparator: undefined,
+        omitRowCount: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -69,6 +72,7 @@ describe('parse', () => {
         limitRowCount: 100,
         operations: ['--list-cards-with-synonym-separator'],
         prefixSeparator: undefined,
+        omitRowCount: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -85,6 +89,7 @@ describe('parse', () => {
         limitRowCount: 100,
         operations: ['--list-cards-with-explanation-brackets'],
         prefixSeparator: undefined,
+        omitRowCount: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -99,6 +104,7 @@ describe('parse', () => {
         limitRowCount: 100,
         operations: ['--list-cards-with-explanation-brackets'],
         prefixSeparator: undefined,
+        omitRowCount: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -115,6 +121,7 @@ describe('parse', () => {
         limitRowCount: 100,
         operations: ['--list-cards-with-meaning-separator'],
         prefixSeparator: undefined,
+        omitRowCount: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -129,6 +136,7 @@ describe('parse', () => {
         limitRowCount: 100,
         operations: ['--list-cards-with-meaning-separator'],
         prefixSeparator: undefined,
+        omitRowCount: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -145,6 +153,7 @@ describe('parse', () => {
         limitRowCount: 100,
         operations: ['--list-cards-with-meaning-separator'],
         prefixSeparator: undefined,
+        omitRowCount: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -159,6 +168,7 @@ describe('parse', () => {
         limitRowCount: 100,
         operations: ['--list-cards-with-meaning-separator'],
         prefixSeparator: undefined,
+        omitRowCount: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -175,6 +185,7 @@ describe('parse', () => {
         limitRowCount: 10,
         operations: ['--list-cards-with-meaning-separator'],
         prefixSeparator: undefined,
+        omitRowCount: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -189,6 +200,7 @@ describe('parse', () => {
         limitRowCount: 200,
         operations: ['--list-cards-with-meaning-separator'],
         prefixSeparator: undefined,
+        omitRowCount: undefined,
       };
       expect(result).toStrictEqual(expected);
     });
@@ -213,6 +225,7 @@ describe('parse', () => {
         '--list-cards-with-explanation-brackets',
       ],
       prefixSeparator: undefined,
+      omitRowCount: undefined,
     };
     expect(result).toStrictEqual(expected);
   });
@@ -231,6 +244,26 @@ describe('parse', () => {
       limitRowCount: 100,
       operations: ['--list-cards-with-meaning-separator'],
       prefixSeparator: '/',
+      omitRowCount: undefined,
+    };
+    expect(result).toStrictEqual(expected);
+  });
+  it('should use specified omitRowCount', () => {
+    const result = parse({
+      limitRows: 100,
+      listCardsWithMeaningSeparator: true,
+      omitRows: 10,
+    });
+    const expected: ListCmdOptions = {
+      meaningSeparator: ';;',
+      synonymSeparator: ',',
+      explanationBrackets: 'round',
+      tags: undefined,
+      cardType: 'both',
+      limitRowCount: 100,
+      operations: ['--list-cards-with-meaning-separator'],
+      prefixSeparator: undefined,
+      omitRowCount: 10,
     };
     expect(result).toStrictEqual(expected);
   });

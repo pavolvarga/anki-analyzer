@@ -4,6 +4,7 @@ import {
   OptionExplanationBracketOption,
   OptionLimitRowCount,
   OptionMeaningSeparator,
+  OptionOmitRowCount,
   OptionPrefixSeparator,
   OptionSynonymSeparator,
   OptionTags,
@@ -15,7 +16,8 @@ export type ListCmdOptions = OptionMeaningSeparator &
   Partial<OptionPrefixSeparator> &
   OptionLimitRowCount &
   OptionTags &
-  OptionCardType & {
+  OptionCardType &
+  OptionOmitRowCount & {
     operations: ListOperation[];
   };
 

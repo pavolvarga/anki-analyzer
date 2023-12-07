@@ -51,8 +51,9 @@ export function parse(options: any): ListCmdOptions {
     explanationBrackets: options.explanationBracket ? options.explanationBracket : DEFAULT_EXPLANATION_BRACKET,
     tags: options.tags,
     cardType: options.card ? options.card : 'both',
-    limitRowCount: options.limitRows ? options.limitRows : DEFAULT_LIMIT_ROW_COUNT,
+    limitRowCount: options.limitRows ? parseInt(options.limitRows) : DEFAULT_LIMIT_ROW_COUNT,
     prefixSeparator: options.prefixSeparator ? options.prefixSeparator : undefined,
     operations,
+    omitRowCount: options.omitRows ? parseInt(options.omitRows) : undefined,
   };
 }

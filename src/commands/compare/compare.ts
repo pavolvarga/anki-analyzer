@@ -51,6 +51,7 @@ export function commandCompare(
     result,
     normalizedGeneralDeck.length,
     normalizedSpecificDeck.length,
+    options.prefixSeparator,
   );
   if (options.comparisionTable) {
     printDetails(result, options, fullGeneralDeckName, fullSpecificDeckName);

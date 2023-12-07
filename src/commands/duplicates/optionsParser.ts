@@ -1,7 +1,7 @@
 import { DEFAULT_LIMIT_ROW_COUNT, DEFAULT_SYNONYM_SEPARATOR } from '../../const';
-import { DuplicateCmdOptions } from './types';
+import { DuplicatesCmdOptions } from './types';
 
-export function parse(options: any): DuplicateCmdOptions {
+export function parse(options: any): DuplicatesCmdOptions {
   if (options === undefined) {
     return {
       synonymSeparator: DEFAULT_SYNONYM_SEPARATOR,
@@ -15,6 +15,7 @@ export function parse(options: any): DuplicateCmdOptions {
     synonymSeparator: options.synonymSeparator ? options.synonymSeparator : DEFAULT_SYNONYM_SEPARATOR,
     tags: options.tags ? options.tags : undefined,
     cardType: options.showDuplicatesTable ? options.showDuplicatesTable : undefined,
-    limitRowCount: options.limitRows ? options.limitRows : DEFAULT_LIMIT_ROW_COUNT,
+    limitRowCount: options.limitRows ? parseInt(options.limitRows, 10) : DEFAULT_LIMIT_ROW_COUNT,
+    omitRowCount: options.omitRows ? parseInt(options.omitRows, 10) : undefined,
   };
 }

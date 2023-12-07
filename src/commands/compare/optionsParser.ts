@@ -14,6 +14,7 @@ export function parse(options: any): CompareCmdOptions {
     meaningSeparator: options.meaningSeparator || DEFAULT_MEANING_SEPARATOR,
     prefixSeparator: options.prefixSeparator ? options.prefixSeparator : undefined,
     comparisionTable: options.showComparisionTable ? options.showComparisionTable : undefined,
-    limitRowCount: options.limitRows ? options.limitRows : DEFAULT_LIMIT_ROW_COUNT,
+    limitRowCount: options.limitRows ? parseInt(options.limitRows, 10) : DEFAULT_LIMIT_ROW_COUNT,
+    omitRowCount: options.omitRows ? parseInt(options.omitRows, 10) : undefined,
   };
 }

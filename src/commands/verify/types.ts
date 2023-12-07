@@ -1,9 +1,10 @@
 import { AnkiRecord, CardType } from '../../types';
-import { OptionLimitRowCount, OptionMeaningSeparator, OptionTags } from '../types';
+import { OptionLimitRowCount, OptionMeaningSeparator, OptionOmitRowCount, OptionTags } from '../types';
 
 export type VerifyCmdOptions = OptionMeaningSeparator &
   OptionLimitRowCount &
-  OptionTags & {
+  OptionTags &
+  OptionOmitRowCount & {
     operation: VerifyOperation;
     operationArg?: CardType;
   };

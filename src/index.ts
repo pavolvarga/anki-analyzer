@@ -3,15 +3,16 @@ import figlet from 'figlet';
 
 import { DEFAULT_LIMIT_ROW_COUNT } from './const';
 import {
-  argumentFile,
+  cardChoices,
   meaningSeparatorOption,
   synonymSeparatorOption,
   prefixSeparatorOption,
   explanationBracketsOption,
-  argumentDeck,
   tagsOption,
-  cardChoices,
   limitRowsOption,
+  omitRowsOption,
+  argumentDeck,
+  argumentFile,
 } from './commonSettings';
 
 import { commandInfo } from './commands/info/info';
@@ -99,6 +100,8 @@ program
   .addArgument(argumentDeck)
   .addOption(meaningSeparatorOption)
   .addOption(tagsOption)
+  .addOption(limitRowsOption)
+  .addOption(omitRowsOption)
   .addOption(
     new Option(
       '--verify-meaning-separator-used <card>',
@@ -127,7 +130,6 @@ program
         'Sorted by the card1.',
     ),
   )
-  .addOption(limitRowsOption)
   .action(commandVerify);
 
 const compareCmdSummary = 'Compares two Anki Decks.';
@@ -163,6 +165,8 @@ program
   .argument('<tag-name>', 'Name of the tag used in the general deck.')
   .addOption(meaningSeparatorOption)
   .addOption(prefixSeparatorOption)
+  .addOption(limitRowsOption)
+  .addOption(omitRowsOption)
   .addOption(
     new Option(
       '--show-comparision-table <table>',
@@ -173,7 +177,6 @@ program
         'If this option is not used, then only short status is shown.',
     ).choices(['all', 'different', 'only-in-general', 'only-in-specific']),
   )
-  .addOption(limitRowsOption)
   .action(commandCompare);
 
 const duplicatesCmdSummary = 'Find duplicate notes in specified Anki Deck.';
@@ -192,9 +195,10 @@ program
   )
   .addArgument(argumentFile)
   .addArgument(argumentDeck)
-  .addOption(meaningSeparatorOption)
   .addOption(synonymSeparatorOption)
   .addOption(tagsOption)
+  .addOption(limitRowsOption)
+  .addOption(omitRowsOption)
   .addOption(
     new Option(
       '--show-duplicates-table <card>',
@@ -204,7 +208,6 @@ program
         'To change the number of rows shown use the --limit-rows option.',
     ).choices(cardChoices),
   )
-  .addOption(limitRowsOption)
   .action(commandDuplicates);
 
 const listCmdSummary = 'List those Records in specified Anki deck that contain specified separators.';
@@ -232,6 +235,8 @@ program
         'Output tables are sorted by this option. In case of both cards, then card1 is used for sorting.',
     ).choices(cardChoices),
   )
+  .addOption(limitRowsOption)
+  .addOption(omitRowsOption)
   .addOption(
     new Option(
       '--list-cards-with-meaning-separator',
@@ -257,7 +262,6 @@ program
         'You must specify prefix separator using the --prefix-separator option, otherwise error is thrown.',
     ),
   )
-  .addOption(limitRowsOption)
   .action(commandList);
 
 console.log(figlet.textSync('Anki Analyzer'));

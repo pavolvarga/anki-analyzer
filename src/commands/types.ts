@@ -38,6 +38,13 @@ export type OptionLimitRowCount = {
 };
 
 /**
+ * How many rows skip / omit from the beginning of an output table.
+ */
+export type OptionOmitRowCount = {
+  omitRowCount?: number;
+};
+
+/**
  * List of tags for command / operation.
  * It is used to narrow down the records to be processed.
  */

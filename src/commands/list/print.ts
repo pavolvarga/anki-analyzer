@@ -1,16 +1,11 @@
-import { AnkiRecord, CardType } from '../../types';
+import { AnkiRecord } from '../../types';
 import { createLimitMsg } from '../print';
+import { sliceRecords, sortRecords } from '../common';
 import { ListCmdOptions, ListResult } from './types';
-import { sortRecords } from '../common';
 
-function printTable(
-  records: AnkiRecord[],
-  deckName: string,
-  tags: string[],
-  limit: number,
-  cardType: CardType,
-  operationName: string,
-): void {
+function printTable(records: AnkiRecord[], deckName: string, operationName: string, options: ListCmdOptions): void {
+  const { limitRowCount: limit, omitRowCount: omit, cardType } = options;
+  const tags = options.tags ?? [];
   const tagsMsg = tags.length > 0 ? 'tags: "' + tags.join(', ') + '"' : 'no tags';
   const cardMsg = cardType === 'both' ? 'for both cards' : `for ${cardType}`;
 
@@ -19,32 +14,25 @@ function printTable(
     return;
   }
 
-  const limitMsg = createLimitMsg(limit, records.length);
+  const limitMsg = createLimitMsg(limit, records.length, omit);
   console.log(`Showing ${limitMsg} records in deck ${deckName} using ${tagsMsg} ${cardMsg} with ${operationName}:`);
 
-  console.table(sortRecords(records, cardType).slice(0, limit));
+  console.table(sliceRecords(sortRecords(records, cardType), limit, omit));
 }
 
 export function printListResult(result: ListResult, deckName: string, options: ListCmdOptions): void {
-  const { tags, limitRowCount, operations, cardType } = options;
+  const { operations } = options;
 
   if (operations.includes('--list-cards-with-meaning-separator')) {
-    printTable(result.recordsByMeaningSeparator!, deckName, tags ?? [], limitRowCount, cardType, 'Meaning Separator');
+    printTable(result.recordsByMeaningSeparator!, deckName, 'Meaning Separator', options);
   }
   if (operations.includes('--list-cards-with-synonym-separator')) {
-    printTable(result.recordsBySynonymSeparator!, deckName, tags ?? [], limitRowCount, cardType, 'Synonym Separator');
+    printTable(result.recordsBySynonymSeparator!, deckName, 'Synonym Separator', options);
   }
   if (operations.includes('--list-cards-with-explanation-brackets')) {
-    printTable(
-      result.recordsByExplanationBrackets!,
-      deckName,
-      tags ?? [],
-      limitRowCount,
-      cardType,
-      'Explanation Brackets',
-    );
+    printTable(result.recordsByExplanationBrackets!, deckName, 'Explanation Brackets', options);
   }
   if (operations.includes('--list-cards-with-prefix-separator')) {
-    printTable(result.recordsByPrefixSeparator!, deckName, tags ?? [], limitRowCount, cardType, 'Prefix Separator');
+    printTable(result.recordsByPrefixSeparator!, deckName, 'Prefix Separator', options);
   }
 }

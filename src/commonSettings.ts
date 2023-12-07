@@ -12,7 +12,7 @@ const explanationBracketsChoices = ['curly', 'round', 'square'];
 
 export const cardChoices = ['card1', 'card2', 'both'];
 
-// common options
+// common options (all options in this list should have short version)
 
 export const meaningSeparatorOption = new Option(
   '-m, --meaning-separator [separator]',
@@ -42,15 +42,15 @@ export const limitRowsOption = new Option(
     'If multiple tables are shown, then this option applies to all of them.',
 );
 
-// const omitRowsOption = new Option(
-//   '-o, --omit-rows <count>',
-//   'The --limit-rows shows the first n rows.\n' +
-//   'Use this option if you want to omit the first n rows and then show the specified rows.\n' +
-//   'This option is ignored if the --limit-rows option is not used.\n' +
-//   'If multiple tables are shown, then this option applies to all of them.\n' +
-//   'If ommiting would lead to showing no rows, then the last rows are shown instead\n' +
-//   '(for example there are 10 rows total, you want to omit 6 rows, and limit to 5 rows, then the last 5 rows are shown).'
-// );
+export const omitRowsOption = new Option(
+  '-o, --omit-rows <count>',
+  'The --limit-rows shows the first n rows.\n' +
+    'Use this option if you want to omit the first n rows and then show the specified rows.\n' +
+    'This option is ignored if the --limit-rows option is not used.\n' +
+    'If multiple tables are shown, then this option applies to all of them.\n' +
+    'If ommiting would lead to showing no rows, then the last rows are shown instead\n' +
+    '(for example there are 10 rows total, you want to omit 6 rows, and limit to 5 rows, then the last 5 rows are shown).',
+);
 
 export const tagsOption = new Option(
   '-t, --tags <tags...>',

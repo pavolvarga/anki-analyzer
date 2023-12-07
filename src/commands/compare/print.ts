@@ -1,6 +1,7 @@
 import { sortBy } from 'lodash';
 import { createLimitMsg } from '../print';
 import { CardWrapper, CardWrapperPair, CompareCmdOptions, ComparisonResult } from './types';
+import { sliceRecords } from '../common';
 
 function areIdentical(result: ComparisonResult) {
   const { differentCards, cardsOnlyInDeckA, cardsOnlyInDeckB } = result;
@@ -14,6 +15,7 @@ export function printStatus(
   result: ComparisonResult,
   lengthA: number,
   lengthB: number,
+  prefix: string | undefined,
 ) {
   const { sameCards, differentCards, cardsOnlyInDeckA, cardsOnlyInDeckB } = result;
 
@@ -21,8 +23,9 @@ export function printStatus(
     console.log(`Decks ${deckA} for tag ${tag} and ${deckB} are identical, no differences found`);
   }
 
+  const prefixMsg = prefix ? ` (prefix used: '${prefix})'` : '';
   console.log(
-    `Decks ${deckA} (${lengthA}) for tag '${tag}' and ${deckB} (${lengthB}) are not identical, differences found:`,
+    `Decks ${deckA} (${lengthA}) for tag '${tag}' and ${deckB} (${lengthB}) are not identical, differences found${prefixMsg}:`,
   );
   console.log(`  Same cards: ${sameCards.length}`);
   console.log(`  Different cards: ${differentCards.length}`);
@@ -30,51 +33,56 @@ export function printStatus(
   console.log(`  Cards only in ${deckB}: ${cardsOnlyInDeckB.length}`);
 }
 
-function printDifferentTable(differentCards: CardWrapperPair[], limit: number, deckAName: string, deckBName: string) {
+function printDifferentTable(
+  differentCards: CardWrapperPair[],
+  deckAName: string,
+  deckBName: string,
+  options: CompareCmdOptions,
+) {
   if (differentCards.length === 0) {
     console.log(`\nThere are no different cards between ${deckAName} and ${deckBName}`);
     return;
   }
 
-  console.log(`\nDifferent cards (${createLimitMsg(limit, differentCards.length)} records):`);
+  const { limitRowCount: limit, omitRowCount: omit } = options;
 
-  const tableRows = sortBy(differentCards, ['deckA.record.card1'])
-    .slice(0, limit)
-    .map((cardPair) => {
-      const { deckA, deckB } = cardPair;
-      return {
-        'General Deck': deckAName,
-        'Note Id (general)': deckA.record.id,
-        'Card 1 (general)': deckA.record.card1,
-        'Card 2 (general)': deckA.record.card2,
+  console.log(`\nDifferent cards (showing ${createLimitMsg(limit, differentCards.length, omit)} records):`);
 
-        'Specific Deck': deckBName,
-        'Note Id (specific)': deckB.record.id,
-        'Card 1 (specific)': deckB.record.card1,
-        'Card 2 (specific)': deckB.record.card2,
-      };
-    });
+  const tableRows = sliceRecords(sortBy(differentCards, ['deckA.record.card1']), limit, omit).map((cardPair) => {
+    const { deckA, deckB } = cardPair;
+    return {
+      'General Deck': deckAName,
+      'Note Id (general)': deckA.record.id,
+      'Card 1 (general)': deckA.record.card1,
+      'Card 2 (general)': deckA.record.card2,
+
+      'Specific Deck': deckBName,
+      'Note Id (specific)': deckB.record.id,
+      'Card 1 (specific)': deckB.record.card1,
+      'Card 2 (specific)': deckB.record.card2,
+    };
+  });
 
   console.table(tableRows);
 }
 
-function printTable(header: string, cards: CardWrapper[], limit: number, deckName: string) {
+function printTable(header: string, cards: CardWrapper[], deckName: string, options: CompareCmdOptions) {
   if (cards.length === 0) {
     console.log(`\nDeck ${deckName} has no cards which are not part of the other deck`);
     return;
   }
 
+  const { limitRowCount: limit, omitRowCount: omit } = options;
+
   console.log(header);
 
-  const tableRows = sortBy(cards, ['card.record.card1'])
-    .slice(0, limit)
-    .map((card) => {
-      return {
-        Deck: deckName,
-        'Card 1': card.record.card1,
-        'Card 2': card.record.card2,
-      };
-    });
+  const tableRows = sliceRecords(sortBy(cards, ['card.record.card1']), limit, omit).map((card) => {
+    return {
+      Deck: deckName,
+      'Card 1': card.record.card1,
+      'Card 2': card.record.card2,
+    };
+  });
 
   console.table(tableRows);
 }
@@ -93,14 +101,14 @@ export function printDetails(
 
   switch (options.comparisionTable) {
     case 'different':
-      printDifferentTable(differentCards, options.limitRowCount, generalDeckFullName, specificDeckFullName);
+      printDifferentTable(differentCards, generalDeckFullName, specificDeckFullName, options);
       break;
     case 'only-in-general': {
       printTable(
         `\nCards only in ${generalDeckFullName} (showing first ${options.limitRowCount} of ${cardsOnlyInDeckA.length} records):`,
         cardsOnlyInDeckA,
-        options.limitRowCount,
         generalDeckFullName,
+        options,
       );
       break;
     }
@@ -108,24 +116,24 @@ export function printDetails(
       printTable(
         `\nCards only in ${specificDeckFullName} (showing first ${options.limitRowCount} of ${cardsOnlyInDeckB.length} records):`,
         cardsOnlyInDeckB,
-        options.limitRowCount,
         specificDeckFullName,
+        options,
       );
       break;
     }
     case 'all': {
-      printDifferentTable(differentCards, options.limitRowCount, generalDeckFullName, specificDeckFullName);
+      printDifferentTable(differentCards, generalDeckFullName, specificDeckFullName, options);
       printTable(
         `\nCards only in ${generalDeckFullName} (showing first ${options.limitRowCount} of ${cardsOnlyInDeckA.length} records):`,
         cardsOnlyInDeckA,
-        options.limitRowCount,
         generalDeckFullName,
+        options,
       );
       printTable(
         `\nCards only in ${specificDeckFullName} (showing first ${options.limitRowCount} of ${cardsOnlyInDeckB.length} records):`,
         cardsOnlyInDeckB,
-        options.limitRowCount,
         specificDeckFullName,
+        options,
       );
       break;
     }

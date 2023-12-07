@@ -160,3 +160,18 @@ export function sortRecords(records: AnkiRecord[], cardType: CardType): AnkiReco
   const sort = cardType === 'card1' || cardType === 'both' ? 'card1' : 'card2';
   return sortBy(records, sort);
 }
+
+/**
+ * If omit is not defined show first `limit` records.
+ * If omit is defined, then show records from `omit` to `omit + limit`.
+ * If `omit + limit` is greater than the number of records, then show last `limit` records.
+ */
+export function sliceRecords<T>(records: T[], limit: number, omit: number | undefined): T[] {
+  if (omit === undefined) {
+    return records.slice(0, limit);
+  }
+  if (omit + limit > records.length) {
+    return records.slice(-limit);
+  }
+  return records.slice(omit, omit + limit);
+}

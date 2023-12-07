@@ -18,7 +18,8 @@ export function parse(options: any): VerifyCmdOptions {
   if (options.tags) {
     result.tags = options.tags;
   }
-  result.limitRowCount = options.limitRows ? options.limitRows : DEFAULT_LIMIT_ROW_COUNT;
+  result.limitRowCount = options.limitRows ? parseInt(options.limitRows, 10) : DEFAULT_LIMIT_ROW_COUNT;
+  result.omitRowCount = options.omitRows ? parseInt(options.omitRows, 10) : undefined;
 
   const { verifyMeaningSeparatorUsed, verifyMeaningSeparatorNotUsed, verifyTagsUsed, verifyTagsNotUsed } = options;
 

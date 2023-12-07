@@ -27,6 +27,26 @@ describe('parseOptions', () => {
       parse({ verifyTagsNotUsed: true, tags: 'verb' });
     }).toThrow('Option --verify-tags-not-used can not be used together with the --tags option.');
   });
+  it('should use provided argument for --verify-meaning-separator-used option', () => {
+    const result = parse({ verifyMeaningSeparatorUsed: 'card2' });
+    const expected: VerifyCmdOptions = {
+      meaningSeparator: ';;',
+      operation: 'verify-meaning-separator-used',
+      operationArg: 'card2',
+      limitRowCount: 10,
+    };
+    expect(result).toEqual(expected);
+  });
+  it('should use provided argument for --verify-meaning-separator-not used option', () => {
+    const result = parse({ verifyMeaningSeparatorUsed: 'both' });
+    const expected: VerifyCmdOptions = {
+      meaningSeparator: ';;',
+      operation: 'verify-meaning-separator-used',
+      operationArg: 'both',
+      limitRowCount: 10,
+    };
+    expect(result).toEqual(expected);
+  });
   describe('should use default meaning separator', () => {
     it('when the --meaning-separator option is not used', () => {
       {
@@ -72,23 +92,24 @@ describe('parseOptions', () => {
     };
     expect(result).toEqual(expected);
   });
-  it('should use provided argument for --verify-meaning-separator-used option', () => {
-    const result = parse({ verifyMeaningSeparatorUsed: 'card2' });
+  it('should use specified limit row count if is was provided', () => {
+    const result = parse({ verifyMeaningSeparatorUsed: 'card1', limitRows: 5 });
     const expected: VerifyCmdOptions = {
       meaningSeparator: ';;',
       operation: 'verify-meaning-separator-used',
-      operationArg: 'card2',
-      limitRowCount: 10,
+      operationArg: 'card1',
+      limitRowCount: 5,
     };
     expect(result).toEqual(expected);
   });
-  it('should use provided argument for --verify-meaning-separator-not used option', () => {
-    const result = parse({ verifyMeaningSeparatorUsed: 'both' });
+  it('should use specified omit row count if is was provided', () => {
+    const result = parse({ verifyMeaningSeparatorUsed: 'card1', omitRows: 5 });
     const expected: VerifyCmdOptions = {
       meaningSeparator: ';;',
       operation: 'verify-meaning-separator-used',
-      operationArg: 'both',
+      operationArg: 'card1',
       limitRowCount: 10,
+      omitRowCount: 5,
     };
     expect(result).toEqual(expected);
   });

@@ -57,4 +57,16 @@ describe('parse', () => {
 
     expect(parse(options)).toEqual(expected);
   });
+  it('should specified omit row count if is was provided', () => {
+    const options = { omitRows: 5 };
+    const expected = {
+      synonymSeparator: DEFAULT_SYNONYM_SEPARATOR,
+      tags: undefined,
+      cardType: undefined,
+      limitRowCount: DEFAULT_LIMIT_ROW_COUNT,
+      omitRowCount: 5,
+    };
+
+    expect(parse(options)).toEqual(expected);
+  });
 });

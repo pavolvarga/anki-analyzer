@@ -1,8 +1,9 @@
 import { createLimitMsg } from '../print';
 import { VerificationResult, VerifyCmdOptions } from './types';
+import { sliceRecords } from '../common';
 
 export function printResult(result: VerificationResult, options: VerifyCmdOptions): void {
-  const { limitRowCount } = options;
+  const { limitRowCount, omitRowCount } = options;
 
   // success
   if (result.outcome === 'success') {
@@ -12,7 +13,7 @@ export function printResult(result: VerificationResult, options: VerifyCmdOption
 
   // failure
   console.info(result.failureMsg);
-  const limitMsg = createLimitMsg(options.limitRowCount, result.failed!.length);
-  console.log(`Showing first ${limitMsg} failed records:`);
-  console.table(result.failed!.slice(0, limitRowCount));
+  const limitMsg = createLimitMsg(options.limitRowCount, result.failed!.length, omitRowCount);
+  console.log(`Showing ${limitMsg} failed records:`);
+  console.table(sliceRecords(result.failed!, limitRowCount, omitRowCount));
 }
