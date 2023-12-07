@@ -1,12 +1,18 @@
-import { Argument, Command, Option } from 'commander';
+import { Command, Option } from 'commander';
 import figlet from 'figlet';
 
+import { DEFAULT_LIMIT_ROW_COUNT } from './const';
 import {
-  DEFAULT_EXPLANATION_BRACKET,
-  DEFAULT_LIMIT_ROW_COUNT,
-  DEFAULT_MEANING_SEPARATOR,
-  DEFAULT_SYNONYM_SEPARATOR,
-} from './const';
+  argumentFile,
+  meaningSeparatorOption,
+  synonymSeparatorOption,
+  prefixSeparatorOption,
+  explanationBracketsOption,
+  argumentDeck,
+  tagsOption,
+  cardChoices,
+  limitRowsOption,
+} from './commonSettings';
 
 import { commandInfo } from './commands/info/info';
 import { commandDeck } from './commands/deck/deck';
@@ -14,51 +20,6 @@ import { commandVerify } from './commands/verify/verify';
 import { commandCompare } from './commands/compare/compare';
 import { commandDuplicates } from './commands/duplicates/duplicates';
 import { commandList } from './commands/list/list';
-
-// common choices
-
-const explanationBracketsChoices = ['curly', 'round', 'square'];
-const cardChoices = ['card1', 'card2', 'both'];
-
-// common options
-
-const meaningSeparatorOption = new Option(
-  '-m, --meaning-separator [separator]',
-  `Specify separator for 'pieces of information', like: 'essen ${DEFAULT_MEANING_SEPARATOR} to eat', if none is used it defaults to '${DEFAULT_MEANING_SEPARATOR}'.`,
-);
-const synonymSeparatorOption = new Option(
-  '-s, --synonym-separator [separator]',
-  `Specify separator for synonyms, when one word has multiple translations, like: 'to repel${DEFAULT_SYNONYM_SEPARATOR} to fight off' for 'abwehren', if none is used it defaults to '${DEFAULT_SYNONYM_SEPARATOR}'.`,
-);
-const prefixSeparatorOption = new Option(
-  '-p, --prefix-separator <separator>',
-  'Specify separator for prefixes (or suffixes). For example vor-stellen, the root verb is stellen, and vor is the prefix.\n' +
-    'If none is used, it is assummed that prefix separation is not used.\n' +
-    'No space is allowed between prefix (or suffix) and the word it is attached to.',
-);
-const explanationBracketsOption = new Option(
-  '-e, --explanation-brackets <bracket-type>',
-  `Specify type of brackets for additional explanation. If none is used, it defaults to ${DEFAULT_EXPLANATION_BRACKET} brackets.`,
-).choices(explanationBracketsChoices);
-const limitRowsOption = new Option(
-  '-l, --limit-rows <count>',
-  `If additional data is outputed in table format, then by default ${DEFAULT_LIMIT_ROW_COUNT} rows are shown. Use this option to change the number of rows shown.\n` +
-    'If multiple tables are shown, then this option applies to all of them.',
-);
-const tagsOption = new Option(
-  '-t, --tags <tags...>',
-  'Narrow command / operation to specified tags. If not specified, then command / operation is applied to whole deck.',
-);
-
-// common arguments
-
-const argumentFile = new Argument('<file>', 'File containing exported Anki Decks');
-const argumentDeck = new Argument(
-  '<deck-name>',
-  'Name of one Anki Deck.\n' +
-    'Either use full name, or append `*` to start of a name to indicate search by startsWith,\n' +
-    'when multiple decks match the beginning of the name, error is thrown.',
-);
 
 const program = new Command();
 
