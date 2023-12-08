@@ -1,13 +1,13 @@
 import { AnkiRecord } from '../../types';
-import { createLimitMsg } from '../print';
+import { createCardMsg, createLimitMsg, createTagsMsg } from '../print';
 import { sliceRecords, sortRecords } from '../common';
 import { ListCmdOptions, ListResult } from './types';
 
 function printTable(records: AnkiRecord[], deckName: string, operationName: string, options: ListCmdOptions): void {
   const { limitRowCount: limit, omitRowCount: omit, cardType } = options;
   const tags = options.tags ?? [];
-  const tagsMsg = tags.length > 0 ? 'tags: "' + tags.join(', ') + '"' : 'no tags';
-  const cardMsg = cardType === 'both' ? 'for both cards' : `for ${cardType}`;
+  const tagsMsg = createTagsMsg(tags);
+  const cardMsg = createCardMsg(cardType);
 
   if (records.length === 0) {
     console.log(`Deck ${deckName} using ${tagsMsg} ${cardMsg} has no records with ${operationName}`);

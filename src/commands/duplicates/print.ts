@@ -1,11 +1,11 @@
 import { sortBy } from 'lodash';
 import { AnkiRecord } from '../../types';
-import { createLimitMsg } from '../print';
+import { createLimitMsg, createTagsMsg } from '../print';
 import { DuplicatesCmdOptions } from './types';
 import { sliceRecords } from '../common';
 
 function createStatusMessage(name: string, tags: string[], size: number, cardNum: 1 | 2): string {
-  const tagsMsg = tags.length > 0 ? 'tags: "' + tags.join(', ') + '"' : 'no tags';
+  const tagsMsg = createTagsMsg(tags);
   if (size === 0) {
     return `In deck ${name} using ${tagsMsg} for card${cardNum} exists no duplicated words`;
   }

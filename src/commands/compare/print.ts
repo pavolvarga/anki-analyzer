@@ -1,5 +1,5 @@
 import { sortBy } from 'lodash';
-import { createLimitMsg } from '../print';
+import { createLimitMsg, createPrefixMsg } from '../print';
 import { CardWrapper, CardWrapperPair, CompareCmdOptions, ComparisonResult } from './types';
 import { sliceRecords } from '../common';
 
@@ -23,7 +23,7 @@ export function printStatus(
     console.log(`Decks ${deckA} for tag ${tag} and ${deckB} are identical, no differences found`);
   }
 
-  const prefixMsg = prefix ? ` (prefix used: '${prefix})'` : '';
+  const prefixMsg = createPrefixMsg(prefix);
   console.log(
     `Decks ${deckA} (${lengthA}) for tag '${tag}' and ${deckB} (${lengthB}) are not identical, differences found${prefixMsg}:`,
   );
@@ -66,7 +66,7 @@ function printDifferentTable(
   console.table(tableRows);
 }
 
-function printTable(header: string, cards: CardWrapper[], deckName: string, options: CompareCmdOptions) {
+function printTable(cards: CardWrapper[], deckName: string, options: CompareCmdOptions) {
   if (cards.length === 0) {
     console.log(`\nDeck ${deckName} has no cards which are not part of the other deck`);
     return;
@@ -74,7 +74,8 @@ function printTable(header: string, cards: CardWrapper[], deckName: string, opti
 
   const { limitRowCount: limit, omitRowCount: omit } = options;
 
-  console.log(header);
+  const limitMsg = createLimitMsg(limit, cards.length, omit);
+  console.log(`\nCards only in ${deckName} (showing ${limitMsg} records):`);
 
   const tableRows = sliceRecords(sortBy(cards, ['card.record.card1']), limit, omit).map((card) => {
     return {
@@ -104,37 +105,17 @@ export function printDetails(
       printDifferentTable(differentCards, generalDeckFullName, specificDeckFullName, options);
       break;
     case 'only-in-general': {
-      printTable(
-        `\nCards only in ${generalDeckFullName} (showing first ${options.limitRowCount} of ${cardsOnlyInDeckA.length} records):`,
-        cardsOnlyInDeckA,
-        generalDeckFullName,
-        options,
-      );
+      printTable(cardsOnlyInDeckA, generalDeckFullName, options);
       break;
     }
     case 'only-in-specific': {
-      printTable(
-        `\nCards only in ${specificDeckFullName} (showing first ${options.limitRowCount} of ${cardsOnlyInDeckB.length} records):`,
-        cardsOnlyInDeckB,
-        specificDeckFullName,
-        options,
-      );
+      printTable(cardsOnlyInDeckB, specificDeckFullName, options);
       break;
     }
     case 'all': {
       printDifferentTable(differentCards, generalDeckFullName, specificDeckFullName, options);
-      printTable(
-        `\nCards only in ${generalDeckFullName} (showing first ${options.limitRowCount} of ${cardsOnlyInDeckA.length} records):`,
-        cardsOnlyInDeckA,
-        generalDeckFullName,
-        options,
-      );
-      printTable(
-        `\nCards only in ${specificDeckFullName} (showing first ${options.limitRowCount} of ${cardsOnlyInDeckB.length} records):`,
-        cardsOnlyInDeckB,
-        specificDeckFullName,
-        options,
-      );
+      printTable(cardsOnlyInDeckA, generalDeckFullName, options);
+      printTable(cardsOnlyInDeckB, specificDeckFullName, options);
       break;
     }
     default:
