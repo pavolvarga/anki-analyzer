@@ -1,11 +1,14 @@
 import { ListCmdOptions, ListOperation } from './types';
+import { DEFAULT_LIMIT_ROW_COUNT, DEFAULT_MEANING_SEPARATOR, DEFAULT_SYNONYM_SEPARATOR } from '../../const';
 import {
-  DEFAULT_EXPLANATION_BRACKET,
-  DEFAULT_LIMIT_ROW_COUNT,
-  DEFAULT_MEANING_SEPARATOR,
-  DEFAULT_SYNONYM_SEPARATOR,
-} from '../../const';
-import { parseOptionLimitRows, parseOptionOmitRows } from '../optionsParser';
+  parseOptionExplanationBrackets,
+  parseOptionLimitRows,
+  parseOptionMeaningSeparator,
+  parseOptionOmitRows,
+  parseOptionSynonymSeparator,
+  parseOptionPrefixSeparator,
+  parseOptionTags,
+} from '../optionsParser';
 
 export function parse(options: any): ListCmdOptions {
   if (options === undefined) {
@@ -47,13 +50,13 @@ export function parse(options: any): ListCmdOptions {
   }
 
   return {
-    meaningSeparator: options.meaningSeparator ? options.meaningSeparator : DEFAULT_MEANING_SEPARATOR,
-    synonymSeparator: options.synonymSeparator ? options.synonymSeparator : DEFAULT_SYNONYM_SEPARATOR,
-    explanationBrackets: options.explanationBracket ? options.explanationBracket : DEFAULT_EXPLANATION_BRACKET,
-    tags: options.tags,
-    cardType: options.card ? options.card : 'both',
-    prefixSeparator: options.prefixSeparator ? options.prefixSeparator : undefined,
     operations,
+    cardType: options.card ? options.card : 'both',
+    meaningSeparator: parseOptionMeaningSeparator(options) ?? DEFAULT_MEANING_SEPARATOR,
+    synonymSeparator: parseOptionSynonymSeparator(options) ?? DEFAULT_SYNONYM_SEPARATOR,
+    explanationBrackets: parseOptionExplanationBrackets(options),
+    tags: parseOptionTags(options),
+    prefixSeparator: parseOptionPrefixSeparator(options),
     omitRowCount: parseOptionOmitRows(options),
     limitRowCount: parseOptionLimitRows(options) ?? DEFAULT_LIMIT_ROW_COUNT,
   };

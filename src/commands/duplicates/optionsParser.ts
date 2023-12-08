@@ -1,6 +1,11 @@
 import { DEFAULT_LIMIT_ROW_COUNT, DEFAULT_SYNONYM_SEPARATOR } from '../../const';
-import { parseOptionLimitRows, parseOptionOmitRows, parseOptionTags } from '../optionsParser';
 import { DuplicatesCmdOptions } from './types';
+import {
+  parseOptionLimitRows,
+  parseOptionOmitRows,
+  parseOptionSynonymSeparator,
+  parseOptionTags,
+} from '../optionsParser';
 
 export function parse(options: any): DuplicatesCmdOptions {
   if (options === undefined) {
@@ -14,9 +19,9 @@ export function parse(options: any): DuplicatesCmdOptions {
   }
 
   return {
-    synonymSeparator: options.synonymSeparator ? options.synonymSeparator : DEFAULT_SYNONYM_SEPARATOR,
+    synonymSeparator: parseOptionSynonymSeparator(options) ?? DEFAULT_SYNONYM_SEPARATOR,
     tags: parseOptionTags(options),
-    cardType: options.showDuplicatesTable ? options.showDuplicatesTable : undefined,
+    cardType: options.showDuplicatesTable,
     omitRowCount: parseOptionOmitRows(options),
     limitRowCount: parseOptionLimitRows(options) ?? DEFAULT_LIMIT_ROW_COUNT,
   };

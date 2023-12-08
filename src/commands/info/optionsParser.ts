@@ -10,6 +10,7 @@ export function parse(options: any): InfoCmdOptions | undefined {
   if (options === undefined) {
     return undefined;
   }
+
   const result: any = {};
   if (options.meaningSeparator === true) {
     result.meaningSeparator = DEFAULT_MEANING_SEPARATOR;

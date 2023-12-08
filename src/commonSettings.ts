@@ -2,7 +2,7 @@ import { Option, Argument } from 'commander';
 import {
   DEFAULT_MEANING_SEPARATOR,
   DEFAULT_SYNONYM_SEPARATOR,
-  DEFAULT_EXPLANATION_BRACKET,
+  DEFAULT_EXPLANATION_BRACKETS,
   DEFAULT_LIMIT_ROW_COUNT,
 } from './const';
 
@@ -33,7 +33,7 @@ export const prefixSeparatorOption = new Option(
 
 export const explanationBracketsOption = new Option(
   '-e, --explanation-brackets <bracket-type>',
-  `Specify type of brackets for additional explanation. If none is used, it defaults to ${DEFAULT_EXPLANATION_BRACKET} brackets.`,
+  `Specify type of brackets for additional explanation. If none is used, it defaults to ${DEFAULT_EXPLANATION_BRACKETS} brackets.`,
 ).choices(explanationBracketsChoices);
 
 export const limitRowsOption = new Option(

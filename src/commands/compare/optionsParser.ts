@@ -1,6 +1,11 @@
 import { DEFAULT_LIMIT_ROW_COUNT, DEFAULT_MEANING_SEPARATOR } from '../../const';
 import { CompareCmdOptions } from './types';
-import { parseOptionLimitRows, parseOptionOmitRows, parsePrefixSeparator } from '../optionsParser';
+import {
+  parseOptionLimitRows,
+  parseOptionMeaningSeparator,
+  parseOptionOmitRows,
+  parseOptionPrefixSeparator,
+} from '../optionsParser';
 
 export function parse(options: any): CompareCmdOptions {
   if (options === undefined) {
@@ -14,9 +19,9 @@ export function parse(options: any): CompareCmdOptions {
   }
 
   return {
-    meaningSeparator: options.meaningSeparator || DEFAULT_MEANING_SEPARATOR,
-    prefixSeparator: parsePrefixSeparator(options),
-    comparisionTable: options.showComparisionTable ? options.showComparisionTable : undefined,
+    meaningSeparator: parseOptionMeaningSeparator(options) ?? DEFAULT_MEANING_SEPARATOR,
+    prefixSeparator: parseOptionPrefixSeparator(options),
+    comparisionTable: options.showComparisionTable,
     limitRowCount: parseOptionLimitRows(options) ?? DEFAULT_LIMIT_ROW_COUNT,
     omitRowCount: parseOptionOmitRows(options),
   };

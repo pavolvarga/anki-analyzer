@@ -1,28 +1,23 @@
 import { DEFAULT_LIMIT_ROW_COUNT, DEFAULT_MEANING_SEPARATOR } from '../../const';
-import { parseOptionLimitRows, parseOptionOmitRows, parseOptionTags } from '../optionsParser';
 import { VerifyCmdOptions } from './types';
+import {
+  parseOptionLimitRows,
+  parseOptionMeaningSeparator,
+  parseOptionOmitRows,
+  parseOptionTags,
+} from '../optionsParser';
 
 export function parse(options: any): VerifyCmdOptions {
   if (options === undefined) {
     throw new Error('One --verify-* option must be used.');
   }
 
-  const result: any = {};
-
-  const limitRowCount = parseOptionLimitRows(options);
-  const omitRowCount = parseOptionOmitRows(options);
-  const tags = parseOptionTags(options);
-
-  if (options.meaningSeparator === true || options.meaningSeparator === undefined) {
-    result.meaningSeparator = DEFAULT_MEANING_SEPARATOR;
-  }
-  if (typeof options.meaningSeparator === 'string') {
-    result.meaningSeparator = options.meaningSeparator;
-  }
-
-  result.limitRowCount = limitRowCount ?? DEFAULT_LIMIT_ROW_COUNT;
-  result.omitRowCount = omitRowCount;
-  result.tags = tags;
+  const result: any = {
+    limitRowCount: parseOptionLimitRows(options) ?? DEFAULT_LIMIT_ROW_COUNT,
+    omitRowCount: parseOptionOmitRows(options),
+    tags: parseOptionTags(options),
+    meaningSeparator: parseOptionMeaningSeparator(options) ?? DEFAULT_MEANING_SEPARATOR,
+  };
 
   const { verifyMeaningSeparatorUsed, verifyMeaningSeparatorNotUsed, verifyTagsUsed, verifyTagsNotUsed } = options;
 
