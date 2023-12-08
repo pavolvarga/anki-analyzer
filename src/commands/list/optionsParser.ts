@@ -46,9 +46,6 @@ export function parse(options: any): ListCmdOptions {
     operations.push('--list-cards-with-prefix-separator');
   }
 
-  const limitRowCount = parseOptionLimitRows(options);
-  const omitRowCount = parseOptionOmitRows(options);
-
   return {
     meaningSeparator: options.meaningSeparator ? options.meaningSeparator : DEFAULT_MEANING_SEPARATOR,
     synonymSeparator: options.synonymSeparator ? options.synonymSeparator : DEFAULT_SYNONYM_SEPARATOR,
@@ -57,7 +54,7 @@ export function parse(options: any): ListCmdOptions {
     cardType: options.card ? options.card : 'both',
     prefixSeparator: options.prefixSeparator ? options.prefixSeparator : undefined,
     operations,
-    omitRowCount,
-    limitRowCount: limitRowCount === undefined ? DEFAULT_LIMIT_ROW_COUNT : limitRowCount,
+    omitRowCount: parseOptionOmitRows(options),
+    limitRowCount: parseOptionLimitRows(options) ?? DEFAULT_LIMIT_ROW_COUNT,
   };
 }
