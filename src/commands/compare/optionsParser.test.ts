@@ -8,6 +8,8 @@ describe('parse', () => {
       meaningSeparator: DEFAULT_MEANING_SEPARATOR,
       limitRowCount: DEFAULT_LIMIT_ROW_COUNT,
       prefixSeparator: undefined,
+      comparisionTable: undefined,
+      omitRowCount: undefined,
     };
     expect(result).toStrictEqual(expected);
   });
