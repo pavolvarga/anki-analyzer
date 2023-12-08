@@ -1,5 +1,6 @@
 import { DEFAULT_LIMIT_ROW_COUNT, DEFAULT_MEANING_SEPARATOR } from '../../const';
 import { CompareCmdOptions } from './types';
+import { parseOptionLimitRows, parseOptionOmitRows } from '../optionsParser';
 
 export function parse(options: any): CompareCmdOptions {
   if (options === undefined) {
@@ -10,11 +11,14 @@ export function parse(options: any): CompareCmdOptions {
     };
   }
 
+  const limitRowCount = parseOptionLimitRows(options);
+  const omitRowCount = parseOptionOmitRows(options);
+
   return {
     meaningSeparator: options.meaningSeparator || DEFAULT_MEANING_SEPARATOR,
     prefixSeparator: options.prefixSeparator ? options.prefixSeparator : undefined,
     comparisionTable: options.showComparisionTable ? options.showComparisionTable : undefined,
-    limitRowCount: options.limitRows ? parseInt(options.limitRows, 10) : DEFAULT_LIMIT_ROW_COUNT,
-    omitRowCount: options.omitRows ? parseInt(options.omitRows, 10) : undefined,
+    omitRowCount,
+    limitRowCount: limitRowCount === undefined ? DEFAULT_LIMIT_ROW_COUNT : limitRowCount,
   };
 }

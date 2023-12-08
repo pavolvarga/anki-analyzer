@@ -5,6 +5,7 @@ import {
   DEFAULT_MEANING_SEPARATOR,
   DEFAULT_SYNONYM_SEPARATOR,
 } from '../../const';
+import { parseOptionLimitRows, parseOptionOmitRows } from '../optionsParser';
 
 export function parse(options: any): ListCmdOptions {
   if (options === undefined) {
@@ -45,15 +46,18 @@ export function parse(options: any): ListCmdOptions {
     operations.push('--list-cards-with-prefix-separator');
   }
 
+  const limitRowCount = parseOptionLimitRows(options);
+  const omitRowCount = parseOptionOmitRows(options);
+
   return {
     meaningSeparator: options.meaningSeparator ? options.meaningSeparator : DEFAULT_MEANING_SEPARATOR,
     synonymSeparator: options.synonymSeparator ? options.synonymSeparator : DEFAULT_SYNONYM_SEPARATOR,
     explanationBrackets: options.explanationBracket ? options.explanationBracket : DEFAULT_EXPLANATION_BRACKET,
     tags: options.tags,
     cardType: options.card ? options.card : 'both',
-    limitRowCount: options.limitRows ? parseInt(options.limitRows) : DEFAULT_LIMIT_ROW_COUNT,
     prefixSeparator: options.prefixSeparator ? options.prefixSeparator : undefined,
     operations,
-    omitRowCount: options.omitRows ? parseInt(options.omitRows) : undefined,
+    omitRowCount,
+    limitRowCount: limitRowCount === undefined ? DEFAULT_LIMIT_ROW_COUNT : limitRowCount,
   };
 }

@@ -1,4 +1,5 @@
 import { DEFAULT_LIMIT_ROW_COUNT, DEFAULT_SYNONYM_SEPARATOR } from '../../const';
+import { parseOptionLimitRows, parseOptionOmitRows } from '../optionsParser';
 import { DuplicatesCmdOptions } from './types';
 
 export function parse(options: any): DuplicatesCmdOptions {
@@ -11,11 +12,14 @@ export function parse(options: any): DuplicatesCmdOptions {
     };
   }
 
+  const limitRowCount = parseOptionLimitRows(options);
+  const omitRowCount = parseOptionOmitRows(options);
+
   return {
     synonymSeparator: options.synonymSeparator ? options.synonymSeparator : DEFAULT_SYNONYM_SEPARATOR,
     tags: options.tags ? options.tags : undefined,
     cardType: options.showDuplicatesTable ? options.showDuplicatesTable : undefined,
-    limitRowCount: options.limitRows ? parseInt(options.limitRows, 10) : DEFAULT_LIMIT_ROW_COUNT,
-    omitRowCount: options.omitRows ? parseInt(options.omitRows, 10) : undefined,
+    omitRowCount,
+    limitRowCount: limitRowCount === undefined ? DEFAULT_LIMIT_ROW_COUNT : limitRowCount,
   };
 }

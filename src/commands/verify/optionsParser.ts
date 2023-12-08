@@ -1,4 +1,5 @@
 import { DEFAULT_LIMIT_ROW_COUNT, DEFAULT_MEANING_SEPARATOR } from '../../const';
+import { parseOptionLimitRows, parseOptionOmitRows } from '../optionsParser';
 import { VerifyCmdOptions } from './types';
 
 export function parse(options: any): VerifyCmdOptions {
@@ -7,6 +8,9 @@ export function parse(options: any): VerifyCmdOptions {
   }
 
   const result: any = {};
+
+  const limitRowCount = parseOptionLimitRows(options);
+  const omitRowCount = parseOptionOmitRows(options);
 
   if (options.meaningSeparator === true || options.meaningSeparator === undefined) {
     result.meaningSeparator = DEFAULT_MEANING_SEPARATOR;
@@ -18,8 +22,8 @@ export function parse(options: any): VerifyCmdOptions {
   if (options.tags) {
     result.tags = options.tags;
   }
-  result.limitRowCount = options.limitRows ? parseInt(options.limitRows, 10) : DEFAULT_LIMIT_ROW_COUNT;
-  result.omitRowCount = options.omitRows ? parseInt(options.omitRows, 10) : undefined;
+  result.limitRowCount = limitRowCount ?? DEFAULT_LIMIT_ROW_COUNT;
+  result.omitRowCount = omitRowCount;
 
   const { verifyMeaningSeparatorUsed, verifyMeaningSeparatorNotUsed, verifyTagsUsed, verifyTagsNotUsed } = options;
 
