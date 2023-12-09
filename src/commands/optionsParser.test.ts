@@ -23,6 +23,9 @@ describe('parseOptionLimitRows', () => {
   it('returns options.limitRows if it is a number', () => {
     expect(parseOptionLimitRows({ limitRows: 50 })).toStrictEqual(50);
   });
+  it('returns options.limitRows if it is a stringified number', () => {
+    expect(parseOptionLimitRows({ limitRows: '50' })).toStrictEqual(50);
+  });
 });
 
 describe('parseOptionOmitRows', () => {
@@ -39,6 +42,9 @@ describe('parseOptionOmitRows', () => {
   });
   it('returns options.omitRows if it is a number', () => {
     expect(parseOptionOmitRows({ omitRows: 50 })).toStrictEqual(50);
+  });
+  it('returns options.omitRows if it is a stringified number', () => {
+    expect(parseOptionOmitRows({ omitRows: '50' })).toStrictEqual(50);
   });
 });
 

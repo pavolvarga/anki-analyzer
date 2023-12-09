@@ -1,17 +1,21 @@
 import { DEFAULT_EXPLANATION_BRACKETS, DEFAULT_MEANING_SEPARATOR, DEFAULT_SYNONYM_SEPARATOR } from '../const';
 import { ExplanationBracketType } from '../types';
 
-function parse(options: any, name: string, optionName: string, type: 'string' | 'number') {
+function isNumeric(num: any) {
+  return (typeof num === 'number' || (typeof num === 'string' && num.trim() !== '')) && !isNaN(num as number);
+}
+
+function parseNumeric(options: any, name: string, optionName: string) {
   if (options === undefined) {
     return undefined;
   }
   if (options[name] === undefined) {
     return undefined;
   }
-  if (typeof options[name] !== type) {
-    throw new Error(`Expected ${optionName} to be a ${type}, but got ${typeof options[name]}`);
+  if (!isNumeric(options[name])) {
+    throw new Error(`Expected ${optionName} to be a number, but got ${typeof options[name]}`);
   }
-  return options[name];
+  return parseInt(options[name], 10);
 }
 
 function parseWithDefaultValue(
@@ -37,11 +41,11 @@ function parseWithDefaultValue(
 }
 
 export function parseOptionLimitRows(options: any): number | undefined {
-  return parse(options, 'limitRows', '--limit-rows', 'number');
+  return parseNumeric(options, 'limitRows', '--limit-rows');
 }
 
 export function parseOptionOmitRows(options: any): number | undefined {
-  return parse(options, 'omitRows', '--omit-rows', 'number');
+  return parseNumeric(options, 'omitRows', '--omit-rows');
 }
 
 export function parseOptionTags(options: any): string[] | undefined {
