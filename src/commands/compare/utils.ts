@@ -3,11 +3,11 @@ import { AnkiRecord } from '../../types';
 import { CardWrapper, CompareCmdOptions, ComparisonResult } from './types';
 import { CardWrapperPair } from './types';
 
-function removePrefixSeparator(card: string, prefixSeparator?: string): string {
+export function removePrefixSeparator(card: string, prefixSeparator?: string): string {
   if (prefixSeparator === undefined) {
     return card.trim();
   }
-  return card.replace(prefixSeparator, '').trim();
+  return card.replaceAll(prefixSeparator, '').trim();
 }
 
 export function filterDeck(deck: Map<string, AnkiRecord>, tag: string): AnkiRecord[] {
