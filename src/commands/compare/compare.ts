@@ -9,12 +9,20 @@ import { CompareCmdOptions } from './types';
 import { printDetails, printStatus } from './print';
 
 // assert that both decks are in expected format
-function assert(generalDeck: AnkiRecord[], specificDeck: AnkiRecord[], options: CompareCmdOptions): void {
+function assert(
+  generalDeck: AnkiRecord[],
+  specificDeck: AnkiRecord[],
+  options: CompareCmdOptions,
+  generalDeckName: string,
+  specificDeckName: string,
+): void {
   assertRecords(generalDeck, [
-    partialRight(assertMeaningSepartorIsNotUsed, options.meaningSeparator, 1),
-    partialRight(assertMeaningSepartorIsNotUsed, options.meaningSeparator, 2),
+    partialRight(assertMeaningSepartorIsNotUsed, options.meaningSeparator, 1, generalDeckName),
+    partialRight(assertMeaningSepartorIsNotUsed, options.meaningSeparator, 2, generalDeckName),
   ]);
-  assertRecords(specificDeck, [partialRight(assertMeaningSepartorIsUsed, options.meaningSeparator, 1)]);
+  assertRecords(specificDeck, [
+    partialRight(assertMeaningSepartorIsUsed, options.meaningSeparator, 1, specificDeckName),
+  ]);
 }
 
 export function commandCompare(
@@ -36,7 +44,7 @@ export function commandCompare(
   const specificDeckList = Array.from(specificDeck.values());
 
   // assert correct format
-  assert(generalDeckList, specificDeckList, options);
+  assert(generalDeckList, specificDeckList, options, fullGeneralDeckName, fullSpecificDeckName);
 
   // normalize cards in both decks
   const normalizedGeneralDeck = sortBy(normalizeCards(generalDeckList, options), ['card1']);

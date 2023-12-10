@@ -15,8 +15,8 @@ describe('assertMeaningSepartorIsNotUsed', () => {
     };
 
     expect(() => {
-      assertMeaningSepartorIsNotUsed(record, ';;', 1);
-    }).toThrow('Assertion failed - meaning separator is used in record 1 in card1: text1 ;; context');
+      assertMeaningSepartorIsNotUsed(record, ';;', 1, 'deck');
+    }).toThrow('Assertion failed - In deck is the meaning separator used in record 1 in card1: text1 ;; context');
   });
   it('should throw error when meaning separator is used in card2', () => {
     const record: AnkiRecord = {
@@ -28,8 +28,8 @@ describe('assertMeaningSepartorIsNotUsed', () => {
     };
 
     expect(() => {
-      assertMeaningSepartorIsNotUsed(record, ';;', 2);
-    }).toThrow('Assertion failed - meaning separator is used in record 1 in card2: text2 ;; context');
+      assertMeaningSepartorIsNotUsed(record, ';;', 2, 'deck');
+    }).toThrow('Assertion failed - In deck is the meaning separator used in record 1 in card2: text2 ;; context');
   });
 });
 
@@ -38,15 +38,15 @@ describe('assertMeaningSepartorIsUsed', () => {
     const record: AnkiRecord = { id: '1', deckName: 'deck', deckType: 'Basic (and reversed card)', card1: 'text1', card2: 'text2' };
 
     expect(() => {
-      assertMeaningSepartorIsUsed(record, ';;', 1);
-    }).toThrow('Assertion failed - meaning separator is not used in record 1 in card1: text1');
+      assertMeaningSepartorIsUsed(record, ';;', 1, 'deck');
+    }).toThrow('Assertion failed - In deck is the meaning separator not used in record 1 in card1: text1');
   });
   it('should throw error when meaning separator is used in card2', () => {
     const record: AnkiRecord = {id: '1', deckName: 'deck', deckType: 'Basic (and reversed card)', card1: 'text1', card2: 'text2' };
 
     expect(() => {
-      assertMeaningSepartorIsUsed(record, ';;', 2);
-    }).toThrow('Assertion failed - meaning separator is not used in record 1 in card2: text2');
+      assertMeaningSepartorIsUsed(record, ';;', 2, 'deck');
+    }).toThrow('Assertion failed - In deck is the meaning separator not used in record 1 in card2: text2');
   });
 });
 
@@ -62,10 +62,10 @@ describe('assertRecords', () => {
 
       expect(() => {
         assertRecords(Array.from(deck.values()), [
-          partialRight(assertMeaningSepartorIsNotUsed, ';;', 1),
-          partialRight(assertMeaningSepartorIsUsed, ';;', 2),
+          partialRight(assertMeaningSepartorIsNotUsed, ';;', 1, 'words'),
+          partialRight(assertMeaningSepartorIsUsed, ';;', 2, 'words'),
         ]);
-      }).toThrow('Assertion failed - meaning separator is not used in record 5 in card2: past tense ;, past participle');
+      }).toThrow('Assertion failed - In words is the meaning separator not used in record 5 in card2: past tense ;, past participle');
     });
 
     it('should not throw an error if all records in a deck pass all assertions', () => {
@@ -78,8 +78,8 @@ describe('assertRecords', () => {
 
       expect(() => {
         assertRecords(Array.from(deck.values()), [
-          partialRight(assertMeaningSepartorIsNotUsed, ';;', 1),
-          partialRight(assertMeaningSepartorIsUsed, ';;', 2),
+          partialRight(assertMeaningSepartorIsNotUsed, ';;', 1, 'words'),
+          partialRight(assertMeaningSepartorIsUsed, ';;', 2, 'words'),
         ]);
       }).not.toThrow();
     });
