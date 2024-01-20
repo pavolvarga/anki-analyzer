@@ -15,6 +15,7 @@ export function parse(options: any): CompareCmdOptions {
       comparisionTable: undefined,
       limitRowCount: DEFAULT_LIMIT_ROW_COUNT,
       omitRowCount: undefined,
+      tagMarkers: undefined,
     };
   }
 
@@ -24,5 +25,6 @@ export function parse(options: any): CompareCmdOptions {
     comparisionTable: options.showComparisionTable,
     limitRowCount: parseOptionLimitRows(options) ?? DEFAULT_LIMIT_ROW_COUNT,
     omitRowCount: parseOptionOmitRows(options),
+    tagMarkers: options.tagMarkers,
   };
 }

@@ -58,3 +58,15 @@ export type OptionTags = {
 export type OptionCardType = {
   cardType: CardType;
 };
+
+/**
+ * List of markers used to mark cards.
+ * When for example a single word is used in multiple cards, it can be marked with a marker.
+ * Normally for such things tags are used, but in some cases it is better if the word itself contains this information.
+ * For example:
+ * - betreten (verb)
+ * - betreten (adjective)
+ */
+export type OptionTagMarkers = {
+  tagMarkers?: string[];
+};

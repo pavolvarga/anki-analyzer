@@ -149,7 +149,9 @@ program
       'If these assertions are not true, then the command will fail on the first record that fails one of these assertions.\n' +
       'By default it prints short status of the comparison, to see more details use specific options.\n' +
       'It is assumed that words in both decks are same. If for example in one deck prefix / suffix separator used match will fail.\n' +
-      'Specify the prefix separator and it will be removed, so that the match can succeed.\n',
+      'Specify the prefix separator and it will be removed, so that the match can succeed.\n' +
+      'There other reason why the match can fail, for example if the same word is used both as a noun and as a verb.\n' +
+      'This possibility is handled by the `tag-markers` option.',
   )
   .addArgument(argumentFile)
   .argument(
@@ -176,6 +178,17 @@ program
         'To change the number of rows shown use the --lmit option.\n' +
         'If this option is not used, then only short status is shown.',
     ).choices(['all', 'different', 'only-in-general', 'only-in-specific']),
+  )
+  .addOption(
+    new Option(
+      '--tag-markers <tag-markers...>',
+      'It can happen that a single word is used both as an adjective and as a verb (for example `betreten` in german).\n' +
+        'Which means that in the general deck the card1 can contain this information, for example `betreten (verb)`.\n' +
+        'In the specific deck the card1 can contain only the word, for example `betreten`.\n' +
+        'In this case the comparison will fail, because the words are not same.\n' +
+        'To overcome this, specify the tag markers, for example `(verb)`.\n' +
+        'If they are specified these `tag-markers are removed from the card1 of the general deck, so that comparison does not mark such notes as different.',
+    ),
   )
   .action(commandCompare);
 

@@ -1,10 +1,17 @@
 import { AnkiRecord } from '../../types';
-import { OptionLimitRowCount, OptionMeaningSeparator, OptionOmitRowCount, OptionPrefixSeparator } from '../types';
+import {
+  OptionLimitRowCount,
+  OptionMeaningSeparator,
+  OptionOmitRowCount,
+  OptionPrefixSeparator,
+  OptionTagMarkers,
+} from '../types';
 
 export type CompareCmdOptions = OptionMeaningSeparator &
   Partial<OptionPrefixSeparator> &
   OptionLimitRowCount &
-  OptionOmitRowCount & {
+  OptionOmitRowCount &
+  OptionTagMarkers & {
     comparisionTable?: 'all' | 'different' | 'only-in-general' | 'only-in-specific';
   };
 
