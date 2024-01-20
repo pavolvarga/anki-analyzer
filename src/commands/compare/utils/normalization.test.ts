@@ -3,13 +3,12 @@ import { CompareCmdOptions } from '../types';
 import { normalizeCards } from './normalization';
 
 describe('normalizeCards', () => {
-  const options: CompareCmdOptions = {
-    meaningSeparator: ';;',
-    prefixSeparator: '-',
-    limitRowCount: 10,
-  };
-
   it('should correctly normalize cards 01', () => {
+    const options: CompareCmdOptions = {
+      meaningSeparator: ';;',
+      prefixSeparator: '-',
+      limitRowCount: 10,
+    };
     const deck: AnkiRecord[] = [
       {
         id: 'yocZF',
@@ -119,7 +118,13 @@ describe('normalizeCards', () => {
 
     expect(result).toStrictEqual(expected);
   });
+
   it('should correctly normalize cards 02', () => {
+    const options: CompareCmdOptions = {
+      meaningSeparator: ';;',
+      prefixSeparator: '-',
+      limitRowCount: 10,
+    };
     const deck: AnkiRecord[] = [
       {
         id: 'C@Z6!|}hjH',
@@ -223,6 +228,163 @@ describe('normalizeCards', () => {
           tags: undefined,
           card1: 'an-kommen ;; to come',
           card2: 'kam an ;; ist angekommen',
+        },
+      },
+    ];
+
+    expect(result).toStrictEqual(expected);
+  });
+
+  it('should correctly normalize cards 03', () => {
+    const options: CompareCmdOptions = {
+      meaningSeparator: ';;',
+      prefixSeparator: '-',
+      limitRowCount: 10,
+      tagMarkers: ['(verb)'],
+    };
+    const deck: AnkiRecord[] = [
+      {
+        id: '$6*.7',
+        deckName: 'Deutsch::Wörterbuch',
+        deckType: 'Basic (and reversed card)',
+        tags: ['verb'],
+        card1: 'vergeben (verb)',
+        card2: 'to forgive',
+      },
+      {
+        id: '>>KxN',
+        deckName: 'Deutsch::Wörterbuch',
+        deckType: 'Basic (and reversed card)',
+        tags: ['verb'],
+        card1: 'betreten (verb)',
+        card2: 'to set foot on sth.',
+      },
+      {
+        id: 'qpGZ5N?Use',
+        deckName: 'Deutsch::Wörterbuch',
+        deckType: 'Basic (and reversed card)',
+        tags: ['verb'],
+        card1: 'erfahren (verb)',
+        card2: 'to be informed',
+      },
+      {
+        id: 'vDSaE',
+        deckName: 'Deutsch::Wörterbuch',
+        deckType: 'Basic (and reversed card)',
+        tags: ['verb'],
+        card1: 'verlegen (verb)',
+        card2: 'to reschedule sth.',
+      },
+      {
+        id: 'Zz;8P',
+        deckName: 'Deutsch::Wörterbuch',
+        deckType: 'Basic (and reversed card)',
+        tags: ['verb'],
+        card1: 'befahren (verb)',
+        card2: 'to cruise, to drive along',
+      },
+      {
+        id: '$FS2E',
+        deckName: 'Deutsch::Wörterbuch',
+        deckType: 'Basic (and reversed card)',
+        tags: ['verb'],
+        card1: 'begeben (verb)',
+        card2: 'to issue sth. (stock)',
+      },
+      {
+        id: '&otJV',
+        deckName: 'Deutsch::Wörterbuch',
+        deckType: 'Basic (and reversed card)',
+        tags: ['verb'],
+        card1: 'bescheiden (verb)',
+        card2: 'to decide upon sth.',
+      },
+    ];
+
+    const result = normalizeCards(deck, options);
+    const expected = [
+      {
+        card1: 'vergeben',
+        card2: 'to forgive',
+        originalRecord: {
+          id: '$6*.7',
+          deckName: 'Deutsch::Wörterbuch',
+          deckType: 'Basic (and reversed card)',
+          tags: ['verb'],
+          card1: 'vergeben (verb)',
+          card2: 'to forgive',
+        },
+      },
+      {
+        card1: 'betreten',
+        card2: 'to set foot on sth.',
+        originalRecord: {
+          id: '>>KxN',
+          deckName: 'Deutsch::Wörterbuch',
+          deckType: 'Basic (and reversed card)',
+          tags: ['verb'],
+          card1: 'betreten (verb)',
+          card2: 'to set foot on sth.',
+        },
+      },
+      {
+        card1: 'erfahren',
+        card2: 'to be informed',
+        originalRecord: {
+          id: 'qpGZ5N?Use',
+          deckName: 'Deutsch::Wörterbuch',
+          deckType: 'Basic (and reversed card)',
+          tags: ['verb'],
+          card1: 'erfahren (verb)',
+          card2: 'to be informed',
+        },
+      },
+      {
+        card1: 'verlegen',
+        card2: 'to reschedule sth.',
+        originalRecord: {
+          id: 'vDSaE',
+          deckName: 'Deutsch::Wörterbuch',
+          deckType: 'Basic (and reversed card)',
+          tags: ['verb'],
+          card1: 'verlegen (verb)',
+          card2: 'to reschedule sth.',
+        },
+      },
+      {
+        card1: 'befahren',
+        card2: 'to cruise, to drive along',
+        originalRecord: {
+          id: 'Zz;8P',
+          deckName: 'Deutsch::Wörterbuch',
+          deckType: 'Basic (and reversed card)',
+          tags: ['verb'],
+          card1: 'befahren (verb)',
+          card2: 'to cruise, to drive along',
+        },
+      },
+      {
+        card1: 'begeben',
+        card2: 'to issue sth. (stock)',
+        originalRecord: {
+          id: '$FS2E',
+          deckName: 'Deutsch::Wörterbuch',
+          deckType: 'Basic (and reversed card)',
+          tags: ['verb'],
+          card1: 'begeben (verb)',
+          card2: 'to issue sth. (stock)',
+        },
+      },
+      {
+        card1: 'bescheiden',
+        card2: 'to decide upon sth.',
+        originalRecord: {
+          id: '&otJV',
+          deckName: 'Deutsch::Wörterbuch',
+          deckType: 'Basic (and reversed card)',
+          tags: ['verb'],
+          card1: 'bescheiden (verb)',
+          card2: 'to decide upon sth.',
         },
       },
     ];

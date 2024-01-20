@@ -43,8 +43,27 @@ function removePrefixSeparator(wrapper: CardWrapper, prefixSeparator?: string): 
   };
 }
 
+function removeTagMarkers(wrapper: CardWrapper, tagMarkers?: string[]): CardWrapper {
+  const remove = (card: string, tagMarker: string): string => {
+    if (card.includes(tagMarker)) {
+      return card.replaceAll(tagMarker, '').trim();
+    }
+    return card;
+  };
+
+  if (tagMarkers === undefined) {
+    return wrapper;
+  }
+
+  return {
+    card1: tagMarkers.reduce((card: string, tagMarker: string) => remove(card, tagMarker), wrapper.card1),
+    card2: tagMarkers.reduce((card: string, tagMarker: string) => remove(card, tagMarker), wrapper.card2),
+    originalRecord: wrapper.originalRecord,
+  };
+}
+
 export function normalizeCards(deck: AnkiRecord[], options: CompareCmdOptions): CardWrapper[] {
-  const { meaningSeparator, prefixSeparator } = options;
+  const { meaningSeparator, prefixSeparator, tagMarkers } = options;
 
   const convertedDeck: CardWrapper[] = deck.map((record: AnkiRecord) => {
     return {
@@ -56,5 +75,6 @@ export function normalizeCards(deck: AnkiRecord[], options: CompareCmdOptions): 
 
   return convertedDeck
     .map((wrapper: CardWrapper) => splitCard(wrapper, meaningSeparator))
-    .map((wrapper: CardWrapper) => removePrefixSeparator(wrapper, prefixSeparator));
+    .map((wrapper: CardWrapper) => removePrefixSeparator(wrapper, prefixSeparator))
+    .map((wrapper: CardWrapper) => removeTagMarkers(wrapper, tagMarkers));
 }
