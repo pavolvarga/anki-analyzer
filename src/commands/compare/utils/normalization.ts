@@ -3,39 +3,58 @@ import { split } from 'lodash';
 import { AnkiRecord } from '../../../types';
 import { CompareCmdOptions, CardWrapper } from '../types';
 
-export function removePrefixSeparator(card: string, prefixSeparator?: string): string {
-  if (prefixSeparator === undefined) {
-    return card.trim();
+function splitCard(wrapper: CardWrapper, meaningSeparator: string): CardWrapper {
+  const splitInternal = (card: string, meaningSeparator: string): [string, string] => {
+    const [card1, card2] = split(card, meaningSeparator);
+    return [card1.trim(), card2.trim()];
+  };
+
+  const { card1, card2 } = wrapper;
+  if (card1.includes(meaningSeparator)) {
+    const [cardPartA, cardPartB] = splitInternal(card1, meaningSeparator);
+    return {
+      card1: cardPartA,
+      card2: cardPartB,
+      originalRecord: wrapper.originalRecord,
+    };
   }
-  return card.replaceAll(prefixSeparator, '').trim();
+  return {
+    card1,
+    card2,
+    originalRecord: wrapper.originalRecord,
+  };
 }
 
-function splitCard(card: string, meaningSeparator: string): [string, string] {
-  const [card1, card2] = split(card, meaningSeparator);
-  return [card1.trim(), card2.trim()];
+function removePrefixSeparator(wrapper: CardWrapper, prefixSeparator?: string): CardWrapper {
+  const remove = (card: string, prefixSeparator?: string): string => {
+    if (prefixSeparator === undefined) {
+      return card.trim();
+    }
+    return card.replaceAll(prefixSeparator, '').trim();
+  };
+
+  if (prefixSeparator === undefined) {
+    return wrapper;
+  }
+  return {
+    card1: remove(wrapper.card1, prefixSeparator),
+    card2: remove(wrapper.card2, prefixSeparator),
+    originalRecord: wrapper.originalRecord,
+  };
 }
 
 export function normalizeCards(deck: AnkiRecord[], options: CompareCmdOptions): CardWrapper[] {
   const { meaningSeparator, prefixSeparator } = options;
 
-  return deck.map((record: AnkiRecord) => {
-    const { card1, card2 } = record;
-    if (card1.includes(meaningSeparator)) {
-      const [cardPartA, cardPartB] = splitCard(card1, meaningSeparator);
-      return {
-        card1: removePrefixSeparator(cardPartA, prefixSeparator),
-        card2: removePrefixSeparator(cardPartB, prefixSeparator),
-        originalCard1: card1,
-        meainingSeparatorCar1Used: true,
-        record,
-      };
-    }
+  const convertedDeck: CardWrapper[] = deck.map((record: AnkiRecord) => {
     return {
-      card1: removePrefixSeparator(card1, prefixSeparator),
-      card2: removePrefixSeparator(card2, prefixSeparator),
-      originalCard1: card1,
-      meainingSeparatorCar1Used: false,
-      record,
+      card1: record.card1,
+      card2: record.card2,
+      originalRecord: record,
     };
   });
+
+  return convertedDeck
+    .map((wrapper: CardWrapper) => splitCard(wrapper, meaningSeparator))
+    .map((wrapper: CardWrapper) => removePrefixSeparator(wrapper, prefixSeparator));
 }

@@ -25,16 +25,16 @@ export function compareCards(deckA: CardWrapper[], deckB: CardWrapper[]): Compar
         sameCards.push({
           deckA: cardA,
           deckB: cardB,
-          deckAId: cardA.record.id,
-          deckBId: cardB.record.id,
+          deckAId: cardA.originalRecord.id,
+          deckBId: cardB.originalRecord.id,
         });
         // same card1 but different card2
       } else {
         differentCards.push({
           deckA: cardA,
           deckB: cardB,
-          deckAId: cardA.record.id,
-          deckBId: cardB.record.id,
+          deckAId: cardA.originalRecord.id,
+          deckBId: cardB.originalRecord.id,
         });
       }
     }
@@ -43,8 +43,8 @@ export function compareCards(deckA: CardWrapper[], deckB: CardWrapper[]): Compar
   const idsFromDeckA = extractIds([sameCards, differentCards], 'deckAId');
   const idsFromDeckB = extractIds([sameCards, differentCards], 'deckBId');
 
-  const deckAOnly = cloneDeep(deckA).filter((card: CardWrapper) => !idsFromDeckA.includes(card.record.id));
-  const deckBOnly = cloneDeep(deckB).filter((card: CardWrapper) => !idsFromDeckB.includes(card.record.id));
+  const deckAOnly = cloneDeep(deckA).filter((card: CardWrapper) => !idsFromDeckA.includes(card.originalRecord.id));
+  const deckBOnly = cloneDeep(deckB).filter((card: CardWrapper) => !idsFromDeckB.includes(card.originalRecord.id));
 
   return {
     sameCards,

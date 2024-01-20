@@ -27,9 +27,7 @@ export type AnkiRecordByCard = {
 export type CardWrapper = {
   card1: string;
   card2: string;
-  originalCard1: string;
-  meainingSeparatorCar1Used: boolean;
-  record: AnkiRecord;
+  originalRecord: AnkiRecord;
 };
 
 export type CardWrapperPair = {

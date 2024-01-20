@@ -52,14 +52,14 @@ function printDifferentTable(
     const { deckA, deckB } = cardPair;
     return {
       'General Deck': deckAName,
-      'Note Id (general)': deckA.record.id,
-      'Card 1 (general)': deckA.record.card1,
-      'Card 2 (general)': deckA.record.card2,
+      'Note Id (general)': deckA.originalRecord.id,
+      'Card 1 (general)': deckA.originalRecord.card1,
+      'Card 2 (general)': deckA.originalRecord.card2,
 
       'Specific Deck': deckBName,
-      'Note Id (specific)': deckB.record.id,
-      'Card 1 (specific)': deckB.record.card1,
-      'Card 2 (specific)': deckB.record.card2,
+      'Note Id (specific)': deckB.originalRecord.id,
+      'Card 1 (specific)': deckB.originalRecord.card1,
+      'Card 2 (specific)': deckB.originalRecord.card2,
     };
   });
 
@@ -80,8 +80,8 @@ function printTable(cards: CardWrapper[], deckName: string, options: CompareCmdO
   const tableRows = sliceRecords(sortBy(cards, ['card.record.card1']), limit, omit).map((card) => {
     return {
       Deck: deckName,
-      'Card 1': card.record.card1,
-      'Card 2': card.record.card2,
+      'Card 1': card.originalRecord.card1,
+      'Card 2': card.originalRecord.card2,
     };
   });
 

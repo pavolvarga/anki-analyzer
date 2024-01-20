@@ -8,9 +8,7 @@ describe('compareCards', () => {
         {
           card1: 'abarbeiten',
           card2: 'to work sth. off (debt)',
-          originalCard1: 'abarbeiten',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: '}PX28',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -22,9 +20,7 @@ describe('compareCards', () => {
         {
           card1: 'abbauen',
           card2: 'to dismantle, to mine',
-          originalCard1: 'abbauen',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: 'n$r,B',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -36,9 +32,7 @@ describe('compareCards', () => {
         {
           card1: 'abbeißen',
           card2: 'to bite sth. off',
-          originalCard1: 'abbeißen',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: '8vel2',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -50,9 +44,7 @@ describe('compareCards', () => {
         {
           card1: 'abbekommen',
           card2: "to get one's share",
-          originalCard1: 'abbekommen',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: '-i8b1',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -64,9 +56,7 @@ describe('compareCards', () => {
         {
           card1: 'abbestellen',
           card2: 'to unsubscribe',
-          originalCard1: 'abbestellen',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: '034^N',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -80,9 +70,7 @@ describe('compareCards', () => {
         {
           card1: 'abarbeiten',
           card2: 'to work sth. off (debt)',
-          originalCard1: 'ab-arbeiten ;; to work sth. off (debt)',
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: 'K{7]C',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -94,9 +82,7 @@ describe('compareCards', () => {
         {
           card1: 'abbauen',
           card2: 'to dismantle, to mine',
-          originalCard1: 'ab-bauen ;; to dismantle, to mine',
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: '9?:xE',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -108,9 +94,7 @@ describe('compareCards', () => {
         {
           card1: 'abbeißen',
           card2: 'to bite sth. off',
-          originalCard1: 'ab-beißen ;; to bite sth. off',
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: 'H&J6Q',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -122,9 +106,7 @@ describe('compareCards', () => {
         {
           card1: 'abbekommen',
           card2: "to get one's share",
-          originalCard1: "ab-bekommen ;; to get one's share",
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: 'Ms@<8',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -136,9 +118,7 @@ describe('compareCards', () => {
         {
           card1: 'abbestellen',
           card2: 'to unsubscribe',
-          originalCard1: 'ab-bestellen ;; to unsubscribe',
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: 'oj!b7',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -157,9 +137,7 @@ describe('compareCards', () => {
           deckA: {
             card1: 'abarbeiten',
             card2: 'to work sth. off (debt)',
-            originalCard1: 'abarbeiten',
-            meainingSeparatorCar1Used: false,
-            record: {
+            originalRecord: {
               id: '}PX28',
               deckName: 'Deutsch::Wörterbuch',
               deckType: 'Basic (and reversed card)',
@@ -171,9 +149,7 @@ describe('compareCards', () => {
           deckB: {
             card1: 'abarbeiten',
             card2: 'to work sth. off (debt)',
-            originalCard1: 'ab-arbeiten ;; to work sth. off (debt)',
-            meainingSeparatorCar1Used: true,
-            record: {
+            originalRecord: {
               id: 'K{7]C',
               deckName: 'Deutsch::Verben',
               deckType: 'Basic (and reversed card)',
@@ -189,9 +165,7 @@ describe('compareCards', () => {
           deckA: {
             card1: 'abbauen',
             card2: 'to dismantle, to mine',
-            originalCard1: 'abbauen',
-            meainingSeparatorCar1Used: false,
-            record: {
+            originalRecord: {
               id: 'n$r,B',
               deckName: 'Deutsch::Wörterbuch',
               deckType: 'Basic (and reversed card)',
@@ -203,9 +177,7 @@ describe('compareCards', () => {
           deckB: {
             card1: 'abbauen',
             card2: 'to dismantle, to mine',
-            originalCard1: 'ab-bauen ;; to dismantle, to mine',
-            meainingSeparatorCar1Used: true,
-            record: {
+            originalRecord: {
               id: '9?:xE',
               deckName: 'Deutsch::Verben',
               deckType: 'Basic (and reversed card)',
@@ -221,9 +193,7 @@ describe('compareCards', () => {
           deckA: {
             card1: 'abbeißen',
             card2: 'to bite sth. off',
-            originalCard1: 'abbeißen',
-            meainingSeparatorCar1Used: false,
-            record: {
+            originalRecord: {
               id: '8vel2',
               deckName: 'Deutsch::Wörterbuch',
               deckType: 'Basic (and reversed card)',
@@ -235,9 +205,7 @@ describe('compareCards', () => {
           deckB: {
             card1: 'abbeißen',
             card2: 'to bite sth. off',
-            originalCard1: 'ab-beißen ;; to bite sth. off',
-            meainingSeparatorCar1Used: true,
-            record: {
+            originalRecord: {
               id: 'H&J6Q',
               deckName: 'Deutsch::Verben',
               deckType: 'Basic (and reversed card)',
@@ -253,9 +221,7 @@ describe('compareCards', () => {
           deckA: {
             card1: 'abbekommen',
             card2: "to get one's share",
-            originalCard1: 'abbekommen',
-            meainingSeparatorCar1Used: false,
-            record: {
+            originalRecord: {
               id: '-i8b1',
               deckName: 'Deutsch::Wörterbuch',
               deckType: 'Basic (and reversed card)',
@@ -267,9 +233,7 @@ describe('compareCards', () => {
           deckB: {
             card1: 'abbekommen',
             card2: "to get one's share",
-            originalCard1: "ab-bekommen ;; to get one's share",
-            meainingSeparatorCar1Used: true,
-            record: {
+            originalRecord: {
               id: 'Ms@<8',
               deckName: 'Deutsch::Verben',
               deckType: 'Basic (and reversed card)',
@@ -285,9 +249,7 @@ describe('compareCards', () => {
           deckA: {
             card1: 'abbestellen',
             card2: 'to unsubscribe',
-            originalCard1: 'abbestellen',
-            meainingSeparatorCar1Used: false,
-            record: {
+            originalRecord: {
               id: '034^N',
               deckName: 'Deutsch::Wörterbuch',
               deckType: 'Basic (and reversed card)',
@@ -299,9 +261,7 @@ describe('compareCards', () => {
           deckB: {
             card1: 'abbestellen',
             card2: 'to unsubscribe',
-            originalCard1: 'ab-bestellen ;; to unsubscribe',
-            meainingSeparatorCar1Used: true,
-            record: {
+            originalRecord: {
               id: 'oj!b7',
               deckName: 'Deutsch::Verben',
               deckType: 'Basic (and reversed card)',
@@ -325,9 +285,7 @@ describe('compareCards', () => {
         {
           card1: 'abarbeiten',
           card2: 'to work sth. off (debt)',
-          originalCard1: 'abarbeiten',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: '}PX28',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -339,9 +297,7 @@ describe('compareCards', () => {
         {
           card1: 'abbauen',
           card2: 'to dismantle, to mine',
-          originalCard1: 'abbauen',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: 'n$r,B',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -353,9 +309,7 @@ describe('compareCards', () => {
         {
           card1: 'abbeißen',
           card2: 'to bite sth. off',
-          originalCard1: 'abbeißen',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: '8vel2',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -367,9 +321,7 @@ describe('compareCards', () => {
         {
           card1: 'abbekommen',
           card2: "to get one's share",
-          originalCard1: 'abbekommen',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: '-i8b1',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -381,9 +333,7 @@ describe('compareCards', () => {
         {
           card1: 'abbestellen',
           card2: 'to unsubscribe',
-          originalCard1: 'abbestellen',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: '034^N',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -397,9 +347,7 @@ describe('compareCards', () => {
         {
           card1: 'abarbeiten',
           card2: 'to work sth. off',
-          originalCard1: 'ab-arbeiten ;; to work sth. off (debt)',
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: 'K{7]C',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -411,9 +359,7 @@ describe('compareCards', () => {
         {
           card1: 'abbauen',
           card2: 'to dismantle, to mine',
-          originalCard1: 'ab-bauen ;; to dismantle, to mine',
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: '9?:xE',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -425,9 +371,7 @@ describe('compareCards', () => {
         {
           card1: 'abbeißen',
           card2: 'to bite sth. off',
-          originalCard1: 'ab-beißen ;; to bite sth. off',
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: 'H&J6Q',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -439,9 +383,7 @@ describe('compareCards', () => {
         {
           card1: 'abbekommen',
           card2: "to get one's share",
-          originalCard1: "ab-bekommen ;; to get one's share",
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: 'Ms@<8',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -453,9 +395,7 @@ describe('compareCards', () => {
         {
           card1: 'abbestellen',
           card2: 'to unsubscribe',
-          originalCard1: 'ab-bestellen ;; to unsubscribe',
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: 'oj!b7',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -474,9 +414,7 @@ describe('compareCards', () => {
           deckA: {
             card1: 'abarbeiten',
             card2: 'to work sth. off (debt)',
-            originalCard1: 'abarbeiten',
-            meainingSeparatorCar1Used: false,
-            record: {
+            originalRecord: {
               id: '}PX28',
               deckName: 'Deutsch::Wörterbuch',
               deckType: 'Basic (and reversed card)',
@@ -488,9 +426,7 @@ describe('compareCards', () => {
           deckB: {
             card1: 'abarbeiten',
             card2: 'to work sth. off',
-            originalCard1: 'ab-arbeiten ;; to work sth. off (debt)',
-            meainingSeparatorCar1Used: true,
-            record: {
+            originalRecord: {
               id: 'K{7]C',
               deckName: 'Deutsch::Verben',
               deckType: 'Basic (and reversed card)',
@@ -508,9 +444,7 @@ describe('compareCards', () => {
           deckA: {
             card1: 'abbauen',
             card2: 'to dismantle, to mine',
-            originalCard1: 'abbauen',
-            meainingSeparatorCar1Used: false,
-            record: {
+            originalRecord: {
               id: 'n$r,B',
               deckName: 'Deutsch::Wörterbuch',
               deckType: 'Basic (and reversed card)',
@@ -522,9 +456,7 @@ describe('compareCards', () => {
           deckB: {
             card1: 'abbauen',
             card2: 'to dismantle, to mine',
-            originalCard1: 'ab-bauen ;; to dismantle, to mine',
-            meainingSeparatorCar1Used: true,
-            record: {
+            originalRecord: {
               id: '9?:xE',
               deckName: 'Deutsch::Verben',
               deckType: 'Basic (and reversed card)',
@@ -540,9 +472,7 @@ describe('compareCards', () => {
           deckA: {
             card1: 'abbeißen',
             card2: 'to bite sth. off',
-            originalCard1: 'abbeißen',
-            meainingSeparatorCar1Used: false,
-            record: {
+            originalRecord: {
               id: '8vel2',
               deckName: 'Deutsch::Wörterbuch',
               deckType: 'Basic (and reversed card)',
@@ -554,9 +484,7 @@ describe('compareCards', () => {
           deckB: {
             card1: 'abbeißen',
             card2: 'to bite sth. off',
-            originalCard1: 'ab-beißen ;; to bite sth. off',
-            meainingSeparatorCar1Used: true,
-            record: {
+            originalRecord: {
               id: 'H&J6Q',
               deckName: 'Deutsch::Verben',
               deckType: 'Basic (and reversed card)',
@@ -572,9 +500,7 @@ describe('compareCards', () => {
           deckA: {
             card1: 'abbekommen',
             card2: "to get one's share",
-            originalCard1: 'abbekommen',
-            meainingSeparatorCar1Used: false,
-            record: {
+            originalRecord: {
               id: '-i8b1',
               deckName: 'Deutsch::Wörterbuch',
               deckType: 'Basic (and reversed card)',
@@ -586,9 +512,7 @@ describe('compareCards', () => {
           deckB: {
             card1: 'abbekommen',
             card2: "to get one's share",
-            originalCard1: "ab-bekommen ;; to get one's share",
-            meainingSeparatorCar1Used: true,
-            record: {
+            originalRecord: {
               id: 'Ms@<8',
               deckName: 'Deutsch::Verben',
               deckType: 'Basic (and reversed card)',
@@ -604,9 +528,7 @@ describe('compareCards', () => {
           deckA: {
             card1: 'abbestellen',
             card2: 'to unsubscribe',
-            originalCard1: 'abbestellen',
-            meainingSeparatorCar1Used: false,
-            record: {
+            originalRecord: {
               id: '034^N',
               deckName: 'Deutsch::Wörterbuch',
               deckType: 'Basic (and reversed card)',
@@ -618,9 +540,7 @@ describe('compareCards', () => {
           deckB: {
             card1: 'abbestellen',
             card2: 'to unsubscribe',
-            originalCard1: 'ab-bestellen ;; to unsubscribe',
-            meainingSeparatorCar1Used: true,
-            record: {
+            originalRecord: {
               id: 'oj!b7',
               deckName: 'Deutsch::Verben',
               deckType: 'Basic (and reversed card)',
@@ -644,9 +564,7 @@ describe('compareCards', () => {
         {
           card1: 'abarbeiten',
           card2: 'to work sth. off (debt)',
-          originalCard1: 'abarbeiten',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: '}PX28',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -658,9 +576,7 @@ describe('compareCards', () => {
         {
           card1: 'abbauen',
           card2: 'to dismantle, to mine',
-          originalCard1: 'abbauen',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: 'n$r,B',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -672,9 +588,7 @@ describe('compareCards', () => {
         {
           card1: 'abbeißen',
           card2: 'to bite sth. off',
-          originalCard1: 'abbeißen',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: '8vel2',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -686,9 +600,7 @@ describe('compareCards', () => {
         {
           card1: 'abbekommen',
           card2: "to get one's share",
-          originalCard1: 'abbekommen',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: '-i8b1',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -700,9 +612,7 @@ describe('compareCards', () => {
         {
           card1: 'abbestellen',
           card2: 'to unsubscribe',
-          originalCard1: 'abbestellen',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: '034^N',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -716,9 +626,7 @@ describe('compareCards', () => {
         {
           card1: 'abbauen',
           card2: 'to dismantle, to mine',
-          originalCard1: 'ab-bauen ;; to dismantle, to mine',
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: '9?:xE',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -730,9 +638,7 @@ describe('compareCards', () => {
         {
           card1: 'abbeißen',
           card2: 'to bite sth. off',
-          originalCard1: 'ab-beißen ;; to bite sth. off',
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: 'H&J6Q',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -744,9 +650,7 @@ describe('compareCards', () => {
         {
           card1: 'abbekommen',
           card2: "to get one's share",
-          originalCard1: "ab-bekommen ;; to get one's share",
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: 'Ms@<8',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -758,9 +662,7 @@ describe('compareCards', () => {
         {
           card1: 'abbestellen',
           card2: 'to unsubscribe',
-          originalCard1: 'ab-bestellen ;; to unsubscribe',
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: 'oj!b7',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -778,9 +680,7 @@ describe('compareCards', () => {
         {
           card1: 'abarbeiten',
           card2: 'to work sth. off (debt)',
-          originalCard1: 'abarbeiten',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: '}PX28',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -795,9 +695,7 @@ describe('compareCards', () => {
           deckA: {
             card1: 'abbauen',
             card2: 'to dismantle, to mine',
-            originalCard1: 'abbauen',
-            meainingSeparatorCar1Used: false,
-            record: {
+            originalRecord: {
               id: 'n$r,B',
               deckName: 'Deutsch::Wörterbuch',
               deckType: 'Basic (and reversed card)',
@@ -809,9 +707,7 @@ describe('compareCards', () => {
           deckB: {
             card1: 'abbauen',
             card2: 'to dismantle, to mine',
-            originalCard1: 'ab-bauen ;; to dismantle, to mine',
-            meainingSeparatorCar1Used: true,
-            record: {
+            originalRecord: {
               id: '9?:xE',
               deckName: 'Deutsch::Verben',
               deckType: 'Basic (and reversed card)',
@@ -827,9 +723,7 @@ describe('compareCards', () => {
           deckA: {
             card1: 'abbeißen',
             card2: 'to bite sth. off',
-            originalCard1: 'abbeißen',
-            meainingSeparatorCar1Used: false,
-            record: {
+            originalRecord: {
               id: '8vel2',
               deckName: 'Deutsch::Wörterbuch',
               deckType: 'Basic (and reversed card)',
@@ -841,9 +735,7 @@ describe('compareCards', () => {
           deckB: {
             card1: 'abbeißen',
             card2: 'to bite sth. off',
-            originalCard1: 'ab-beißen ;; to bite sth. off',
-            meainingSeparatorCar1Used: true,
-            record: {
+            originalRecord: {
               id: 'H&J6Q',
               deckName: 'Deutsch::Verben',
               deckType: 'Basic (and reversed card)',
@@ -859,9 +751,7 @@ describe('compareCards', () => {
           deckA: {
             card1: 'abbekommen',
             card2: "to get one's share",
-            originalCard1: 'abbekommen',
-            meainingSeparatorCar1Used: false,
-            record: {
+            originalRecord: {
               id: '-i8b1',
               deckName: 'Deutsch::Wörterbuch',
               deckType: 'Basic (and reversed card)',
@@ -873,9 +763,7 @@ describe('compareCards', () => {
           deckB: {
             card1: 'abbekommen',
             card2: "to get one's share",
-            originalCard1: "ab-bekommen ;; to get one's share",
-            meainingSeparatorCar1Used: true,
-            record: {
+            originalRecord: {
               id: 'Ms@<8',
               deckName: 'Deutsch::Verben',
               deckType: 'Basic (and reversed card)',
@@ -891,9 +779,7 @@ describe('compareCards', () => {
           deckA: {
             card1: 'abbestellen',
             card2: 'to unsubscribe',
-            originalCard1: 'abbestellen',
-            meainingSeparatorCar1Used: false,
-            record: {
+            originalRecord: {
               id: '034^N',
               deckName: 'Deutsch::Wörterbuch',
               deckType: 'Basic (and reversed card)',
@@ -905,9 +791,7 @@ describe('compareCards', () => {
           deckB: {
             card1: 'abbestellen',
             card2: 'to unsubscribe',
-            originalCard1: 'ab-bestellen ;; to unsubscribe',
-            meainingSeparatorCar1Used: true,
-            record: {
+            originalRecord: {
               id: 'oj!b7',
               deckName: 'Deutsch::Verben',
               deckType: 'Basic (and reversed card)',
@@ -931,9 +815,7 @@ describe('compareCards', () => {
         {
           card1: 'abbauen',
           card2: 'to dismantle, to mine',
-          originalCard1: 'abbauen',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: 'n$r,B',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -945,9 +827,7 @@ describe('compareCards', () => {
         {
           card1: 'abbeißen',
           card2: 'to bite sth. off',
-          originalCard1: 'abbeißen',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: '8vel2',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -959,9 +839,7 @@ describe('compareCards', () => {
         {
           card1: 'abbekommen',
           card2: "to get one's share",
-          originalCard1: 'abbekommen',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: '-i8b1',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -973,9 +851,7 @@ describe('compareCards', () => {
         {
           card1: 'abbestellen',
           card2: 'to unsubscribe',
-          originalCard1: 'abbestellen',
-          meainingSeparatorCar1Used: false,
-          record: {
+          originalRecord: {
             id: '034^N',
             deckName: 'Deutsch::Wörterbuch',
             deckType: 'Basic (and reversed card)',
@@ -989,9 +865,7 @@ describe('compareCards', () => {
         {
           card1: 'abarbeiten',
           card2: 'to work sth. off (debt)',
-          originalCard1: 'ab-arbeiten ;; to work sth. off (debt)',
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: 'K{7]C',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -1003,9 +877,7 @@ describe('compareCards', () => {
         {
           card1: 'abbauen',
           card2: 'to dismantle, to mine',
-          originalCard1: 'ab-bauen ;; to dismantle, to mine',
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: '9?:xE',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -1017,9 +889,7 @@ describe('compareCards', () => {
         {
           card1: 'abbeißen',
           card2: 'to bite sth. off',
-          originalCard1: 'ab-beißen ;; to bite sth. off',
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: 'H&J6Q',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -1031,9 +901,7 @@ describe('compareCards', () => {
         {
           card1: 'abbekommen',
           card2: "to get one's share",
-          originalCard1: "ab-bekommen ;; to get one's share",
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: 'Ms@<8',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -1045,9 +913,7 @@ describe('compareCards', () => {
         {
           card1: 'abbestellen',
           card2: 'to unsubscribe',
-          originalCard1: 'ab-bestellen ;; to unsubscribe',
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: 'oj!b7',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -1065,9 +931,7 @@ describe('compareCards', () => {
         {
           card1: 'abarbeiten',
           card2: 'to work sth. off (debt)',
-          originalCard1: 'ab-arbeiten ;; to work sth. off (debt)',
-          meainingSeparatorCar1Used: true,
-          record: {
+          originalRecord: {
             id: 'K{7]C',
             deckName: 'Deutsch::Verben',
             deckType: 'Basic (and reversed card)',
@@ -1082,9 +946,7 @@ describe('compareCards', () => {
           deckA: {
             card1: 'abbauen',
             card2: 'to dismantle, to mine',
-            originalCard1: 'abbauen',
-            meainingSeparatorCar1Used: false,
-            record: {
+            originalRecord: {
               id: 'n$r,B',
               deckName: 'Deutsch::Wörterbuch',
               deckType: 'Basic (and reversed card)',
@@ -1096,9 +958,7 @@ describe('compareCards', () => {
           deckB: {
             card1: 'abbauen',
             card2: 'to dismantle, to mine',
-            originalCard1: 'ab-bauen ;; to dismantle, to mine',
-            meainingSeparatorCar1Used: true,
-            record: {
+            originalRecord: {
               id: '9?:xE',
               deckName: 'Deutsch::Verben',
               deckType: 'Basic (and reversed card)',
@@ -1114,9 +974,7 @@ describe('compareCards', () => {
           deckA: {
             card1: 'abbeißen',
             card2: 'to bite sth. off',
-            originalCard1: 'abbeißen',
-            meainingSeparatorCar1Used: false,
-            record: {
+            originalRecord: {
               id: '8vel2',
               deckName: 'Deutsch::Wörterbuch',
               deckType: 'Basic (and reversed card)',
@@ -1128,9 +986,7 @@ describe('compareCards', () => {
           deckB: {
             card1: 'abbeißen',
             card2: 'to bite sth. off',
-            originalCard1: 'ab-beißen ;; to bite sth. off',
-            meainingSeparatorCar1Used: true,
-            record: {
+            originalRecord: {
               id: 'H&J6Q',
               deckName: 'Deutsch::Verben',
               deckType: 'Basic (and reversed card)',
@@ -1146,9 +1002,7 @@ describe('compareCards', () => {
           deckA: {
             card1: 'abbekommen',
             card2: "to get one's share",
-            originalCard1: 'abbekommen',
-            meainingSeparatorCar1Used: false,
-            record: {
+            originalRecord: {
               id: '-i8b1',
               deckName: 'Deutsch::Wörterbuch',
               deckType: 'Basic (and reversed card)',
@@ -1160,9 +1014,7 @@ describe('compareCards', () => {
           deckB: {
             card1: 'abbekommen',
             card2: "to get one's share",
-            originalCard1: "ab-bekommen ;; to get one's share",
-            meainingSeparatorCar1Used: true,
-            record: {
+            originalRecord: {
               id: 'Ms@<8',
               deckName: 'Deutsch::Verben',
               deckType: 'Basic (and reversed card)',
@@ -1178,9 +1030,7 @@ describe('compareCards', () => {
           deckA: {
             card1: 'abbestellen',
             card2: 'to unsubscribe',
-            originalCard1: 'abbestellen',
-            meainingSeparatorCar1Used: false,
-            record: {
+            originalRecord: {
               id: '034^N',
               deckName: 'Deutsch::Wörterbuch',
               deckType: 'Basic (and reversed card)',
@@ -1192,9 +1042,7 @@ describe('compareCards', () => {
           deckB: {
             card1: 'abbestellen',
             card2: 'to unsubscribe',
-            originalCard1: 'ab-bestellen ;; to unsubscribe',
-            meainingSeparatorCar1Used: true,
-            record: {
+            originalRecord: {
               id: 'oj!b7',
               deckName: 'Deutsch::Verben',
               deckType: 'Basic (and reversed card)',
