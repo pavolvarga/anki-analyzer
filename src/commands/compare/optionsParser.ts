@@ -1,6 +1,7 @@
 import { DEFAULT_LIMIT_ROW_COUNT, DEFAULT_MEANING_SEPARATOR } from '../../const';
 import { CompareCmdOptions } from './types';
 import {
+  parseOptionDuplicitMarkers,
   parseOptionLimitRows,
   parseOptionMeaningSeparator,
   parseOptionOmitRows,
@@ -16,6 +17,7 @@ export function parse(options: any): CompareCmdOptions {
       limitRowCount: DEFAULT_LIMIT_ROW_COUNT,
       omitRowCount: undefined,
       tagMarkers: undefined,
+      duplicitMarkers: undefined,
     };
   }
 
@@ -26,5 +28,6 @@ export function parse(options: any): CompareCmdOptions {
     limitRowCount: parseOptionLimitRows(options) ?? DEFAULT_LIMIT_ROW_COUNT,
     omitRowCount: parseOptionOmitRows(options),
     tagMarkers: options.tagMarkers,
+    duplicitMarkers: parseOptionDuplicitMarkers(options),
   };
 }

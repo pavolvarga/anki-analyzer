@@ -70,3 +70,14 @@ export type OptionCardType = {
 export type OptionTagMarkers = {
   tagMarkers?: string[];
 };
+
+/**
+ * List of markers used to mark duplicate cards.
+ * When for example a single word is used in multiple cards, it can be marked with a marker.
+ * For example:
+ * - durchbrechen (trennbar)
+ * - durchbrechen (untrennbar)
+ */
+export type OptionDuplictMarkers = {
+  duplicitMarkers?: string[][];
+};

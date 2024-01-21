@@ -1,5 +1,8 @@
+import { isArray } from 'lodash';
 import { DEFAULT_EXPLANATION_BRACKETS, DEFAULT_MEANING_SEPARATOR, DEFAULT_SYNONYM_SEPARATOR } from '../const';
 import { ExplanationBracketType } from '../types';
+
+const DUPLICIT_MARKER_SEPARATOR = '||';
 
 function isNumeric(num: any) {
   return (typeof num === 'number' || (typeof num === 'string' && num.trim() !== '')) && !isNaN(num as number);
@@ -78,4 +81,32 @@ export function parseOptionSynonymSeparator(options: any): string | undefined {
 
 export function parseOptionExplanationBrackets(options: any): ExplanationBracketType {
   return options.explanationBracket ?? DEFAULT_EXPLANATION_BRACKETS;
+}
+
+export function parseOptionDuplicitMarkers(options: any): undefined | string[][] {
+  if (options === undefined) {
+    return undefined;
+  }
+
+  const { duplicitMarkers } = options;
+  if (duplicitMarkers === undefined || duplicitMarkers.lenght === 0) {
+    return undefined;
+  }
+
+  if (!isArray(duplicitMarkers)) {
+    if (!duplicitMarkers.includes(DUPLICIT_MARKER_SEPARATOR)) {
+      throw new Error(`Duplicit markers must contain || separator, not all of them do: ${duplicitMarkers}`);
+    }
+    const parts = duplicitMarkers.split(DUPLICIT_MARKER_SEPARATOR);
+    return [parts.map((part: string) => part.trim())];
+  }
+
+  if (!duplicitMarkers.every((marker: string) => marker.includes(DUPLICIT_MARKER_SEPARATOR))) {
+    throw new Error(`Duplicit markers must contain || separator, not all of them do: ${duplicitMarkers}`);
+  }
+
+  return duplicitMarkers.map((marker: string) => {
+    const parts = marker.split(DUPLICIT_MARKER_SEPARATOR);
+    return parts.map((part: string) => part.trim());
+  });
 }

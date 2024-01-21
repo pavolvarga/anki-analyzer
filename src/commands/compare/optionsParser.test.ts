@@ -11,6 +11,7 @@ describe('parse', () => {
       comparisionTable: undefined,
       omitRowCount: undefined,
       tagMarkers: undefined,
+      duplicitMarkers: undefined,
     };
     expect(result).toStrictEqual(expected);
   });
@@ -23,6 +24,7 @@ describe('parse', () => {
       comparisionTable: undefined,
       omitRowCount: undefined,
       tagMarkers: undefined,
+      duplicitMarkers: undefined,
     };
     expect(result).toStrictEqual(expected);
   });
@@ -35,6 +37,7 @@ describe('parse', () => {
       prefixSeparator: undefined,
       omitRowCount: undefined,
       tagMarkers: undefined,
+      duplicitMarkers: undefined,
     };
     expect(result).toStrictEqual(expected);
   });
@@ -47,6 +50,7 @@ describe('parse', () => {
       comparisionTable: undefined,
       omitRowCount: undefined,
       tagMarkers: undefined,
+      duplicitMarkers: undefined,
     };
     expect(result).toStrictEqual(expected);
   });
@@ -59,6 +63,7 @@ describe('parse', () => {
       comparisionTable: undefined,
       omitRowCount: 5,
       tagMarkers: undefined,
+      duplicitMarkers: undefined,
     };
     expect(result).toStrictEqual(expected);
   });
@@ -71,6 +76,23 @@ describe('parse', () => {
       comparisionTable: undefined,
       omitRowCount: undefined,
       tagMarkers: ['(verb)', '(noun)'],
+      duplicitMarkers: undefined,
+    };
+    expect(result).toStrictEqual(expected);
+  });
+  it('should use duplict markers if they were provided', () => {
+    const result = parse({ duplicitMarkers: ['(trennbar)||(untrennbar)', '(weak)||(strong)'] });
+    const expected = {
+      meaningSeparator: ';;',
+      limitRowCount: 10,
+      prefixSeparator: undefined,
+      comparisionTable: undefined,
+      omitRowCount: undefined,
+      tagMarkers: undefined,
+      duplicitMarkers: [
+        ['(trennbar)', '(untrennbar)'],
+        ['(weak)', '(strong)'],
+      ],
     };
     expect(result).toStrictEqual(expected);
   });

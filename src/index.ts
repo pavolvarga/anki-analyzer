@@ -151,7 +151,9 @@ program
       'It is assumed that words in both decks are same. If for example in one deck prefix / suffix separator used match will fail.\n' +
       'Specify the prefix separator and it will be removed, so that the match can succeed.\n' +
       'There other reason why the match can fail, for example if the same word is used both as a noun and as a verb.\n' +
-      'This possibility is handled by the `tag-markers` option.',
+      'This possibility is handled by the `tag-markers` option.\n' +
+      'Another reason could be that same word is entered multiple times but with some additional metadata.\n' +
+      'This possiblity is handled by the `duplicit-markers option.\n',
   )
   .addArgument(argumentFile)
   .argument(
@@ -188,6 +190,18 @@ program
         'In this case the comparison will fail, because the words are not same.\n' +
         'To overcome this, specify the tag markers, for example `(verb)`.\n' +
         'If they are specified these `tag-markers are removed from the card1 of the general deck, so that comparison does not mark such notes as different.',
+    ),
+  )
+  .addOption(
+    new Option(
+      '--duplicit-markers <duplicit-markers...>',
+      'It can happen that a single word exists twice or more in the general deck.\n' +
+        'One good example would be german verbs, some verbs can be both trennbar and untrennbar, which changes meaning (like `durchbrechen (trennbar)` and `durchbrechen (untrennbar)`).\n' +
+        'In the specific deck the markers `(trennbar)` and `(untrennbar)` will not exists, so comaparision will not not think those entries are the same.\n' +
+        'To address that, use this option to specify such `duplicit-markers`.\n' +
+        'For example: `--duplicit-markers (trennbar)||(untrennbar) (weak)||(strong).\n' +
+        'In the above example two pairs of duplici-markers are specified, which means the comparision logic will consider them when doing comparing.\n' +
+        'The duplicit-markers must be string together with the `||` separator without spaces.',
     ),
   )
   .action(commandCompare);

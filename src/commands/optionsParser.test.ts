@@ -1,4 +1,5 @@
 import {
+  parseOptionDuplicitMarkers,
   parseOptionExplanationBrackets,
   parseOptionLimitRows,
   parseOptionMeaningSeparator,
@@ -115,5 +116,37 @@ describe('parseOptionSynonymSeparator', () => {
 describe('parseExplanationBracket', () => {
   it('returns options.explanationBracket', () => {
     expect(parseOptionExplanationBrackets({ explanationBracket: 'square' })).toStrictEqual('square');
+  });
+});
+
+describe('parseOptionDuplicitMarkers', () => {
+  it('returns undefined if options are also undefined', () => {
+    expect(parseOptionDuplicitMarkers(undefined)).toStrictEqual(undefined);
+  });
+  it('returns undefined if option duplicitMarkes is also undefined', () => {
+    expect(parseOptionDuplicitMarkers({})).toStrictEqual(undefined);
+  });
+  it('throws an error if duplict separator is not used in single argument', () => {
+    const options = { duplicitMarkers: '(trennbar)' };
+    expect(() => {
+      parseOptionDuplicitMarkers(options);
+    }).toThrow('Duplicit markers must contain || separator, not all of them do: (trennbar)');
+  });
+  it('throws an error if duplict separator is not used in multiple argument', () => {
+    const options = { duplicitMarkers: '(trennbar) (untrennbar)' };
+    expect(() => {
+      parseOptionDuplicitMarkers(options);
+    }).toThrow('Duplicit markers must contain || separator, not all of them do: (trennbar) (untrennbar)');
+  });
+  it('parses duplicit markers in a single argument', () => {
+    const options = { duplicitMarkers: '(trennbar)||(untrennbar)' };
+    expect(parseOptionDuplicitMarkers(options)).toStrictEqual([['(trennbar)', '(untrennbar)']]);
+  });
+  it('parses duplicit markers in a multiple arguments', () => {
+    const options = { duplicitMarkers: ['(trennbar)||(untrennbar)', '(weak)||(strong)'] };
+    expect(parseOptionDuplicitMarkers(options)).toStrictEqual([
+      ['(trennbar)', '(untrennbar)'],
+      ['(weak)', '(strong)'],
+    ]);
   });
 });
