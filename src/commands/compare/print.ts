@@ -21,6 +21,7 @@ export function printStatus(
 
   if (areIdentical(result)) {
     console.log(`Decks ${deckA} for tag ${tag} and ${deckB} are identical, no differences found`);
+    return;
   }
 
   const prefixMsg = createPrefixMsg(prefix);

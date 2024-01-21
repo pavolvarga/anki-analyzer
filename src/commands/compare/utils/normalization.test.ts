@@ -391,4 +391,104 @@ describe('normalizeCards', () => {
 
     expect(result).toStrictEqual(expected);
   });
+
+  it('should correctly normalize cards 04', () => {
+    const options: CompareCmdOptions = {
+      meaningSeparator: ';;',
+      prefixSeparator: '-',
+      limitRowCount: 10,
+      duplicitMarkers: [
+        ['(trennbar)', '(untrennbar)'],
+        ['(weak)', '(strong)'],
+      ],
+    };
+    const deck: AnkiRecord[] = [
+      {
+        id: 'uCPOO',
+        deckName: 'Deutsch::Wörterbuch',
+        deckType: 'Basic (and reversed card)',
+        tags: ['verb'],
+        card1: 'durchbrechen (untrennbar)',
+        card2: 'to breach',
+      },
+      {
+        id: 'XEY5R',
+        deckName: 'Deutsch::Wörterbuch',
+        deckType: 'Basic (and reversed card)',
+        tags: ['verb'],
+        card1: 'durchbrechen (trennbar)',
+        card2: 'to break sth. in half',
+      },
+      {
+        id: '8g.|O',
+        deckName: 'Deutsch::Wörterbuch',
+        deckType: 'Basic (and reversed card)',
+        tags: ['verb'],
+        card1: 'durchfallen (untrennbar)',
+        card2: 'to fall through',
+      },
+      {
+        id: 'aqwDG',
+        deckName: 'Deutsch::Wörterbuch',
+        deckType: 'Basic (and reversed card)',
+        tags: ['verb'],
+        card1: 'durchfallen (trennbar)',
+        card2: 'to fail the topic',
+      },
+    ];
+
+    const result = normalizeCards(deck, options);
+    const expected = [
+      {
+        card1: 'durchbrechen',
+        card2: 'to breach',
+        originalRecord: {
+          id: 'uCPOO',
+          deckName: 'Deutsch::Wörterbuch',
+          deckType: 'Basic (and reversed card)',
+          tags: ['verb'],
+          card1: 'durchbrechen (untrennbar)',
+          card2: 'to breach',
+        },
+      },
+      {
+        card1: 'durchbrechen',
+        card2: 'to break sth. in half',
+        originalRecord: {
+          id: 'XEY5R',
+          deckName: 'Deutsch::Wörterbuch',
+          deckType: 'Basic (and reversed card)',
+          tags: ['verb'],
+          card1: 'durchbrechen (trennbar)',
+          card2: 'to break sth. in half',
+        },
+      },
+      {
+        card1: 'durchfallen',
+        card2: 'to fall through',
+        originalRecord: {
+          id: '8g.|O',
+          deckName: 'Deutsch::Wörterbuch',
+          deckType: 'Basic (and reversed card)',
+          tags: ['verb'],
+          card1: 'durchfallen (untrennbar)',
+          card2: 'to fall through',
+        },
+      },
+      {
+        card1: 'durchfallen',
+        card2: 'to fail the topic',
+        originalRecord: {
+          id: 'aqwDG',
+          deckName: 'Deutsch::Wörterbuch',
+          deckType: 'Basic (and reversed card)',
+          tags: ['verb'],
+          card1: 'durchfallen (trennbar)',
+          card2: 'to fail the topic',
+        },
+      },
+    ];
+
+    expect(result).toStrictEqual(expected);
+  });
 });

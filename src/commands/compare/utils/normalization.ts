@@ -62,8 +62,27 @@ function removeTagMarkers(wrapper: CardWrapper, tagMarkers?: string[]): CardWrap
   };
 }
 
+function removeDuplicitMarkers(wrapper: CardWrapper, duplicitMarkers?: string[][]): CardWrapper {
+  const remove = (wrapper: CardWrapper, duplicitMarker: string[]): CardWrapper => {
+    return {
+      card1: duplicitMarker.reduce((card: string, marker: string) => card.replaceAll(marker, '').trim(), wrapper.card1),
+      card2: duplicitMarker.reduce((card: string, marker: string) => card.replaceAll(marker, '').trim(), wrapper.card2),
+      originalRecord: wrapper.originalRecord,
+    };
+  };
+
+  if (duplicitMarkers === undefined) {
+    return wrapper;
+  }
+
+  return duplicitMarkers.reduce(
+    (wrapper: CardWrapper, duplicitMarker: string[]) => remove(wrapper, duplicitMarker),
+    wrapper,
+  );
+}
+
 export function normalizeCards(deck: AnkiRecord[], options: CompareCmdOptions): CardWrapper[] {
-  const { meaningSeparator, prefixSeparator, tagMarkers } = options;
+  const { meaningSeparator, prefixSeparator, tagMarkers, duplicitMarkers } = options;
 
   const convertedDeck: CardWrapper[] = deck.map((record: AnkiRecord) => {
     return {
@@ -76,5 +95,6 @@ export function normalizeCards(deck: AnkiRecord[], options: CompareCmdOptions): 
   return convertedDeck
     .map((wrapper: CardWrapper) => splitCard(wrapper, meaningSeparator))
     .map((wrapper: CardWrapper) => removePrefixSeparator(wrapper, prefixSeparator))
-    .map((wrapper: CardWrapper) => removeTagMarkers(wrapper, tagMarkers));
+    .map((wrapper: CardWrapper) => removeTagMarkers(wrapper, tagMarkers))
+    .map((wrapper: CardWrapper) => removeDuplicitMarkers(wrapper, duplicitMarkers));
 }
