@@ -81,8 +81,26 @@ function removeDuplicitMarkers(wrapper: CardWrapper, duplicitMarkers?: string[][
   );
 }
 
+/**
+ * If card1 contains multiple synonyms separated by a separator, then for each synonym create a new wrapper.
+ */
+function separateSynonyms(wrapper: CardWrapper, synonymSeparator: string): CardWrapper[] {
+  const { card1, card2 } = wrapper;
+
+  if (card1.includes(synonymSeparator)) {
+    return card1.split(synonymSeparator).map((synonym: string) => {
+      return {
+        card1: synonym.trim(),
+        card2: card2,
+        originalRecord: wrapper.originalRecord,
+      };
+    });
+  }
+  return [wrapper];
+}
+
 export function normalizeCards(deck: AnkiRecord[], options: CompareCmdOptions): CardWrapper[] {
-  const { meaningSeparator, prefixSeparator, tagMarkers, duplicitMarkers } = options;
+  const { meaningSeparator, prefixSeparator, tagMarkers, duplicitMarkers, synonymSeparator } = options;
 
   const convertedDeck: CardWrapper[] = deck.map((record: AnkiRecord) => {
     return {
@@ -93,8 +111,9 @@ export function normalizeCards(deck: AnkiRecord[], options: CompareCmdOptions): 
   });
 
   return convertedDeck
-    .map((wrapper: CardWrapper) => splitCard(wrapper, meaningSeparator))
-    .map((wrapper: CardWrapper) => removePrefixSeparator(wrapper, prefixSeparator))
-    .map((wrapper: CardWrapper) => removeTagMarkers(wrapper, tagMarkers))
-    .map((wrapper: CardWrapper) => removeDuplicitMarkers(wrapper, duplicitMarkers));
+    .flatMap((wrapper: CardWrapper) => splitCard(wrapper, meaningSeparator))
+    .flatMap((wrapper: CardWrapper) => separateSynonyms(wrapper, synonymSeparator))
+    .flatMap((wrapper: CardWrapper) => removePrefixSeparator(wrapper, prefixSeparator))
+    .flatMap((wrapper: CardWrapper) => removeTagMarkers(wrapper, tagMarkers))
+    .flatMap((wrapper: CardWrapper) => removeDuplicitMarkers(wrapper, duplicitMarkers));
 }

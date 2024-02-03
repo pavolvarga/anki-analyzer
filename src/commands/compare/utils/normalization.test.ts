@@ -7,6 +7,7 @@ describe('normalizeCards', () => {
     const options: CompareCmdOptions = {
       meaningSeparator: ';;',
       prefixSeparator: '-',
+      synonymSeparator: ',',
       limitRowCount: 10,
     };
     const deck: AnkiRecord[] = [
@@ -123,6 +124,7 @@ describe('normalizeCards', () => {
     const options: CompareCmdOptions = {
       meaningSeparator: ';;',
       prefixSeparator: '-',
+      synonymSeparator: ',',
       limitRowCount: 10,
     };
     const deck: AnkiRecord[] = [
@@ -240,6 +242,7 @@ describe('normalizeCards', () => {
       meaningSeparator: ';;',
       prefixSeparator: '-',
       limitRowCount: 10,
+      synonymSeparator: ',',
       tagMarkers: ['(verb)'],
     };
     const deck: AnkiRecord[] = [
@@ -397,6 +400,7 @@ describe('normalizeCards', () => {
       meaningSeparator: ';;',
       prefixSeparator: '-',
       limitRowCount: 10,
+      synonymSeparator: ',',
       duplicitMarkers: [
         ['(trennbar)', '(untrennbar)'],
         ['(weak)', '(strong)'],
@@ -485,6 +489,99 @@ describe('normalizeCards', () => {
           tags: ['verb'],
           card1: 'durchfallen (trennbar)',
           card2: 'to fail the topic',
+        },
+      },
+    ];
+
+    expect(result).toStrictEqual(expected);
+  });
+
+  it('should correctly normalize cards 05', () => {
+    const options: CompareCmdOptions = {
+      meaningSeparator: ';;',
+      prefixSeparator: '-',
+      limitRowCount: 10,
+      synonymSeparator: ',',
+    };
+    const deck: AnkiRecord[] = [
+      {
+        id: 'uCPOO',
+        deckName: 'Deutsch::Wörterbuch',
+        deckType: 'Basic (and reversed card)',
+        tags: ['verb'],
+        card1: 'nähern, annähern',
+        card2: 'to approximate',
+      },
+      {
+        id: 'XEY5R',
+        deckName: 'Deutsch::Wörterbuch',
+        deckType: 'Basic (and reversed card)',
+        tags: ['verb'],
+        card1: 'sammeln, einsammeln, versammeln',
+        card2: 'to collect',
+      },
+    ];
+
+    const result = normalizeCards(deck, options);
+    const expected = [
+      {
+        card1: 'nähern',
+        card2: 'to approximate',
+        originalRecord: {
+          id: 'uCPOO',
+          deckName: 'Deutsch::Wörterbuch',
+          deckType: 'Basic (and reversed card)',
+          tags: ['verb'],
+          card1: 'nähern, annähern',
+          card2: 'to approximate',
+        },
+      },
+      {
+        card1: 'annähern',
+        card2: 'to approximate',
+        originalRecord: {
+          id: 'uCPOO',
+          deckName: 'Deutsch::Wörterbuch',
+          deckType: 'Basic (and reversed card)',
+          tags: ['verb'],
+          card1: 'nähern, annähern',
+          card2: 'to approximate',
+        },
+      },
+      {
+        card1: 'sammeln',
+        card2: 'to collect',
+        originalRecord: {
+          id: 'XEY5R',
+          deckName: 'Deutsch::Wörterbuch',
+          deckType: 'Basic (and reversed card)',
+          tags: ['verb'],
+          card1: 'sammeln, einsammeln, versammeln',
+          card2: 'to collect',
+        },
+      },
+      {
+        card1: 'einsammeln',
+        card2: 'to collect',
+        originalRecord: {
+          id: 'XEY5R',
+          deckName: 'Deutsch::Wörterbuch',
+          deckType: 'Basic (and reversed card)',
+          tags: ['verb'],
+          card1: 'sammeln, einsammeln, versammeln',
+          card2: 'to collect',
+        },
+      },
+      {
+        card1: 'versammeln',
+        card2: 'to collect',
+        originalRecord: {
+          id: 'XEY5R',
+          deckName: 'Deutsch::Wörterbuch',
+          deckType: 'Basic (and reversed card)',
+          tags: ['verb'],
+          card1: 'sammeln, einsammeln, versammeln',
+          card2: 'to collect',
         },
       },
     ];

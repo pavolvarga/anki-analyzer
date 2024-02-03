@@ -168,6 +168,7 @@ program
   )
   .argument('<tag-name>', 'Name of the tag used in the general deck.')
   .addOption(meaningSeparatorOption)
+  .addOption(synonymSeparatorOption)
   .addOption(prefixSeparatorOption)
   .addOption(limitRowsOption)
   .addOption(omitRowsOption)

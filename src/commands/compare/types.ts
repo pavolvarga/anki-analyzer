@@ -5,10 +5,12 @@ import {
   OptionMeaningSeparator,
   OptionOmitRowCount,
   OptionPrefixSeparator,
+  OptionSynonymSeparator,
   OptionTagMarkers,
 } from '../types';
 
 export type CompareCmdOptions = OptionMeaningSeparator &
+  OptionSynonymSeparator &
   Partial<OptionPrefixSeparator> &
   OptionLimitRowCount &
   OptionOmitRowCount &
